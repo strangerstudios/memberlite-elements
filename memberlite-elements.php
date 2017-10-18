@@ -13,6 +13,13 @@ define('MEMBERLITE_ELEMENTS_URL', plugins_url('', __FILE__));
 define('MEMBERLITE_ELEMENTS_VERSION', '1.0');
 
 /*
+	Load all Elements
+*/
+require_once(MEMBERLITE_ELEMENTS_DIR . "/elements/page_banners.php");
+require_once(MEMBERLITE_ELEMENTS_DIR . "/elements/sidebars.php");
+
+
+/*
 	Enqueue Stylesheets and Javascript
 */
 function memberlite_elements_init_styles() {
@@ -24,11 +31,4 @@ function memberlite_elements_init_styles() {
 }
 add_action("wp_enqueue_scripts", "memberlite_elements_init_styles");	
 
-/*
-	Load all Elements
-*/
-function memberlite_elements_init_elements() {
-	require_once(MEMBERLITE_ELEMENTS_DIR . "/elements/page_banners.php");
-	require_once(MEMBERLITE_ELEMENTS_DIR . "/elements/sidebars.php");
-}
-add_action('init', 'memberlite_elements_init_elements');
+

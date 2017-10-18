@@ -9,12 +9,12 @@
  * Adds Custom Sidebars submenu page to "Appearance" menu.
  *
  */
-function memberlite_custom_sidebars_menu() {
-	add_theme_page('Custom Sidebars', 'Custom Sidebars', 'edit_theme_options', 'memberlite-custom-sidebars', 'memberlite_custom_sidebars');
+function memberlite_elements_custom_sidebars_menu() {
+	add_theme_page('Custom Sidebars', 'Custom Sidebars', 'edit_theme_options', 'memberlite-custom-sidebars', 'memberlite_elements_custom_sidebars');
 }
-add_action('admin_menu', 'memberlite_custom_sidebars_menu');
+add_action('admin_menu', 'memberlite_elements_custom_sidebars_menu');
 
-function memberlite_custom_sidebars() { 	
+function memberlite_elements_custom_sidebars() { 	
 	global $wp_registered_sidebars;
 
 	//get options
@@ -47,7 +47,7 @@ function memberlite_custom_sidebars() {
 				$memberlite_custom_sidebars[] = $new_sidebar;
 
 				//register
-				memberlite_registerCustomSidebar($new_sidebar);
+				memberlite_elements_registerCustomSidebar($new_sidebar);
 				
 				//remove any blanks
 				$memberlite_custom_sidebars = array_values(array_filter($memberlite_custom_sidebars));
@@ -74,7 +74,7 @@ function memberlite_custom_sidebars() {
 				unset($memberlite_custom_sidebars[$key]);
 
 				//unregister
-				unregister_sidebar(generateSlug($_REQUEST['delete'], 45));
+				unregister_sidebar(memberlite_elements_generateSlug($_REQUEST['delete'], 45));
 
 				//remove any blanks
 				$memberlite_custom_sidebars = array_values(array_filter($memberlite_custom_sidebars));
@@ -253,7 +253,7 @@ function memberlite_custom_sidebars() {
 	<?php	
 }
 
-function generateSlug($phrase, $maxLength)
+function memberlite_elements_generateSlug($phrase, $maxLength)
 {
     $result = strtolower($phrase);
  
@@ -268,7 +268,7 @@ function generateSlug($phrase, $maxLength)
 function memberlite_sidebarExists($name, $id = NULL)
 {
 	if(empty($id))
-		$id = generateSlug($name, 45);
+		$id = memberlite_elements_generateSlug($name, 45);
 
 	global $wp_registered_sidebars;
 	foreach($wp_registered_sidebars as $wp_registered_sidebar)
@@ -280,22 +280,23 @@ function memberlite_sidebarExists($name, $id = NULL)
 	return false;			//no conflict
 }
 
-function memberlite_custom_sidebars_init() {
+function memberlite_elements_custom_sidebars_init() {
+
 	$memberlite_custom_sidebars = get_option('memberlite_custom_sidebars', array() );
 
 	foreach($memberlite_custom_sidebars as $memberlite_custom_sidebar)
 	{
-		memberlite_registerCustomSidebar($memberlite_custom_sidebar);
+		memberlite_elements_registerCustomSidebar($memberlite_custom_sidebar);
 	}
 
 }
-add_action( 'widgets_init', 'memberlite_custom_sidebars_init' );
+add_action( 'widgets_init', 'memberlite_elements_custom_sidebars_init' );
 
 
-function memberlite_registerCustomSidebar($name, $id = NULL)
+function memberlite_elements_registerCustomSidebar($name, $id = NULL)
 {
 	if(empty($id))
-		$id = generateSlug($name, 45);
+		$id = memberlite_elements_generateSlug($name, 45);
 
 	return register_sidebar( array(
 		'name' => $name,

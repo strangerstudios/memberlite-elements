@@ -6,25 +6,26 @@
  */
 
 /* Adds a Memberlite settings meta box to the side column on the Page edit screens. */
-function memberlite_settings_add_meta_box() {
-	$screens = array('page');
-	foreach ($screens as $screen) {
+function memberlite_elements_settings_add_meta_box() {
+	$screens = array( 'page' );
+	foreach ( $screens as $screen ) {
 		add_meta_box(
 			'memberlite_settings_section',
-			__('Memberlite Settings', 'memberlite'),
-			'memberlite_settings_meta_box_callback',
+			__( 'Memberlite Elements Settings', 'memberlite-elements' ),
+			'memberlite_elements_settings_meta_box_callback',
 			$screen,
 			'normal',
 			'high'
 		);
 	}
 }
-add_action('add_meta_boxes', 'memberlite_settings_add_meta_box');
+add_action('add_meta_boxes', 'memberlite_elements_settings_add_meta_box');
 
 /* Meta box for Memberlite settings */
-function memberlite_settings_meta_box_callback($post) {
+function memberlite_elements_settings_meta_box_callback( $post ) {
 	global $fontawesome_icons;
-	wp_nonce_field('memberlite_settings_meta_box', 'memberlite_settings_meta_box_nonce');
+
+	wp_nonce_field( 'memberlite_elements_settings_meta_box', 'memberlite_elements_settings_meta_box_nonce' );
 	$memberlite_page_template = get_post_meta($post->ID, '_wp_page_template', true);
 	$memberlite_banner_show = get_post_meta($post->ID, '_memberlite_banner_show', true);
 	if($memberlite_banner_show === '')
@@ -140,11 +141,11 @@ function memberlite_settings_meta_box_callback($post) {
 }
 
 /* Save custom sidebar selection */
-function memberlite_settings_save_meta_box_data($post_id) {
-	if(!isset($_POST['memberlite_settings_meta_box_nonce'])) {
+function memberlite_elements_settings_save_meta_box_data( $post_id ) {
+	if(!isset($_POST['memberlite_elements_settings_meta_box_nonce'])) {
 		return;
 	}
-	if(!wp_verify_nonce($_POST['memberlite_settings_meta_box_nonce'], 'memberlite_settings_meta_box')) {
+	if(!wp_verify_nonce($_POST['memberlite_elements_settings_meta_box_nonce'], 'memberlite_elements_settings_meta_box')) {
 		return;
 	}
 	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
@@ -256,7 +257,7 @@ function memberlite_settings_save_meta_box_data($post_id) {
 		update_post_meta($post_id, '_memberlite_landing_page_upsell', $memberlite_landing_page_upsell);
 	}	
 }
-add_action('save_post', 'memberlite_settings_save_meta_box_data');
+add_action('save_post', 'memberlite_elements_settings_save_meta_box_data');
 
 /* Adds a Custom Sidebar meta box to the side column on the Post and Page edit screens. */
 function memberlite_sidebar_add_meta_box() {
@@ -398,7 +399,7 @@ function memberlite_sidebar_save_meta_box_data($post_id) {
 add_action('save_post', 'memberlite_sidebar_save_meta_box_data');
 
 /* Add Banner Image Setting meta box */
-function memberlite_featured_image_meta( $content, $post_id ) {
+function memberlite_elements_featured_image_meta( $content, $post_id ) {
 	if(has_post_thumbnail($post_id) && !class_exists('MultiPostThumbnails'))
 	{
 		$id = '_memberlite_show_image_banner';
@@ -409,11 +410,11 @@ function memberlite_featured_image_meta( $content, $post_id ) {
 	else
 		return $content;
 }
-add_filter( 'admin_post_thumbnail_html', 'memberlite_featured_image_meta', 10, 2 );
+add_filter( 'admin_post_thumbnail_html', 'memberlite_elements_featured_image_meta', 10, 2 );
 
 
 /* Save Setting in Featured Images meta box */
-function memberlite_save_featured_image_meta( $post_id, $post, $update ) {  
+function memberlite_elements_save_featured_image_meta( $post_id, $post, $update ) {  
 	$value = 0;
 	if ( isset( $_REQUEST['_memberlite_show_image_banner'] ) ) {
 		$value = 1;
@@ -421,4 +422,4 @@ function memberlite_save_featured_image_meta( $post_id, $post, $update ) {
 	// Set meta value to either 1 or 0
 	update_post_meta( $post_id, '_memberlite_show_image_banner', $value );
 }
-add_action( 'save_post', 'memberlite_save_featured_image_meta', 10, 3 );
+add_action( 'save_post', 'memberlite_elements_save_featured_image_meta', 10, 3 );
