@@ -2,7 +2,7 @@
 Contributors: kimannwall, strangerstudios
 Tags: theme, layout, memberlite, membership, pmpro, paid memberships pro
 Requires at least: 4.0
-Tested up to: 4.7
+Tested up to: 4.8.3
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,9 +37,6 @@ In your WordPress admin, go to Plugins > Add New to install Memberlite Shortcode
 Browse the Memberlite Elements documentation to see all features, their attributes, and to view sample demos.
 
 [View Documentation](http://memberlitetheme.com/plugins/memberlite-elements/)
-
-== Screenshots ==
-1. 
 
 == Frequently Asked Questions ==
 

@@ -31,7 +31,9 @@ function memberlite_elements_init_styles() {
 }
 add_action("wp_enqueue_scripts", "memberlite_elements_init_styles");
 
-// Enable the use of shortcodes in text widgets.
+/*
+	Enable the use of shortcodes in text widgets.
+*/
 add_filter( 'widget_text', 'do_shortcode' );
 
 
