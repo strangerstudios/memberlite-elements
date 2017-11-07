@@ -260,7 +260,7 @@ function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 add_action('save_post', 'memberlite_elements_settings_save_meta_box_data');
 
 /* Adds a Custom Sidebar meta box to the side column on the Post and Page edit screens. */
-function memberlite_sidebar_add_meta_box() {
+function memberlite_elements_sidebar_add_meta_box() {
 	$screens = get_post_types( array('public' => true), 'names' );
 	foreach ($screens as $screen) {
 		if(in_array($screen, array('reply','topic')))
@@ -278,10 +278,10 @@ function memberlite_sidebar_add_meta_box() {
 		}
 	}
 }
-add_action('add_meta_boxes', 'memberlite_sidebar_add_meta_box');
+add_action('add_meta_boxes', 'memberlite_elements_sidebar_add_meta_box');
 
 /* Meta box for custom sidebar selection */
-function memberlite_sidebar_meta_box_callback($post) {
+function memberlite_elements_sidebar_meta_box_callback($post) {
 	global $wp_registered_sidebars;
 	wp_nonce_field('memberlite_sidebar_meta_box', 'memberlite_sidebar_meta_box_nonce');
 	$memberlite_hide_children = get_post_meta($post->ID, '_memberlite_hide_children', true);
@@ -351,7 +351,7 @@ function memberlite_sidebar_meta_box_callback($post) {
 }
 
 /* Save custom sidebar selection */
-function memberlite_sidebar_save_meta_box_data($post_id) {
+function memberlite_elements_sidebar_save_meta_box_data($post_id) {
 	if(!isset($_POST['memberlite_sidebar_meta_box_nonce'])) {
 		return;
 	}
@@ -396,7 +396,7 @@ function memberlite_sidebar_save_meta_box_data($post_id) {
 	}
 	
 }
-add_action('save_post', 'memberlite_sidebar_save_meta_box_data');
+add_action('save_post', 'memberlite_elements_sidebar_save_meta_box_data');
 
 /* Add Banner Image Setting meta box */
 function memberlite_elements_featured_image_meta( $content, $post_id ) {
