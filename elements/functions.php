@@ -8,7 +8,7 @@
 /*
 	Add a Banner Image as a secondary thumbnail
 */
-function memberliteelements__banner_image_setup()
+function memberlite_elements_banner_image_setup()
 {
 	//$memberlite_post_types = get_post_types( array('public' => true), 'names' );
 	if (class_exists('MultiPostThumbnails')) {
