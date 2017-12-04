@@ -307,3 +307,142 @@ function memberlite_elements_registerCustomSidebar($name, $id = NULL)
 		'after_title' => '</h3>',			
 	) );
 }
+
+/* Adds a Custom Sidebar meta box to the side column on the Post and Page edit screens. */
+function memberlite_elements_sidebar_add_meta_box() {
+	$screens = get_post_types( array('public' => true), 'names' );
+	foreach ($screens as $screen) {
+		if(in_array($screen, array('reply','topic')))
+			continue;
+		else
+		{
+			add_meta_box(
+				'memberlite_sidebar_section',
+				__('Custom Sidebar', 'memberlite-elements'),
+				'memberlite_elements_sidebar_meta_box_callback',
+				$screen,
+				'side',
+				'core'
+			);
+		}
+	}
+}
+add_action('add_meta_boxes', 'memberlite_elements_sidebar_add_meta_box');
+
+/* Meta box for custom sidebar selection */
+function memberlite_elements_sidebar_meta_box_callback($post) {
+	global $wp_registered_sidebars;
+	wp_nonce_field('memberlite_sidebar_meta_box', 'memberlite_sidebar_meta_box_nonce');
+	$memberlite_hide_children = get_post_meta($post->ID, '_memberlite_hide_children', true);
+	$memberlite_custom_sidebar = get_post_meta($post->ID, '_memberlite_custom_sidebar', true);
+	
+	$post_type = get_post_type($post);
+	//check post type and custom cpt sidebar
+	if(!in_array($post_type, array('post','page')) )
+	{
+		$memberlite_cpt_sidebars = get_option('memberlite_cpt_sidebars', array());
+		if(empty($memberlite_cpt_sidebars[$post_type]) || ($memberlite_cpt_sidebars[$post_type] == 'memberlite_sidebar_default') )
+			$memberlite_cpt_sidebar_id = 'sidebar-1';			
+		else
+			$memberlite_cpt_sidebar_id = $memberlite_cpt_sidebars[$post_type];
+	}
+	elseif(get_post_type($post) == 'post')
+		$memberlite_cpt_sidebar_id = 'sidebar-2';
+	else
+		$memberlite_cpt_sidebar_id = 'sidebar-1';
+	
+	//get the name of the default sidebar
+	if(!empty($wp_registered_sidebars[$memberlite_cpt_sidebar_id]))
+		$memberlite_cpt_sidebar_name = $wp_registered_sidebars[$memberlite_cpt_sidebar_id]['name'];
+	
+	$memberlite_default_sidebar = get_post_meta($post->ID, '_memberlite_default_sidebar', true);
+	if ( (get_post_type($post) == 'page' ) || (isset($_POST['post_type']) && 'page' == $_POST['post_type'])) {
+		echo '<input type="hidden" name="memberlite_hide_children_present" value="1" />';
+		echo '<label for="memberlite_hide_children" class="selectit"><input name="memberlite_hide_children" type="checkbox" id="memberlite_hide_children" value="1" '. checked( $memberlite_hide_children, 1, false) .'>' . __('Hide Page Children Menu in Sidebar', 'memberlite-elements') . '</label>';
+		echo '<hr />';
+	}
+	if( $memberlite_cpt_sidebar_id != 'memberlite_sidebar_blank')
+	{
+		echo '<p>' . sprintf( __('The current default sidebar is <strong>%s</strong>.', 'memberlite-elements' ), $memberlite_cpt_sidebar_name);
+	}
+	else
+	{
+		echo '<p>' . __('The current default sidebar is <strong>hidden</strong>.', 'memberlite-elements' );
+	}
+	echo ' <a href="' . admin_url( 'themes.php?page=memberlite-custom-sidebars') . '">' . __('Manage Custom Sidebars','memberlite-elements') . '</a></p><hr />';
+	echo '<p><strong>' . __('Select Custom Sidebar', 'memberlite-elements') . '</strong></p>';
+	echo '<label class="screen-reader-text" for="memberlite_custom_sidebar">';
+	_e('Select Sidebar', 'memberlite-elements');
+	echo '</label>';
+	echo '<select id="memberlite_custom_sidebar" name="memberlite_custom_sidebar">';
+	echo '<option value="memberlite_sidebar_blank"' . selected( $memberlite_custom_sidebar, 'memberlite_sidebar_blank' ) . '>- Select -</option>';
+	$memberlite_theme_sidebars = array('sidebar-3', 'sidebar-4', 'sidebar-5');
+	foreach($wp_registered_sidebars as $wp_registered_sidebar)
+	{
+		if(in_array($wp_registered_sidebar['id'], $memberlite_theme_sidebars))
+			continue;
+		echo '<option value="' . $wp_registered_sidebar['id'] . '"' . selected( $memberlite_custom_sidebar, $wp_registered_sidebar['id'] ) . '>' . $wp_registered_sidebar['name'] . '</option>';
+	}
+	echo '</select>';
+	if( $memberlite_cpt_sidebar_id != 'memberlite_sidebar_blank')
+	{	
+		echo '<hr />';
+		echo '<p><strong>' . __('Default Sidebar Behavior', 'memberlite-elements') . '</strong></p>';	
+		echo '<label class="screen-reader-text" for="memberlite_default_sidebar">';
+		_e('Default Sidebar', 'memberlite-elements');
+		echo '</label>';
+		echo '<select id="memberlite_default_sidebar" name="memberlite_default_sidebar">';
+		echo '<option value="default_sidebar_above"' . selected( $memberlite_default_sidebar, 'default_sidebar_above' ) . '>' . __('Show Default Sidebar Above', 'memberlite-elements') . '</option>';
+		echo '<option value="default_sidebar_below"' . selected( $memberlite_default_sidebar, 'default_sidebar_below' ) . '>' . __('Show Default Sidebar Below', 'memberlite-elements') . '</option>';
+		echo '<option value="default_sidebar_hide"' . selected( $memberlite_default_sidebar, 'default_sidebar_hide' ) . '>' . __('Hide Default Sidebar', 'memberlite-elements') . '</option>';
+		echo '</select>';
+	}
+}
+
+/* Save custom sidebar selection */
+function memberlite_elements_sidebar_save_meta_box_data($post_id) {
+	if(!isset($_POST['memberlite_sidebar_meta_box_nonce'])) {
+		return;
+	}
+	if(!wp_verify_nonce($_POST['memberlite_sidebar_meta_box_nonce'], 'memberlite_sidebar_meta_box')) {
+		return;
+	}
+	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		return;
+	}
+	if ( isset($_POST['post_type']) && 'page' == $_POST['post_type']) {
+		if(!current_user_can('edit_page', $post_id)) {
+			return;
+		}
+	} 
+	else
+	{
+		if(!current_user_can('edit_post', $post_id)) {
+			return;
+		}
+	}
+	
+	//hide or show subpage menu in sidebar
+	if(isset($_POST['memberlite_hide_children_present'])) {
+		if(!empty($_POST['memberlite_hide_children']))
+			$memberlite_hide_children = 1;
+		else
+			$memberlite_hide_children = 0;
+			
+		update_post_meta($post_id, '_memberlite_hide_children', $memberlite_hide_children);
+	}
+	
+	//custom sidebar selection
+	if(isset($_POST['memberlite_custom_sidebar'])) {
+		$memberlite_custom_sidebar = $_POST['memberlite_custom_sidebar'];
+		update_post_meta($post_id, '_memberlite_custom_sidebar', $memberlite_custom_sidebar);
+	}
+
+	//default sidebar behavior
+	if(isset($_POST['memberlite_default_sidebar'])) {
+		$memberlite_default_sidebar = $_POST['memberlite_default_sidebar'];
+		update_post_meta($post_id, '_memberlite_default_sidebar', $memberlite_default_sidebar);
+	}
+	
+}
+add_action('save_post', 'memberlite_elements_sidebar_save_meta_box_data');

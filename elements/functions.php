@@ -1,9 +1,7 @@
 <?php
-
 /**
  *	General functions for Memberlite Elements.
  */
-
 
 /*
 	Add a Banner Image as a secondary thumbnail

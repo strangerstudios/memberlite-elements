@@ -2,7 +2,7 @@
 /*
 Plugin Name: Memberlite Elements
 Plugin URI: http://www.memberlitetheme.com/plugins/memberlite-elements/
-Description: Theme elements designed to work with the Memberlite Theme and Memberlite Child Themes.
+Description: A set of elements designed enhance the appearance of sites using the Memberlite Theme.
 Version: 1.0
 Author: kimannwall, strangerstudios
 Author URI: http://www.memberlitetheme.com
@@ -19,7 +19,6 @@ require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/page_banners.php" );
 require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/sidebars.php" );
 require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/functions.php" );
 
-
 /*
 	Enqueue Stylesheets and Javascript
 */
@@ -27,9 +26,7 @@ function memberlite_elements_init_styles() {
 	//need jquery
 	wp_enqueue_script( 'jquery' );
 	
-	wp_enqueue_style( 'memberlite_fontawesome', MEMBERLITE_ELEMENTS_URL . "/font-awesome/css/font-awesome.min.css", array(), "4.6.1" );
+	wp_enqueue_style( 'font-awesome', MEMBERLITE_ELEMENTS_URL . "/font-awesome/css/font-awesome.min.css", array(), "4.7" );
 	wp_enqueue_style( "memberlite_elements_frontend", MEMBERLITE_ELEMENTS_URL . "/css/memberlite-elements.css", array(), MEMBERLITE_ELEMENTS_VERSION );	
 }
 add_action( "wp_enqueue_scripts", "memberlite_elements_init_styles" );	
-
-
