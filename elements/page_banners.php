@@ -278,3 +278,21 @@ function memberlite_elements_save_featured_image_meta( $post_id, $post, $update 
 	update_post_meta( $post_id, '_memberlite_show_image_banner', $value );
 }
 add_action( 'save_post', 'memberlite_elements_save_featured_image_meta', 10, 3 );
+
+function memberlite_elements_display_banner_bottom( ) {
+	global $post;
+	if( !empty( $post ) && !empty( $post->ID ) ) {
+		$memberlite_banner_bottom = get_post_meta( $post->ID, '_memberlite_banner_bottom', true );
+	} else {
+		$memberlite_banner_bottom = false;
+	}
+	if( !empty( $memberlite_banner_bottom ) ) { ?>
+		<div id="banner_bottom">
+			<div class="row"><div class="large-12 columns">
+				<?php echo apply_filters( 'the_content', $memberlite_banner_bottom ); ?>
+			</div></div><!-- .row .columns --> 
+		</div><!-- #banner_bottom -->
+	<?php }
+}
+add_action( 'after_content', 'memberlite_elements_display_banner_bottom' );
+
