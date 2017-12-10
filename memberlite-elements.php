@@ -42,7 +42,7 @@ function memberlite_elements_body_classes( $classes ) {
 	global $post;
 	if( !empty( $post ) && is_page() ) {
 		$memberlite_banner_show = get_post_meta( $post->ID, '_memberlite_banner_show', true );
-		if( empty( $memberlite_banner_show ) ) {
+		if( $memberlite_banner_show === '0' ) {
 			$classes[] = 'memberlite-banner-hidden';
 		}
 	}
@@ -205,7 +205,9 @@ add_filter( 'memberlite_banner_image_src', 'memberlite_elements_banner_image_src
 function memberlite_elements_before_masthead_outer( ) {
 	global $post;
 
-	$post_id = $post->ID;
+	if( !empty( $post ) ) {
+		$post_id = $post->ID;
+	}
 
 	if( is_home() || is_archive() ) {
 		$post_id = get_option('page_for_posts');
@@ -230,7 +232,9 @@ add_action( 'memberlite_before_masthead_outer', 'memberlite_elements_before_mast
 function memberlite_elements_after_masthead_outer( ) {
 	global $post;
 	
-	$post_id = $post->ID;
+	if( !empty( $post ) ) {
+		$post_id = $post->ID;
+	}
 
 	if( is_home() || is_archive() ) {
 		$post_id = get_option('page_for_posts');
