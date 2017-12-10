@@ -256,7 +256,7 @@ add_action('save_post', 'memberlite_elements_settings_save_meta_box_data');
 
 /* Add Banner Image Setting meta box */
 function memberlite_elements_featured_image_meta( $content, $post_id ) {
-	if(has_post_thumbnail($post_id) && !class_exists('MultiPostThumbnails'))
+	if(has_post_thumbnail( $post_id) )
 	{
 		$id = '_memberlite_show_image_banner';
 		$value = esc_attr( get_post_meta( $post_id, $id, true ) );

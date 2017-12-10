@@ -1,4 +1,8 @@
 /**
- *Memberlite Elements styles
+ * Memberlite Elements styles
  */
 
+body.memberlite-banner-hidden #site-navigation {
+	border-bottom: 1px solid #DADADA;
+	margin-bottom: 4rem;
+}
