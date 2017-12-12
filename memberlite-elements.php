@@ -117,7 +117,7 @@ function memberlite_elements_masthead_content( $content ) {
 			//Get the columns ratio for the masthead banner based on content setting in customizer.
 			$memberlite_columns_primary = memberlite_getColumnsRatio();
 
-			$content .= '<div class="row">';								
+			$content .= '<div class="memberlite_elements-masthead row">';								
 
 			//Check that we should display a masthead banner icon and it is set
 			if( !empty( $memberlite_banner_icon ) && !empty( $memberlite_page_icon ) ) {
@@ -252,3 +252,164 @@ function memberlite_elements_after_masthead_outer( ) {
 	}
 }
 add_action( 'memberlite_after_masthead_outer', 'memberlite_elements_after_masthead_outer' );
+
+function memberlite_elements_get_widget_areas( $widget_areas ) {
+	global $post;
+
+	$widget_areas = array();
+	//Get the 'Custom Sidebar' settings for CPTs
+	$memberlite_cpt_sidebars = get_option('memberlite_cpt_sidebars', array());
+
+	if( !empty( $post->ID ) && is_single() ) {
+		$memberlite_custom_sidebar = get_post_meta( $post->ID, '_memberlite_custom_sidebar', true );
+		$memberlite_default_sidebar_position = get_post_meta($post->ID, '_memberlite_default_sidebar', true );
+		$memberlite_hide_children = get_post_meta( $post->ID, '_memberlite_hide_children', true );
+	}
+
+	if( is_page() ) {
+		if( empty( $memberlite_hide_children ) ) {
+			$widget_areas[] = 'memberlite_nav_menu_submenu';
+		}
+		if( empty( $memberlite_default_sidebar_position ) || $memberlite_default_sidebar_position === 'default_sidebar_above' ) {
+			$widget_areas[] = 'sidebar-1';
+		}
+		if( !empty( $memberlite_custom_sidebar ) && $memberlite_custom_sidebar != 'memberlite_sidebar_blank' ) {
+			$widget_areas[] = $memberlite_custom_sidebar;
+		}
+		if( !empty( $memberlite_default_sidebar_position ) && $memberlite_default_sidebar_position === 'default_sidebar_below' ) {
+			$widget_areas[] = 'sidebar-1';
+		}
+	} elseif( !empty( $post->ID ) && !empty( $memberlite_cpt_sidebars ) && !in_array( get_post_type( $post ), array( 'post','page' ) ) ) {
+		//This is a CPT and may have a Custom CPT Sidebar defined
+		$post_type = get_post_type($post);
+		if( !empty( $memberlite_cpt_sidebars[$post_type] ) ) {
+			//Set the default sidebar to the Custom CPT Sidebar
+			$memberlite_custom_sidebar = $memberlite_cpt_sidebars[$post_type];
+		}
+	} elseif( function_exists( 'is_bbpress' ) && is_bbpress() ) { 
+		if(bbp_is_single_topic() || bbp_is_single_forum() ) {
+			//Show the sidebar as set in the topic's parent forum or forum
+			$memberlite_custom_sidebar = get_post_meta( bbp_get_forum_id(), '_memberlite_custom_sidebar', true );
+			$memberlite_default_sidebar_position = get_post_meta( bbp_get_forum_id(), '_memberlite_default_sidebar', true );
+			if( empty( $memberlite_default_sidebar_position ) || $memberlite_default_sidebar_position === 'default_sidebar_above' ) {
+				$widget_areas[] = 'sidebar-2';
+			}
+			if( !empty( $memberlite_custom_sidebar ) && $memberlite_custom_sidebar != 'memberlite_sidebar_blank' ) {
+				$widget_areas[] = $memberlite_custom_sidebar;
+			}
+			if( !empty( $memberlite_default_sidebar_position ) && $memberlite_default_sidebar_position === 'default_sidebar_below' ) {
+				$widget_areas[] = 'sidebar-2';
+			}
+		} else {
+			$widget_areas[] = 'sidebar-2';
+		}
+/*
+		if ( empty( $memberlite_custom_sidebar ) ||  $memberlite_custom_sidebar === 'memberlite_sidebar_blank' ) {
+				$widget_areas[] = 'sidebar-2';
+		} 
+		elseif( empty( $memberlite_custom_sidebar ) && !empty( $memberlite_cpt_sidebars['forum'] ) ) {
+			//Fallback to the 'forum' Custom CPT Sidebar
+			$memberlite_custom_sidebar = $memberlite_cpt_sidebars['forum'];
+		} else {
+			$widget_areas[] = 'sidebar-2';
+		}
+*/
+	} elseif( !empty( $post->ID ) && !empty( $memberlite_cpt_sidebars ) && !in_array( get_post_type( $post ), array( 'post','page' ) ) ) {
+		//This is a CPT and may have a Custom CPT Sidebar defined
+		$post_type = get_post_type($post);
+		if( !empty( $memberlite_cpt_sidebars[$post_type] ) ) {
+			//Set the default sidebar to the Custom CPT Sidebar
+			$memberlite_custom_sidebar = $memberlite_cpt_sidebars[$post_type];
+		}
+	} elseif( is_home() || is_archive() || is_single() ) {
+/*
+		if( !is_single() ) {
+			$memberlite_hide_children = get_post_meta( get_option( 'page_for_posts' ), '_memberlite_hide_children', true );
+			if( empty( $memberlite_hide_children ) ) {
+				$widget_areas[] = 'memberlite_nav_menu_submenu';
+			}
+		}
+*/
+		if ( empty( $memberlite_custom_sidebar) ) {
+			//Check if the page_for_posts has a custom sidebar 
+			$memberlite_custom_sidebar = get_post_meta( get_option( 'page_for_posts' ), '_memberlite_custom_sidebar', true );
+		}
+		if ( empty( $memberlite_default_sidebar_position) ) {
+			//Check if the page_for_posts has a default sidebar position 
+			$memberlite_default_sidebar_position = get_post_meta( get_option( 'page_for_posts' ), '_memberlite_default_sidebar', true);
+		}
+		if( empty( $memberlite_default_sidebar_position ) || $memberlite_default_sidebar_position === 'default_sidebar_above' ) {
+			$widget_areas[] = 'sidebar-2';
+		}
+		if( !empty( $memberlite_custom_sidebar ) && $memberlite_custom_sidebar != 'memberlite_sidebar_blank' ) {
+			$widget_areas[] = $memberlite_custom_sidebar;
+		}
+		if( $memberlite_default_sidebar_position === 'default_sidebar_below' ) {
+			$widget_areas[] = 'sidebar-2';
+		}		
+	}
+
+/*
+	} else { 
+		$memberlite_default_sidebar = 'sidebar-2';
+	}
+
+	//Custom sidebar isn't set on the post. Is it set in a global?
+	if( empty( $memberlite_custom_sidebar ) ) {
+		if( !empty( $post->ID ) && !empty( $memberlite_cpt_sidebars ) && !in_array( get_post_type( $post ), array( 'post','page' ) ) ) {
+			//This is a CPT and may have a Custom CPT Sidebar defined
+			$post_type = get_post_type($post);
+			if( !empty( $memberlite_cpt_sidebars[$post_type] ) ) {
+				//Set the default sidebar to the Custom CPT Sidebar
+				$memberlite_custom_sidebar = $memberlite_cpt_sidebars[$post_type];
+			}
+		}
+
+		if( function_exists( 'is_bbpress' ) && is_bbpress() ) { 
+			if(bbp_is_single_topic() || bbp_is_single_forum() ) {
+				//Show the sidebar as set in the topic's parent forum or forum
+				$memberlite_custom_sidebar = get_post_meta( bbp_get_forum_id(), '_memberlite_custom_sidebar', true );
+			} 
+			if( empty( $memberlite_custom_sidebar ) && !empty( $memberlite_cpt_sidebars['forum'] ) ) {
+				//Fallback to the 'forum' Custom CPT Sidebar
+				$memberlite_custom_sidebar = $memberlite_cpt_sidebars['forum'];
+			}
+		}
+
+		//Check if the page_for_posts has a custom sidebar 
+		if ( is_home() || is_search() || is_single() || is_category() || is_author() || is_archive() || is_day() || is_month() || is_year() ) {
+			$memberlite_custom_sidebar = get_post_meta( get_option( 'page_for_posts' ), '_memberlite_custom_sidebar', true );
+		}
+	} 
+
+	//Get the default sidebar position from the post
+	if( !empty( $post->ID ) ) {
+		$memberlite_default_sidebar_position = get_post_meta($post->ID, '_memberlite_default_sidebar', true);
+	}
+
+/*
+	//Default sidebar position isn't set on the post. Is it set in a parent or global?
+	if( empty( $memberlite_default_sidebar_position ) ) {
+		if( function_exists('is_bbpress') && is_bbpress() ) {
+			if(bbp_is_single_topic() || bbp_is_single_forum() ) {
+			$memberlite_custom_sidebar = get_post_meta(bbp_get_forum_id(), '_memberlite_custom_sidebar', true);
+			$memberlite_default_sidebar = get_post_meta(bbp_get_forum_id(), '_memberlite_default_sidebar', true);			
+		}
+		else
+		{
+			$memberlite_default_sidebar = 'default_sidebar_above';
+		}
+
+			$memberlite_hide_children = get_post_meta( get_option( 'page_for_posts' ), '_memberlite_hide_children', true);
+			if ( $memberlite_default_sidebar_position != 'default_sidebar_hide' ) {
+				$memberlite_default_sidebar = 'sidebar-';
+			}
+
+	echo '<p>default = ' . $memberlite_default_sidebar . '</p>';
+	echo '<p>default position = ' . $memberlite_default_sidebar_position . '</p>';
+	echo '<p>custom = ' . $memberlite_custom_sidebar . '</p>';
+	echo '<p>hide = ' . $memberlite_hide_children . '</p>';
+*/
+	return $widget_areas;
+}
+add_filter( 'memberlite_get_widget_areas', 'memberlite_elements_get_widget_areas' );
