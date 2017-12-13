@@ -7,13 +7,15 @@
 
 /**
  * Adds Custom Sidebars submenu page to "Appearance" menu.
- *
  */
 function memberlite_elements_custom_sidebars_menu() {
 	add_theme_page('Custom Sidebars', 'Custom Sidebars', 'edit_theme_options', 'memberlite-custom-sidebars', 'memberlite_elements_custom_sidebars');
 }
 add_action('admin_menu', 'memberlite_elements_custom_sidebars_menu');
 
+/**
+ * Settings page for Appearance -> Custom Sidebars
+ */
 function memberlite_elements_custom_sidebars() { 	
 	global $wp_registered_sidebars;
 
@@ -253,6 +255,9 @@ function memberlite_elements_custom_sidebars() {
 	<?php	
 }
 
+/**
+ * Generate a slug for a new custom sidebar
+ */
 function memberlite_elements_generateSlug($phrase, $maxLength)
 {
     $result = strtolower($phrase);
@@ -265,6 +270,9 @@ function memberlite_elements_generateSlug($phrase, $maxLength)
     return $result;
 }
 
+/**
+ * Check if a sidebar already exists
+ */
 function memberlite_sidebarExists($name, $id = NULL)
 {
 	if(empty($id))
@@ -280,6 +288,9 @@ function memberlite_sidebarExists($name, $id = NULL)
 	return false;			//no conflict
 }
 
+/**
+ * Register our custom sidebars on init
+ */
 function memberlite_elements_custom_sidebars_init() {
 
 	$memberlite_custom_sidebars = get_option('memberlite_custom_sidebars', array() );
@@ -292,7 +303,9 @@ function memberlite_elements_custom_sidebars_init() {
 }
 add_action( 'widgets_init', 'memberlite_elements_custom_sidebars_init' );
 
-
+/**
+ * Register a specified custom sidebar
+ */
 function memberlite_elements_registerCustomSidebar($name, $id = NULL)
 {
 	if(empty($id))
@@ -308,7 +321,9 @@ function memberlite_elements_registerCustomSidebar($name, $id = NULL)
 	) );
 }
 
-/* Adds a Custom Sidebar meta box to the side column on the Post and Page edit screens. */
+/**
+ * Add a Custom Sidebar meta box to the side column on the Post and Page edit screens. 
+ */
 function memberlite_elements_sidebar_add_meta_box() {
 	$screens = get_post_types( array('public' => true), 'names' );
 	foreach ($screens as $screen) {
@@ -329,7 +344,9 @@ function memberlite_elements_sidebar_add_meta_box() {
 }
 add_action('add_meta_boxes', 'memberlite_elements_sidebar_add_meta_box');
 
-/* Meta box for custom sidebar selection */
+/**
+ * Meta box for custom sidebar selection 
+ */
 function memberlite_elements_sidebar_meta_box_callback($post) {
 	global $wp_registered_sidebars;
 	wp_nonce_field('memberlite_sidebar_meta_box', 'memberlite_sidebar_meta_box_nonce');
@@ -399,7 +416,9 @@ function memberlite_elements_sidebar_meta_box_callback($post) {
 	}
 }
 
-/* Save custom sidebar selection */
+/**
+ * Save custom sidebar selection when a post is saved
+ */
 function memberlite_elements_sidebar_save_meta_box_data($post_id) {
 	if(!isset($_POST['memberlite_sidebar_meta_box_nonce'])) {
 		return;
@@ -446,3 +465,112 @@ function memberlite_elements_sidebar_save_meta_box_data($post_id) {
 	
 }
 add_action('save_post', 'memberlite_elements_sidebar_save_meta_box_data');
+
+/**
+ * Figure out which sidebars to use
+ */
+function memberlite_elements_get_widget_areas( $widget_areas ) {	
+	$queried_object = get_queried_object();
+		
+	//if not a post, bail
+	if( empty( $queried_object ) || empty( $queried_object->post_type ) ) {		
+		//look for a default sidebar
+		$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $queried_object->post_type );
+			
+		//check ancestors if no default found
+		if( $queried_object->post_parent != $queried_object->ID && ( empty( $default_sidebar ) || $default_sidebar == 'memberlite_sidebar_default' ) ) {
+			//check parent
+			$parent_post = get_post( $queried_object->post_parent );
+			if( $parent_post->post_type != $queried_object->post_type ) {
+				$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $parent_post->post_type );
+			}
+					
+			//check oldest ancestor
+			if( empty( $default_sidebar ) || $default_sidebar == 'memberlite_sidebar_default' ) {
+				$ancestors = get_ancestors($queried_object->ID, 'post');
+				if( !empty( $ancestors ) ) {
+					$oldest_ancestor = get_post( $ancestors[count( $ancestors ) - 1] );
+								
+					if( $oldest_ancestor->post_type != $queried_object->post_type ) {
+						$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $oldest_ancestor->post_type );
+					}
+				}
+			}
+		}
+		
+		//override the widget_areas with the default sidebar
+		if( !empty( $default_sidebar ) && $default_sidebar != 'memberlite_sidebar_default' ) {
+			if( $default_sidebar == 'memberlite_sidebar_blank' )
+				$widget_areas = array();
+			else
+				$widget_areas = array( $default_sidebar );
+		}
+			
+		//figure out custom sidebar for this specific post
+		$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );
+	}
+		
+	//if no custom sidebar for this specific post and we're on a blog page, check if the blog page has one to inherit
+	if( empty( $memberlite_custom_sidebar ) && memberlite_is_blog() ) {
+		$queried_object = get_post( get_option( 'page_for_posts' ) );	//note we override the queried object here so it figures out the sidebar position correctly below
+		$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );		
+	}	
+	
+	if( !empty( $memberlite_custom_sidebar ) ) {
+		$memberlite_default_sidebar_position = get_post_meta( $queried_object->ID, '_memberlite_default_sidebar', true );
+			
+		if( $memberlite_default_sidebar_position == 'default_sidebar_hide' ) {
+			$widget_areas = array( $memberlite_custom_sidebar );
+		} elseif( $memberlite_default_sidebar_position == 'default_sidebar_below' ) {
+			$widget_areas = array_merge( array( $memberlite_custom_sidebar ), $widget_areas );			
+		} else {
+			//default to default_sidebar_above
+			$widget_areas = array_merge( $widget_areas, array( $memberlite_custom_sidebar ) );
+		}
+	}
+	
+	return array_unique($widget_areas);
+}
+add_filter( 'memberlite_get_widget_areas', 'memberlite_elements_get_widget_areas', 5 );
+
+/**
+ * Hide subpage menu if option is chosen
+ */
+function memberlite_elements_sidebar_hide_children( $widget_areas ) {
+	$queried_object = get_queried_object();
+	
+	//if not a post, bail
+	if( empty( $queried_object ) || empty( $queried_object->post_type ) ) {
+		return $widget_areas;
+	}
+	
+	//are we even showing children?
+	$memberlite_nav_menu_submenu_key = array_search( 'memberlite_nav_menu_submenu', $widget_areas );
+	
+	if( $memberlite_nav_menu_submenu_key === false ) {
+		return $widget_areas;
+	}
+	
+	$memberlite_hide_children = get_post_meta($queried_object->ID, '_memberlite_hide_children', true);	
+	if( !empty( $memberlite_hide_children ) ) {
+		unset( $widget_areas[$memberlite_nav_menu_submenu_key] );
+	}
+	
+	return $widget_areas;
+}
+add_filter( 'memberlite_get_widget_areas', 'memberlite_elements_sidebar_hide_children' );
+
+/**
+ * Get the default sidebar for a specific CPT
+ */
+function memberlite_elements_get_default_sidebar_by_post_type( $post_type ) {
+	
+	$memberlite_cpt_sidebars = get_option('memberlite_cpt_sidebars', array());
+	
+	if( !empty( $memberlite_cpt_sidebars[$post_type] ) ) {
+		return $memberlite_cpt_sidebars[$post_type];
+	} else {
+		return false;
+	}	
+}
+ 
