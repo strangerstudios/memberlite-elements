@@ -260,7 +260,10 @@ function memberlite_elements_featured_image_meta( $content, $post_id ) {
 	{
 		$id = '_memberlite_show_image_banner';
 		$value = esc_attr( get_post_meta( $post_id, $id, true ) );
-		$label = '<label for="' . $id . '" class="selectit"><input name="' . $id . '" type="checkbox" id="' . $id . '" value="' . $value . ' "'. checked( $value, 1, false) .'>' . __('Show as Banner Image', 'memberlite-elements') . '</label>';
+		$label = '<hr /><label for="' . $id . '" class="selectit"><input name="' . $id . '" type="checkbox" id="' . $id . '" value="' . $value . ' "'. checked( $value, 1, false) .'>' . __('Show as Banner Image', 'memberlite-elements') . '</label>';
+		if( class_exists( 'MultiPostThumbnails' ) ) {
+			$label .= '<p class="howto">' . __( 'If a banner image is set below, it will override this setting.', 'memberlite-elements' ) . '</p>';
+		}
 		return $content .= $label;
 	}
 	else
