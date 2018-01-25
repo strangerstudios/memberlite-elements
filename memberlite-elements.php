@@ -111,6 +111,10 @@ function memberlite_elements_masthead_content( $content ) {
 		//Get setting for masthead banner icon content
 		$memberlite_page_icon = get_post_meta( $post->ID, '_memberlite_page_icon', true );
 
+		//Get settings for landing page
+		$pmproal_landing_page_level = get_post_meta($post->ID,'_pmproal_landing_page_level',true);
+		$memberlite_landing_page_checkout_button = get_post_meta($post->ID,'_memberlite_landing_page_checkout_button',true);
+		$memberlite_landing_page_upsell = get_post_meta($post->ID,'_memberlite_landing_page_upsell',true);
 
 		if( !empty( $memberlite_banner_right ) || ( !empty( $memberlite_banner_icon )  && !empty( $memberlite_page_icon ) ) ) {
 
@@ -135,6 +139,11 @@ function memberlite_elements_masthead_content( $content ) {
 			}
 		}
 
+		//Show the landing page featured image
+		if( is_page_template( 'templates/landing.php' ) && has_post_thumbnail( $post->ID ) ) {
+			$content .= get_the_post_thumbnail( 'medium', array( 'class' => 'alignleft' ) );
+		}
+
 		//Get setting to show or hide page title in masthead banner
 		$memberlite_banner_hide_title = get_post_meta( $post->ID, '_memberlite_banner_hide_title', true );
 		if( empty( $memberlite_banner_hide_title ) ) {
@@ -146,6 +155,25 @@ function memberlite_elements_masthead_content( $content ) {
 		if( !empty( $memberlite_banner_desc ) ) {
 			//Show the masthead banner description
 			$content .= wpautop( do_shortcode( $memberlite_banner_desc ) );
+		}
+
+		//Show the landing page level price and checkout button
+		if( is_page_template( 'templates/landing.php' ) && !empty( $pmproal_landing_page_level ) && defined( 'PMPRO_VERSION' ) ) {
+			$level = pmpro_getLevel( $pmproal_landing_page_level );
+			
+			//Set default checkout button text
+			if( empty( $memberlite_landing_page_checkout_button ) ) {
+				$memberlite_landing_page_checkout_button = 'Select';	
+			}
+
+			if( !empty( $level ) ) {
+				if( empty( $memberlite_banner_desc ) ) {
+					//Show the level descrpition of banner description is empty
+					$content .= wpautop( do_shortcode( $level->description ) );
+				}
+				$content .= '<p class="pmpro_level-price">' . pmpro_getLevelCost($level, true, true) . '</p>';
+				$content .= '<p><a class="btn btn_action" href="' . esc_url( add_query_arg( 'level', $pmproal_landing_page_level, pmpro_url( 'checkout' ) ) ) . '">' . $memberlite_landing_page_checkout_button . '</a></p>';
+			}
 		}
 
 		if( !empty( $memberlite_banner_right ) || ( !empty( $memberlite_banner_icon )  && !empty( $memberlite_page_icon ) ) ) {
@@ -252,3 +280,48 @@ function memberlite_elements_after_masthead_outer( ) {
 	}
 }
 add_action( 'memberlite_after_masthead_outer', 'memberlite_elements_after_masthead_outer' );
+
+/*
+	Function to display content after the page.
+*/
+function memberlite_elements_after_content_page( ) {
+	global $post;
+	//Show the landing page level checkout button and upsell
+	if( is_page_template( 'templates/landing.php' ) && defined( 'PMPRO_VERSION' ) ) {
+		//Get settings for landing page
+		$pmproal_landing_page_level = get_post_meta($post->ID,'_pmproal_landing_page_level',true);
+		$memberlite_landing_page_checkout_button = get_post_meta($post->ID,'_memberlite_landing_page_checkout_button',true);
+		$memberlite_landing_page_upsell = get_post_meta($post->ID,'_memberlite_landing_page_upsell',true);
+
+		$level = pmpro_getLevel( $pmproal_landing_page_level );
+		
+		//Set default checkout button text
+		if( empty( $memberlite_landing_page_checkout_button ) ) {
+			$memberlite_landing_page_checkout_button = 'Select';	
+		}
+
+		//Show the landing page level checkout button
+		if( !empty( $level ) ) {
+			echo '<p><a class="btn btn_action" href="' . esc_url( add_query_arg( 'level', $pmproal_landing_page_level, pmpro_url( 'checkout' ) ) ) . '">' . $memberlite_landing_page_checkout_button . '</a></p>';
+		}
+
+		//Show the landing page level upsell pricing block
+		if( !empty( $memberlite_landing_page_upsell ) && ( is_numeric( $memberlite_landing_page_upsell ) ) && shortcode_exists( 'pmpro_advanced_levels' ) ) {
+			echo '<hr />';
+			echo do_shortcode('[pmpro_advanced_levels levels="' . intval($memberlite_landing_page_upsell) . '"]');
+		}
+	}
+}
+add_action( 'memberlite_after_content_page', 'memberlite_elements_after_content_page' );
+
+function memberlite_elements_before_sidebar_widgets( ) {
+	global $post;
+	//Show the landing page level checkout button and upsell
+	if( is_page_template( 'templates/landing.php' ) && defined( 'PMPRO_VERSION' ) && shortcode_exists( 'memberlite_signup' ) ) {
+		$pmproal_landing_page_level = get_post_meta($post->ID,'_pmproal_landing_page_level',true);
+		if( !empty( $pmproal_landing_page_level ) ) {
+			echo do_shortcode('[memberlite_signup level="' . $pmproal_landing_page_level . '" short="true" title="Sign Up Now"]'); 
+		}
+	}	
+}
+add_action( 'memberlite_before_sidebar_widgets' , 'memberlite_elements_before_sidebar_widgets' );
