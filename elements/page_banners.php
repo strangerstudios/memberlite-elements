@@ -294,5 +294,5 @@ function memberlite_elements_display_banner_bottom( ) {
 		</div><!-- #banner_bottom -->
 	<?php }
 }
-add_action( 'after_content', 'memberlite_elements_display_banner_bottom' );
+add_action( 'memberlite_after_content', 'memberlite_elements_display_banner_bottom' );
 
