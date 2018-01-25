@@ -172,7 +172,7 @@ function memberlite_elements_masthead_content( $content ) {
 					$content .= wpautop( do_shortcode( $level->description ) );
 				}
 				$content .= '<p class="pmpro_level-price">' . pmpro_getLevelCost($level, true, true) . '</p>';
-				$content .= '<p><a class="btn btn_action" href="' . esc_url( add_query_arg( 'level', $pmproal_landing_page_level, pmpro_url( 'checkout' ) ) ) . '">' . $memberlite_landing_page_checkout_button . '</a></p>';
+				$content .= '<p><a class="btn btn_action" href="' . esc_url( add_query_arg( 'level', $pmproal_landing_page_level, pmpro_url( 'checkout' ) ) ) . '">' . esc_attr( $memberlite_landing_page_checkout_button ) . '</a></p>';
 			}
 		}
 
@@ -302,7 +302,7 @@ function memberlite_elements_after_content_page( ) {
 
 		//Show the landing page level checkout button
 		if( !empty( $level ) ) {
-			echo '<p><a class="btn btn_action" href="' . esc_url( add_query_arg( 'level', $pmproal_landing_page_level, pmpro_url( 'checkout' ) ) ) . '">' . $memberlite_landing_page_checkout_button . '</a></p>';
+			echo '<p><a class="btn btn_action" href="' . esc_url( add_query_arg( 'level', $pmproal_landing_page_level, pmpro_url( 'checkout' ) ) ) . '">' . esc_attr( $memberlite_landing_page_checkout_button ) . '</a></p>';
 		}
 
 		//Show the landing page level upsell pricing block
