@@ -1,9 +1,19 @@
 <?php
 /**
- * Custom meta boxes
+ * Page banner settings for the edit posts page in the admin.
  *
  * @package Memberlite
  */
+
+/* Load JS on the edit post page in the admin. */
+function memberlite_elements_admin_enqueue_scripts_for_page_banners() {
+	$screen = get_current_screen();
+
+	if( $screen->base == 'post' && !empty( $_REQUEST['action'] ) && $_REQUEST['action'] == 'edit' ) {
+		wp_enqueue_script( 'memberlite-elements-admin-page_banners',  MEMBERLITE_ELEMENTS_URL . '/js/admin-page_banners.js', array( 'jquery' ), MEMBERLITE_ELEMENTS_VERSION, true );
+	}
+}
+add_action( 'admin_enqueue_scripts', 'memberlite_elements_admin_enqueue_scripts_for_page_banners' );
 
 /* Adds a Memberlite settings meta box to the side column on the Page edit screens. */
 function memberlite_elements_settings_add_meta_box() {
