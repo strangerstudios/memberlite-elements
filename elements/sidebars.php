@@ -472,8 +472,8 @@ add_action('save_post', 'memberlite_elements_sidebar_save_meta_box_data');
 function memberlite_elements_get_widget_areas( $widget_areas ) {	
 	$queried_object = get_queried_object();
 		
-	//if not a post, bail
-	if( empty( $queried_object ) || empty( $queried_object->post_type ) ) {		
+	//if post, check for a post type related sidebar
+	if( !empty( $queried_object ) && !empty( $queried_object->post_type ) ) {		
 		//look for a default sidebar
 		$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $queried_object->post_type );
 			
