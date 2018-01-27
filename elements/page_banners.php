@@ -118,7 +118,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 				_e('Landing Page Membership Level', 'memberlite-elements');
 			echo '</label>';
 			echo '<select id="pmproal_landing_page_level" name="pmproal_landing_page_level">';
-			echo '<option value="blank" ' . selected( $pmproal_landing_page_level, "blank" ) . '>- Select -</option>';
+			echo '<option value="" ' . selected( $pmproal_landing_page_level, "" ) . '>- Select -</option>';
 			foreach($membership_levels as $level)
 			{			
 				echo '<option value="' . $level->id . '"' . selected( $pmproal_landing_page_level, $level->id ) . '>' . $level->name . '</option>';
@@ -134,7 +134,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 				_e('Landing Page Membership Level Upsell', 'memberlite-elements');
 			echo '</label>';
 			echo '<select id="memberlite_landing_page_upsell" name="memberlite_landing_page_upsell">';
-			echo '<option value="blank" ' . selected( $memberlite_landing_page_upsell, "blank" ) . '>- Select -</option>';
+			echo '<option value="" ' . selected( $memberlite_landing_page_upsell, "" ) . '>- Select -</option>';
 			foreach($membership_levels as $level)
 			{			
 				echo '<option value="' . $level->id . '"' . selected( $memberlite_landing_page_upsell, $level->id ) . '>' . $level->name . '</option>';
@@ -147,6 +147,8 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 
 /* Save custom sidebar selection */
 function memberlite_elements_settings_save_meta_box_data( $post_id ) {
+	global $allowedposttags;
+	
 	if(!isset($_POST['memberlite_elements_settings_meta_box_nonce'])) {
 		return;
 	}
@@ -170,13 +172,16 @@ function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 	
 	//banner show radio
 	if(isset($_POST['memberlite_banner_show'])) {
-		$memberlite_banner_show = $_POST['memberlite_banner_show'];	
+		if(!empty($_POST['memberlite_banner_show']))
+			$memberlite_banner_show = 1;
+		else
+			$memberlite_banner_show = 0;
 		update_post_meta($post_id, '_memberlite_banner_show', $memberlite_banner_show);
 	}
 	
 	//banner description
 	if(isset($_POST['memberlite_banner_desc'])) {
-		$memberlite_banner_desc = $_POST['memberlite_banner_desc'];
+		$memberlite_banner_desc = wp_kses(wp_unslash($_POST['memberlite_banner_desc'], $allowedposttags));
 		update_post_meta($post_id, '_memberlite_banner_desc', $memberlite_banner_desc);
 	}
 		
@@ -212,21 +217,21 @@ function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 	
 	//banner right content
 	if(isset($_POST['memberlite_banner_right'])) {
-		$memberlite_banner_right = $_POST['memberlite_banner_right'];
+		$memberlite_banner_right = wp_kses(wp_unslash($_POST['memberlite_banner_right'], $allowedposttags));
 		
 		update_post_meta($post_id, '_memberlite_banner_right', $memberlite_banner_right);
 	}
 	
 	//banner bottom content
 	if(isset($_POST['memberlite_banner_bottom'])) {
-		$memberlite_banner_bottom = $_POST['memberlite_banner_bottom'];
+		$memberlite_banner_bottom = wp_kses(wp_unslash($_POST['memberlite_banner_bottom'], $allowedposttags));
 		
 		update_post_meta($post_id, '_memberlite_banner_bottom', $memberlite_banner_bottom);
 	}
 	
 	//page icon
 	if(isset($_POST['memberlite_page_icon'])) {
-		$memberlite_page_icon = $_POST['memberlite_page_icon'];
+		$memberlite_page_icon = sanitize_text_field($_POST['memberlite_page_icon']);
 		
 		update_post_meta($post_id, '_memberlite_page_icon', $memberlite_page_icon);
 	}
@@ -243,21 +248,21 @@ function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 	
 	//landing page level
 	if(isset($_POST['pmproal_landing_page_level'])) {
-		$pmproal_landing_page_level = $_POST['pmproal_landing_page_level'];
+		$pmproal_landing_page_level = intval($_POST['pmproal_landing_page_level']);
 		
 		update_post_meta($post_id, '_pmproal_landing_page_level', $pmproal_landing_page_level);
 	}
 	
 	//landing page checkout button
 	if(isset($_POST['memberlite_landing_page_checkout_button'])) {
-		$memberlite_landing_page_checkout_button = $_POST['memberlite_landing_page_checkout_button'];
+		$memberlite_landing_page_checkout_button = sanitize_text_field($_POST['memberlite_landing_page_checkout_button']);
 		
 		update_post_meta($post_id, '_memberlite_landing_page_checkout_button', $memberlite_landing_page_checkout_button);
 	}
 	
 	//landing page upsell content
 	if(isset($_POST['memberlite_landing_page_upsell'])) {
-		$memberlite_landing_page_upsell = $_POST['memberlite_landing_page_upsell'];
+		$memberlite_landing_page_upsell = intval($_POST['memberlite_landing_page_upsell']);
 		
 		update_post_meta($post_id, '_memberlite_landing_page_upsell', $memberlite_landing_page_upsell);
 	}	

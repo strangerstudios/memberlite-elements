@@ -47,7 +47,7 @@ function memberlite_elements_custom_sidebars() {
 			{
 				//add new sidebar
 				$memberlite_custom_sidebars[] = $new_sidebar;
-
+				
 				//register
 				memberlite_elements_registerCustomSidebar($new_sidebar);
 				
@@ -76,7 +76,7 @@ function memberlite_elements_custom_sidebars() {
 				unset($memberlite_custom_sidebars[$key]);
 
 				//unregister
-				unregister_sidebar(memberlite_elements_generateSlug($_REQUEST['delete'], 45));
+				unregister_sidebar(memberlite_elements_generateSlug(sanitize_text_field($_REQUEST['delete']), 45));
 
 				//remove any blanks
 				$memberlite_custom_sidebars = array_values(array_filter($memberlite_custom_sidebars));
@@ -102,13 +102,12 @@ function memberlite_elements_custom_sidebars() {
 		{
 			//get values
 			$memberlite_cpt_sidebars = array();
-			$memberlite_sidebar_cpt_sidebar_ids = $_REQUEST['memberlite_sidebar_cpt_sidebar_ids'];
-			$memberlite_sidebar_cpt_names = $_REQUEST['memberlite_sidebar_cpt_names'];
+			$memberlite_sidebar_cpt_sidebar_ids = $_REQUEST['memberlite_sidebar_cpt_sidebar_ids'];	//array parameter, sanitized below
+			$memberlite_sidebar_cpt_names = $_REQUEST['memberlite_sidebar_cpt_names'];				//array parameter, sanitized below
 			
 			//build array
-			for($i = 0; $i < count($memberlite_sidebar_cpt_names); $i++)
-			{
-				$memberlite_cpt_sidebars[$memberlite_sidebar_cpt_names[$i]] = $memberlite_sidebar_cpt_sidebar_ids[$i];
+			for($i = 0; $i < count($memberlite_sidebar_cpt_names); $i++) {
+				$memberlite_cpt_sidebars[sanitize_text_field($memberlite_sidebar_cpt_names[$i])] = sanitize_text_field($memberlite_sidebar_cpt_sidebar_ids[$i]);
 			}
 	
 			//update option
@@ -150,13 +149,14 @@ function memberlite_elements_custom_sidebars() {
 					<tbody class="memberlite-custom-sidebars">
 					<?php
 						global $wp_registered_sidebars;
-
+						ksort($wp_registered_sidebars);
+						
 						$count = 0;
 						foreach($wp_registered_sidebars as $wp_registered_sidebar)
 						{
 							$count++;
 							?>
-							<tr class="memberlite-custom-sidebars-row<?php if($count % 2 == 0) { echo ' alternate'; } ?>">
+							<tr class="memberlite-custom-sidebars-row<?php if($count % 2 == 0) { echo ' alternate'; } ?><?php if(!empty($_REQUEST['memberlite_custom_sidebar_name']) && $_REQUEST['memberlite_custom_sidebar_name'] == $wp_registered_sidebar['id']) { echo ' highlight'; }?>">
 								<td class="custom-sidebar-id"><?php echo $wp_registered_sidebar['id']; ?></td>
 								<td class="custom-sidebar-name"><?php echo $wp_registered_sidebar['name']; ?></td>
 								<td class="custom-sidebar-actions">
