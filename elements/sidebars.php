@@ -69,7 +69,7 @@ function memberlite_elements_custom_sidebars() {
 		if(!empty($_REQUEST['_wpnonce']) && check_admin_referer('memberlite_delete_custom_sidebar'))
 		{
 			//look for sidebar to delete
-			$key = array_search($_REQUEST['delete'], $memberlite_custom_sidebars);
+			$key = array_search(sanitize_text_field($_REQUEST['delete']), $memberlite_custom_sidebars);
 			if($key !== false)
 			{
 				//unset
