@@ -453,13 +453,13 @@ function memberlite_elements_sidebar_save_meta_box_data($post_id) {
 	
 	//custom sidebar selection
 	if(isset($_POST['memberlite_custom_sidebar'])) {
-		$memberlite_custom_sidebar = $_POST['memberlite_custom_sidebar'];
+		$memberlite_custom_sidebar = sanitize_text_field($_POST['memberlite_custom_sidebar']);
 		update_post_meta($post_id, '_memberlite_custom_sidebar', $memberlite_custom_sidebar);
 	}
 
 	//default sidebar behavior
 	if(isset($_POST['memberlite_default_sidebar'])) {
-		$memberlite_default_sidebar = $_POST['memberlite_default_sidebar'];
+		$memberlite_default_sidebar = sanitize_text_field($_POST['memberlite_default_sidebar']);
 		update_post_meta($post_id, '_memberlite_default_sidebar', $memberlite_default_sidebar);
 	}
 	
