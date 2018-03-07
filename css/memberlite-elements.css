@@ -1,0 +1,27 @@
+/**
+ * Memberlite Elements styles
+ */
+
+body.memberlite-banner-hidden #site-navigation {
+	border-bottom: 1px solid #DADADA;
+	margin-bottom: 4rem;
+}
+
+.masthead .memberlite_elements-masthead {
+	padding-top: 2rem;
+}
+.masthead .memberlite_elements-masthead h1 {
+	margin-top: 0;
+}
+.page-template-landing .masthead .alignleft.wp-post-image {
+	margin-top: 2rem;
+}
+.page-template-landing .masthead .pmpro_level-price {
+	font-size: 24px;
+	font-size: 2.4rem;
+}
+.page-template-landing .masthead .pmpro_level-subprice {
+	display: block;
+	font-size: 14px;
+	font-size: 1.4rem;
+}
