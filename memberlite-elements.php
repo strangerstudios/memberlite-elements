@@ -236,14 +236,14 @@ add_filter( 'widget_text', 'do_shortcode' );
 	Function to display the background image in the banner.
 */
 function memberlite_elements_before_masthead_outer( ) {
-	global $post;
-
-	if( !empty( $post ) ) {
-		$post_id = $post->ID;
-	}
-
-	if( is_home() || is_archive() ) {
+	if( is_home() || is_post_type_archive( 'post' ) ) {
 		$post_id = get_option('page_for_posts');
+	} else {
+		// get from queried object
+		$queried_object = get_queried_object();
+		if( !empty( $queried_object ) ) {
+			$post_id = $queried_object->ID;
+		}
 	}
 
 	if( !empty( $post_id ) && function_exists( 'memberlite_get_banner_image_src' ) ) {
