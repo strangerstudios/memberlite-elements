@@ -181,7 +181,7 @@ function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 	
 	//banner description
 	if(isset($_POST['memberlite_banner_desc'])) {
-		$memberlite_banner_desc = wp_kses(wp_unslash($_POST['memberlite_banner_desc'], $allowedposttags));
+		$memberlite_banner_desc = wp_kses( wp_unslash( $_POST['memberlite_banner_desc'] ), $allowedposttags );
 		update_post_meta($post_id, '_memberlite_banner_desc', $memberlite_banner_desc);
 	}
 		
@@ -217,14 +217,14 @@ function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 	
 	//banner right content
 	if(isset($_POST['memberlite_banner_right'])) {
-		$memberlite_banner_right = wp_kses(wp_unslash($_POST['memberlite_banner_right'], $allowedposttags));
+		$memberlite_banner_right = wp_kses( wp_unslash( $_POST['memberlite_banner_right'] ), $allowedposttags );
 		
 		update_post_meta($post_id, '_memberlite_banner_right', $memberlite_banner_right);
 	}
 	
 	//banner bottom content
 	if(isset($_POST['memberlite_banner_bottom'])) {
-		$memberlite_banner_bottom = wp_kses(wp_unslash($_POST['memberlite_banner_bottom'], $allowedposttags));
+		$memberlite_banner_bottom = wp_kses( wp_unslash( $_POST['memberlite_banner_bottom'] ), $allowedposttags );
 		
 		update_post_meta($post_id, '_memberlite_banner_bottom', $memberlite_banner_bottom);
 	}
