@@ -25,9 +25,9 @@ require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/functions.php" );
 function memberlite_elements_init_styles() {
 	//need jquery
 	wp_enqueue_script( 'jquery' );
-	
+
 	wp_enqueue_style( 'font-awesome', MEMBERLITE_ELEMENTS_URL . "/font-awesome/css/font-awesome.min.css", array(), "4.7" );
-	wp_enqueue_style( "memberlite_elements_frontend", MEMBERLITE_ELEMENTS_URL . "/css/memberlite-elements.css", array(), MEMBERLITE_ELEMENTS_VERSION );	
+	wp_enqueue_style( "memberlite_elements_frontend", MEMBERLITE_ELEMENTS_URL . "/css/memberlite-elements.css", array(), MEMBERLITE_ELEMENTS_VERSION );
 }
 add_action( "wp_enqueue_scripts", "memberlite_elements_init_styles" );
 
@@ -103,7 +103,7 @@ function memberlite_elements_masthead_content( $content ) {
 		}
 
 		//Get setting for masthead banner right column content
-		$memberlite_banner_right = get_post_meta( $post->ID, '_memberlite_banner_right', true );		
+		$memberlite_banner_right = get_post_meta( $post->ID, '_memberlite_banner_right', true );
 
 		//Get setting to show or hide masthead banner icon
 		$memberlite_banner_icon = get_post_meta( $post->ID, '_memberlite_banner_icon', true );
@@ -121,7 +121,7 @@ function memberlite_elements_masthead_content( $content ) {
 			//Get the columns ratio for the masthead banner based on content setting in customizer.
 			$memberlite_columns_primary = memberlite_getColumnsRatio();
 
-			$content .= '<div class="memberlite_elements-masthead row">';								
+			$content .= '<div class="memberlite_elements-masthead row">';
 
 			//Check that we should display a masthead banner icon and it is set
 			if( !empty( $memberlite_banner_icon ) && !empty( $memberlite_page_icon ) ) {
@@ -148,7 +148,7 @@ function memberlite_elements_masthead_content( $content ) {
 		$memberlite_banner_hide_title = get_post_meta( $post->ID, '_memberlite_banner_hide_title', true );
 		if( empty( $memberlite_banner_hide_title ) ) {
 			$content .= memberlite_page_title( false );	//false to not echo
-		} 
+		}
 
 		//Get content for masthead banner description
 		$memberlite_banner_desc = get_post_meta( $post->ID, '_memberlite_banner_desc', true );
@@ -160,10 +160,10 @@ function memberlite_elements_masthead_content( $content ) {
 		//Show the landing page level price and checkout button
 		if( is_page_template( 'templates/landing.php' ) && !empty( $pmproal_landing_page_level ) && defined( 'PMPRO_VERSION' ) ) {
 			$level = pmpro_getLevel( $pmproal_landing_page_level );
-			
+
 			//Set default checkout button text
 			if( empty( $memberlite_landing_page_checkout_button ) ) {
-				$memberlite_landing_page_checkout_button = 'Select';	
+				$memberlite_landing_page_checkout_button = 'Select';
 			}
 
 			if( !empty( $level ) ) {
@@ -177,12 +177,12 @@ function memberlite_elements_masthead_content( $content ) {
 		}
 
 		if( !empty( $memberlite_banner_right ) || ( !empty( $memberlite_banner_icon )  && !empty( $memberlite_page_icon ) ) ) {
-			//Close the masthead banner columns div 
+			//Close the masthead banner columns div
 			$content .= '</div> <!--.medium-X .columns -->';
 		}
 
 		if( !empty( $memberlite_banner_right ) ) {
-			//Show the masthead banner right columns 
+			//Show the masthead banner right columns
 			$content .= '<div class="medium-' . memberlite_getColumnsRatio( 'sidebar' ) . ' columns">';
 			$content .= wpautop( do_shortcode( $memberlite_banner_right ) );
 			$content .= '</div> <!--.medium-X .columns -->';
@@ -208,7 +208,7 @@ add_filter( 'memberlite_masthead_content', 'memberlite_elements_masthead_content
 */
 function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $size ) {
 	global $post;
-	
+
 	if( class_exists( 'MultiPostThumbnails') ) {
 		//The Banner Image meta box is available
 		$memberlite_banner_image_id = MultiPostThumbnails::get_post_thumbnail_id(
@@ -241,7 +241,7 @@ function memberlite_elements_before_masthead_outer( ) {
 	} else {
 		// get from queried object
 		$queried_object = get_queried_object();
-		if( !empty( $queried_object ) ) {
+		if( ! empty( $queried_object->ID ) ) {
 			$post_id = $queried_object->ID;
 		}
 	}
@@ -264,7 +264,7 @@ add_action( 'memberlite_before_masthead_outer', 'memberlite_elements_before_mast
 */
 function memberlite_elements_after_masthead_outer( ) {
 	global $post;
-	
+
 	if( !empty( $post ) ) {
 		$post_id = $post->ID;
 	}
@@ -299,10 +299,10 @@ function memberlite_elements_after_content_page( ) {
 		$memberlite_landing_page_upsell = get_post_meta($post->ID,'_memberlite_landing_page_upsell',true);
 
 		$level = pmpro_getLevel( $pmproal_landing_page_level );
-		
+
 		//Set default checkout button text
 		if( empty( $memberlite_landing_page_checkout_button ) ) {
-			$memberlite_landing_page_checkout_button = 'Select';	
+			$memberlite_landing_page_checkout_button = 'Select';
 		}
 
 		//Show the landing page level checkout button
@@ -326,8 +326,8 @@ function memberlite_elements_before_sidebar_widgets( ) {
 	if( is_page_template( 'templates/landing.php' ) && defined( 'PMPRO_VERSION' ) && shortcode_exists( 'memberlite_signup' ) ) {
 		$pmproal_landing_page_level = get_post_meta($post->ID,'_pmproal_landing_page_level',true);
 		if( !empty( $pmproal_landing_page_level ) ) {
-			echo do_shortcode('[memberlite_signup level="' . $pmproal_landing_page_level . '" short="true" title="' . str_replace('"', '', __('Sign Up Now', 'memberlite-elements')) . '"]'); 
+			echo do_shortcode('[memberlite_signup level="' . $pmproal_landing_page_level . '" short="true" title="' . str_replace('"', '', __('Sign Up Now', 'memberlite-elements')) . '"]');
 		}
-	}	
+	}
 }
 add_action( 'memberlite_before_sidebar_widgets' , 'memberlite_elements_before_sidebar_widgets' );
