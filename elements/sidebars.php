@@ -16,7 +16,7 @@ add_action('admin_menu', 'memberlite_elements_custom_sidebars_menu');
 /**
  * Settings page for Appearance -> Custom Sidebars
  */
-function memberlite_elements_custom_sidebars() { 	
+function memberlite_elements_custom_sidebars() {
 	global $wp_registered_sidebars;
 
 	//get options
@@ -30,15 +30,15 @@ function memberlite_elements_custom_sidebars() {
 
 		//check nonce
 		if(check_admin_referer('memberlite_add_custom_sidebar'))
-		{	
+		{
 			$new_sidebar = trim(stripslashes(sanitize_text_field($_REQUEST['memberlite_custom_sidebar_name'])));
-			
+
 			if(empty($new_sidebar))
 			{
 				$msg = __("Please enter a valid sidebar name.", "memberlite");
 				$msgt = "error";
 			}
-			elseif(memberlite_sidebarExists($new_sidebar))
+			elseif(memberlite_elements_sidebar_exists($new_sidebar))
 			{
 				$msg = __("Sidebar id or name already used. Try another name.", "memberlite");
 				$msgt = "error";
@@ -47,17 +47,17 @@ function memberlite_elements_custom_sidebars() {
 			{
 				//add new sidebar
 				$memberlite_custom_sidebars[] = $new_sidebar;
-				
+
 				//register
 				memberlite_elements_registerCustomSidebar($new_sidebar);
-				
+
 				//remove any blanks
 				$memberlite_custom_sidebars = array_values(array_filter($memberlite_custom_sidebars));
 
 				//save option
 				delete_option('memberlite_custom_sidebars');
 				add_option('memberlite_custom_sidebars', $memberlite_custom_sidebars, NULL, 'no');
-				
+
 				$msg = __("Sidebar added.", "memberlite");
 				$msgt = "updated fade";
 			}
@@ -104,12 +104,12 @@ function memberlite_elements_custom_sidebars() {
 			$memberlite_cpt_sidebars = array();
 			$memberlite_sidebar_cpt_sidebar_ids = $_REQUEST['memberlite_sidebar_cpt_sidebar_ids'];	//array parameter, sanitized below
 			$memberlite_sidebar_cpt_names = $_REQUEST['memberlite_sidebar_cpt_names'];				//array parameter, sanitized below
-			
+
 			//build array
 			for($i = 0; $i < count($memberlite_sidebar_cpt_names); $i++) {
 				$memberlite_cpt_sidebars[sanitize_text_field($memberlite_sidebar_cpt_names[$i])] = sanitize_text_field($memberlite_sidebar_cpt_sidebar_ids[$i]);
 			}
-	
+
 			//update option
 			delete_option('memberlite_cpt_sidebars');
 			add_option('memberlite_cpt_sidebars', $memberlite_cpt_sidebars, NULL, 'no');
@@ -122,7 +122,7 @@ function memberlite_elements_custom_sidebars() {
 	<?php
 	}
 ?>
-	<div id="wpbody-content" aria-label="Main content" tabindex="0">	
+	<div id="wpbody-content" aria-label="Main content" tabindex="0">
 		<div class="wrap"><div class="metabox-holder">
 			<h2><?php _e('Memberlite Custom Sidebars', 'memberlite');?></h2>
 			<br class="clear" />
@@ -130,12 +130,12 @@ function memberlite_elements_custom_sidebars() {
 				<div class="postbox">
 					<h3 class="hndle"><?php _e('Add New Sidebar', 'memberlite');?></h3>
 					<div class="inside">
-						<form id="memberlite_add_sidebar_form" method="post" action="<?php echo admin_url("themes.php?page=memberlite-custom-sidebars");?>">					
+						<form id="memberlite_add_sidebar_form" method="post" action="<?php echo admin_url("themes.php?page=memberlite-custom-sidebars");?>">
 							<label for="memberlite_custom_sidebar_name"><?php _e('Sidebar Name','memberlite'); ?></label>
 							<input type="text" name="memberlite_custom_sidebar_name" id="memberlite_custom_sidebar_name" value="" size="30">
 							<?php wp_nonce_field('memberlite_add_custom_sidebar'); ?>
 							<?php submit_button( __( 'Add Sidebar', 'memberlite' ), 'primary', 'memberlite_add_sidebar_submit', false ); ?>
-						</form>								
+						</form>
 					</div> <!-- end inside -->
 				</div> <!-- end postbox -->
 				<table class="widefat" id="memberlite-custom-sidebars-table">
@@ -150,7 +150,7 @@ function memberlite_elements_custom_sidebars() {
 					<?php
 						global $wp_registered_sidebars;
 						ksort($wp_registered_sidebars);
-						
+
 						$count = 0;
 						foreach($wp_registered_sidebars as $wp_registered_sidebar)
 						{
@@ -160,24 +160,24 @@ function memberlite_elements_custom_sidebars() {
 								<td class="custom-sidebar-id"><?php echo $wp_registered_sidebar['id']; ?></td>
 								<td class="custom-sidebar-name"><?php echo $wp_registered_sidebar['name']; ?></td>
 								<td class="custom-sidebar-actions">
-									<?php 
+									<?php
 										if(in_array($wp_registered_sidebar['name'], $memberlite_custom_sidebars))
-										{ 
+										{
 										?>
 											<a href="javascript:confirmCustomSidebarDeletion('Are you sure that you want to delete the <?php echo esc_js($wp_registered_sidebar['name']);?> sidebar?', '<?php echo wp_nonce_url(admin_url("themes.php?page=memberlite-custom-sidebars&delete=" . urlencode($wp_registered_sidebar['name'])), "memberlite_delete_custom_sidebar");?>');"><?php _e('Delete', 'memberlite'); ?></a>
-										<?php 
-										} 
-										else 
-										{ 
+										<?php
+										}
+										else
+										{
 										?>
 											<em><?php _e('Not a custom sidebar.', 'memberlite');?></em>
-										<?php 
-										} 
+										<?php
+										}
 									?>
 								</td>
 							</tr>
 							<?php
-						} 
+						}
 					?>
 					</tbody>
 				</table>
@@ -188,7 +188,7 @@ function memberlite_elements_custom_sidebars() {
 					if(!empty($memberlite_post_types))
 					{
 						?>
-						<form id="memberlite_cpt_sidebar_form" method="post" action="<?php echo admin_url("themes.php?page=memberlite-custom-sidebars");?>">					
+						<form id="memberlite_cpt_sidebar_form" method="post" action="<?php echo admin_url("themes.php?page=memberlite-custom-sidebars");?>">
 							<table class="widefat" id="memberlite-cpt-sidebars-table">
 								<thead>
 									<tr>
@@ -223,7 +223,7 @@ function memberlite_elements_custom_sidebars() {
 												</td>
 											</tr>
 											<?php
-										} 
+										}
 									}
 								?>
 								</tbody>
@@ -239,7 +239,7 @@ function memberlite_elements_custom_sidebars() {
 						echo '<p><em>No custom post types found.';
 					}
 				?>
-			</div> <!-- end memberlite-custom-sidebars-->			
+			</div> <!-- end memberlite-custom-sidebars-->
 		</div></div><!-- /.wrap-->
 	<div class="clear"></div>
 	</div>
@@ -247,12 +247,12 @@ function memberlite_elements_custom_sidebars() {
 		function confirmCustomSidebarDeletion(text, url)
 		{
 			var answer = confirm (text);
-			
+
 			if (answer)
 				window.location=url;
 		}
 	</script>
-	<?php	
+	<?php
 }
 
 /**
@@ -261,19 +261,19 @@ function memberlite_elements_custom_sidebars() {
 function memberlite_elements_generateSlug($phrase, $maxLength)
 {
     $result = strtolower($phrase);
- 
+
     $result = preg_replace("/[^a-z0-9\s-]/", "", $result);
     $result = trim(preg_replace("/[\s-]+/", " ", $result));
     $result = trim(substr($result, 0, $maxLength));
     $result = preg_replace("/\s/", "-", $result);
- 
+
     return $result;
 }
 
 /**
  * Check if a sidebar already exists
  */
-function memberlite_sidebarExists($name, $id = NULL)
+function memberlite_elements_sidebar_exists($name, $id = NULL)
 {
 	if(empty($id))
 		$id = memberlite_elements_generateSlug($name, 45);
@@ -317,12 +317,12 @@ function memberlite_elements_registerCustomSidebar($name, $id = NULL)
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',			
+		'after_title' => '</h3>',
 	) );
 }
 
 /**
- * Add a Custom Sidebar meta box to the side column on the Post and Page edit screens. 
+ * Add a Custom Sidebar meta box to the side column on the Post and Page edit screens.
  */
 function memberlite_elements_sidebar_add_meta_box() {
 	$screens = get_post_types( array('public' => true), 'names' );
@@ -345,21 +345,21 @@ function memberlite_elements_sidebar_add_meta_box() {
 add_action('add_meta_boxes', 'memberlite_elements_sidebar_add_meta_box');
 
 /**
- * Meta box for custom sidebar selection 
+ * Meta box for custom sidebar selection
  */
 function memberlite_elements_sidebar_meta_box_callback($post) {
 	global $wp_registered_sidebars;
 	wp_nonce_field('memberlite_sidebar_meta_box', 'memberlite_sidebar_meta_box_nonce');
 	$memberlite_hide_children = get_post_meta($post->ID, '_memberlite_hide_children', true);
 	$memberlite_custom_sidebar = get_post_meta($post->ID, '_memberlite_custom_sidebar', true);
-	
+
 	$post_type = get_post_type($post);
 	//check post type and custom cpt sidebar
 	if(!in_array($post_type, array('post','page')) )
 	{
 		$memberlite_cpt_sidebars = get_option('memberlite_cpt_sidebars', array());
 		if(empty($memberlite_cpt_sidebars[$post_type]) || ($memberlite_cpt_sidebars[$post_type] == 'memberlite_sidebar_default') )
-			$memberlite_cpt_sidebar_id = 'sidebar-1';			
+			$memberlite_cpt_sidebar_id = 'sidebar-1';
 		else
 			$memberlite_cpt_sidebar_id = $memberlite_cpt_sidebars[$post_type];
 	}
@@ -367,11 +367,11 @@ function memberlite_elements_sidebar_meta_box_callback($post) {
 		$memberlite_cpt_sidebar_id = 'sidebar-2';
 	else
 		$memberlite_cpt_sidebar_id = 'sidebar-1';
-	
+
 	//get the name of the default sidebar
 	if(!empty($wp_registered_sidebars[$memberlite_cpt_sidebar_id]))
 		$memberlite_cpt_sidebar_name = $wp_registered_sidebars[$memberlite_cpt_sidebar_id]['name'];
-	
+
 	$memberlite_default_sidebar = get_post_meta($post->ID, '_memberlite_default_sidebar', true);
 	if ( (get_post_type($post) == 'page' ) || (isset($_POST['post_type']) && 'page' == $_POST['post_type'])) {
 		echo '<input type="hidden" name="memberlite_hide_children_present" value="1" />';
@@ -402,9 +402,9 @@ function memberlite_elements_sidebar_meta_box_callback($post) {
 	}
 	echo '</select>';
 	if( $memberlite_cpt_sidebar_id != 'memberlite_sidebar_blank')
-	{	
+	{
 		echo '<hr />';
-		echo '<p><strong>' . __('Default Sidebar Behavior', 'memberlite-elements') . '</strong></p>';	
+		echo '<p><strong>' . __('Default Sidebar Behavior', 'memberlite-elements') . '</strong></p>';
 		echo '<label class="screen-reader-text" for="memberlite_default_sidebar">';
 		_e('Default Sidebar', 'memberlite-elements');
 		echo '</label>';
@@ -433,24 +433,24 @@ function memberlite_elements_sidebar_save_meta_box_data($post_id) {
 		if(!current_user_can('edit_page', $post_id)) {
 			return;
 		}
-	} 
+	}
 	else
 	{
 		if(!current_user_can('edit_post', $post_id)) {
 			return;
 		}
 	}
-	
+
 	//hide or show subpage menu in sidebar
 	if(isset($_POST['memberlite_hide_children_present'])) {
 		if(!empty($_POST['memberlite_hide_children']))
 			$memberlite_hide_children = 1;
 		else
 			$memberlite_hide_children = 0;
-			
+
 		update_post_meta($post_id, '_memberlite_hide_children', $memberlite_hide_children);
 	}
-	
+
 	//custom sidebar selection
 	if(isset($_POST['memberlite_custom_sidebar'])) {
 		$memberlite_custom_sidebar = sanitize_text_field($_POST['memberlite_custom_sidebar']);
@@ -462,21 +462,21 @@ function memberlite_elements_sidebar_save_meta_box_data($post_id) {
 		$memberlite_default_sidebar = sanitize_text_field($_POST['memberlite_default_sidebar']);
 		update_post_meta($post_id, '_memberlite_default_sidebar', $memberlite_default_sidebar);
 	}
-	
+
 }
 add_action('save_post', 'memberlite_elements_sidebar_save_meta_box_data');
 
 /**
  * Figure out which sidebars to use
  */
-function memberlite_elements_get_widget_areas( $widget_areas ) {	
+function memberlite_elements_get_widget_areas( $widget_areas ) {
 	$queried_object = get_queried_object();
-		
+
 	//if post, check for a post type related sidebar
-	if( !empty( $queried_object ) && !empty( $queried_object->post_type ) ) {		
+	if( !empty( $queried_object ) && !empty( $queried_object->post_type ) ) {
 		//look for a default sidebar
 		$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $queried_object->post_type );
-			
+
 		//check ancestors if no default found
 		if( $queried_object->post_parent != $queried_object->ID && ( empty( $default_sidebar ) || $default_sidebar == 'memberlite_sidebar_default' ) ) {
 			//check parent
@@ -484,20 +484,20 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 			if( $parent_post->post_type != $queried_object->post_type ) {
 				$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $parent_post->post_type );
 			}
-					
+
 			//check oldest ancestor
 			if( empty( $default_sidebar ) || $default_sidebar == 'memberlite_sidebar_default' ) {
 				$ancestors = get_ancestors($queried_object->ID, 'post');
 				if( !empty( $ancestors ) ) {
 					$oldest_ancestor = get_post( $ancestors[count( $ancestors ) - 1] );
-								
+
 					if( $oldest_ancestor->post_type != $queried_object->post_type ) {
 						$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $oldest_ancestor->post_type );
 					}
 				}
 			}
 		}
-		
+
 		//override the widget_areas with the default sidebar
 		if( !empty( $default_sidebar ) && $default_sidebar != 'memberlite_sidebar_default' ) {
 			if( $default_sidebar == 'memberlite_sidebar_blank' )
@@ -505,30 +505,30 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 			else
 				$widget_areas = array( $default_sidebar );
 		}
-			
+
 		//figure out custom sidebar for this specific post
 		$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );
 	}
-		
+
 	//if no custom sidebar for this specific post and we're on a blog page, check if the blog page has one to inherit
 	if( empty( $memberlite_custom_sidebar ) && memberlite_is_blog() ) {
 		$queried_object = get_post( get_option( 'page_for_posts' ) );	//note we override the queried object here so it figures out the sidebar position correctly below
-		$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );		
-	}	
-	
+		$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );
+	}
+
 	if( !empty( $memberlite_custom_sidebar ) ) {
 		$memberlite_default_sidebar_position = get_post_meta( $queried_object->ID, '_memberlite_default_sidebar', true );
-			
+
 		if( $memberlite_default_sidebar_position == 'default_sidebar_hide' ) {
 			$widget_areas = array( $memberlite_custom_sidebar );
 		} elseif( $memberlite_default_sidebar_position == 'default_sidebar_below' ) {
-			$widget_areas = array_merge( array( $memberlite_custom_sidebar ), $widget_areas );			
+			$widget_areas = array_merge( array( $memberlite_custom_sidebar ), $widget_areas );
 		} else {
 			//default to default_sidebar_above
 			$widget_areas = array_merge( $widget_areas, array( $memberlite_custom_sidebar ) );
 		}
 	}
-	
+
 	return array_unique($widget_areas);
 }
 add_filter( 'memberlite_get_widget_areas', 'memberlite_elements_get_widget_areas', 5 );
@@ -538,24 +538,24 @@ add_filter( 'memberlite_get_widget_areas', 'memberlite_elements_get_widget_areas
  */
 function memberlite_elements_sidebar_hide_children( $widget_areas ) {
 	$queried_object = get_queried_object();
-	
+
 	//if not a post, bail
 	if( empty( $queried_object ) || empty( $queried_object->post_type ) ) {
 		return $widget_areas;
 	}
-	
+
 	//are we even showing children?
 	$memberlite_nav_menu_submenu_key = array_search( 'memberlite_nav_menu_submenu', $widget_areas );
-	
+
 	if( $memberlite_nav_menu_submenu_key === false ) {
 		return $widget_areas;
 	}
-	
-	$memberlite_hide_children = get_post_meta($queried_object->ID, '_memberlite_hide_children', true);	
+
+	$memberlite_hide_children = get_post_meta($queried_object->ID, '_memberlite_hide_children', true);
 	if( !empty( $memberlite_hide_children ) ) {
 		unset( $widget_areas[$memberlite_nav_menu_submenu_key] );
 	}
-	
+
 	return $widget_areas;
 }
 add_filter( 'memberlite_get_widget_areas', 'memberlite_elements_sidebar_hide_children' );
@@ -564,13 +564,12 @@ add_filter( 'memberlite_get_widget_areas', 'memberlite_elements_sidebar_hide_chi
  * Get the default sidebar for a specific CPT
  */
 function memberlite_elements_get_default_sidebar_by_post_type( $post_type ) {
-	
+
 	$memberlite_cpt_sidebars = get_option('memberlite_cpt_sidebars', array());
-	
+
 	if( !empty( $memberlite_cpt_sidebars[$post_type] ) ) {
 		return $memberlite_cpt_sidebars[$post_type];
 	} else {
 		return false;
-	}	
+	}
 }
- 
