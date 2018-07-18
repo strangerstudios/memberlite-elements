@@ -473,9 +473,17 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 	$queried_object = get_queried_object();
 
 	//if post, check for a post type related sidebar
-	if( !empty( $queried_object ) && !empty( $queried_object->post_type ) ) {
+	if( !empty( $queried_object ) ) {
+
+		// Queried object doesn't return post_type if the page is an archive page. Try to get a pages post type.
+		if ( empty( $queried_object->post_type ) && ! is_single() ) {
+			$post_type = get_post_type();
+		} else {
+			$post_type = $queried_object->post_type;
+		}
+
 		//look for a default sidebar
-		$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $queried_object->post_type );
+		$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $post_type );
 
 		//check ancestors if no default found
 		if( $queried_object->post_parent != $queried_object->ID && ( empty( $default_sidebar ) || $default_sidebar == 'memberlite_sidebar_default' ) ) {
