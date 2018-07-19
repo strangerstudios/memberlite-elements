@@ -33,7 +33,8 @@ add_action('add_meta_boxes', 'memberlite_elements_settings_add_meta_box');
 
 /* Meta box for Memberlite settings */
 function memberlite_elements_settings_meta_box_callback( $post ) {
-	global $fontawesome_icons;
+	// Get the array of all possible Font Awesome icons.
+	$font_awesome_icons = memberlite_elements_get_font_awesome_icons( );
 
 	wp_nonce_field( 'memberlite_elements_settings_meta_box', 'memberlite_elements_settings_meta_box_nonce' );
 	$memberlite_page_template = get_post_meta($post->ID, '_wp_page_template', true);
@@ -50,7 +51,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	$memberlite_banner_bottom = get_post_meta($post->ID, '_memberlite_banner_bottom', true);
 	$memberlite_landing_page_checkout_button = get_post_meta($post->ID, '_memberlite_landing_page_checkout_button', true);
 	$pmproal_landing_page_level = get_post_meta($post->ID, '_pmproal_landing_page_level', true);
-	$memberlite_landing_page_upsell = get_post_meta($post->ID, '_memberlite_landing_page_upsell', true);	
+	$memberlite_landing_page_upsell = get_post_meta($post->ID, '_memberlite_landing_page_upsell', true);
 	echo '<h2><strong>' . __('Page Banner Settings', 'memberlite-elements') . '</strong></h2>';
 	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Show Page Banner', 'memberlite-elements') . '</strong> <em>Disable the entire page banner for this content.</em><br />';
 	echo '<label class="screen-reader-text" for="memberlite_banner_show">';
@@ -59,7 +60,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	echo '<input type="radio" name="memberlite_banner_show" value="1" '. checked( $memberlite_banner_show, 1, false) .'> ';
 	_e('Yes', 'memberlite-elements');
 	echo '&nbsp;&nbsp;<input type="radio" name="memberlite_banner_show" value="0" '. checked( $memberlite_banner_show, 0, false) .'> ';
-	_e('No', 'memberlite-elements');	
+	_e('No', 'memberlite-elements');
 	echo '</p>';
 	echo '<span id="memberlite_top_banner_settings_wrapper">';
 	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Banner Description', 'memberlite-elements') . '</strong> <em>Shown in the masthead banner below the page title.</em>';
@@ -69,7 +70,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	echo '<label class="screen-reader-text" for="memberlite_banner_desc">';
 	_e('Banner Description', 'memberlite-elements');
 	echo '</label>';
-	wp_editor( $memberlite_banner_desc, 'memberltie_banner_desc', array( 'textarea_name' => 'memberlite_banner_desc', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );		
+	wp_editor( $memberlite_banner_desc, 'memberltie_banner_desc', array( 'textarea_name' => 'memberlite_banner_desc', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
 	echo '<input type="hidden" name="memberlite_banner_hide_title_present" value="1" />';
 	echo '<label for="memberlite_banner_hide_title" class="selectit"><input name="memberlite_banner_hide_title" type="checkbox" id="memberlite_banner_hide_title" value="1" '. checked( $memberlite_banner_hide_title, 1, false) .'>' . __('Hide Page Title on Single View', 'memberlite-elements') . '</label>';
 	echo '<input type="hidden" name="memberlite_banner_hide_breadcrumbs_present" value="1" />';
@@ -81,14 +82,14 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	echo '<label class="screen-reader-text" for="memberlite_banner_right">';
 	_e('Banner Right Column', 'memberlite-elements');
 	echo '</label>';
-	wp_editor( $memberlite_banner_right, 'memberltie_banner_right', array( 'textarea_name' => 'memberlite_banner_right', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );		
+	wp_editor( $memberlite_banner_right, 'memberltie_banner_right', array( 'textarea_name' => 'memberlite_banner_right', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
 	echo '</span>';
 	echo '<hr />';
-	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Page Bottom Banner', 'memberlite-elements') . '</strong> <em>Banner shown above footer on pages. (i.e. call to action)</em></p>';	
+	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Page Bottom Banner', 'memberlite-elements') . '</strong> <em>Banner shown above footer on pages. (i.e. call to action)</em></p>';
 	echo '<label class="screen-reader-text" for="memberlite_banner_bottom">';
 	_e('Page Bottom Banner', 'memberlite-elements');
 	echo '</label>';
-	wp_editor( $memberlite_banner_bottom, 'memberltie_banner_bottom', array( 'textarea_name' => 'memberlite_banner_bottom', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );		
+	wp_editor( $memberlite_banner_bottom, 'memberltie_banner_bottom', array( 'textarea_name' => 'memberlite_banner_bottom', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
 	echo '<hr />';
 	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Page Icon', 'memberlite-elements') . '</strong>&nbsp;';
 	echo '<label class="screen-reader-text" for="memberlite_page_icon">';
@@ -96,9 +97,9 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	echo '</label>';
 	echo '<select id="memberlite_page_icon" name="memberlite_page_icon">';
 			echo '<option value="blank" ' . selected( $memberlite_page_icon, "blank" ) . '>- Select -</option>';
-			foreach($fontawesome_icons as $fontawesome_icon)
-			{			
-				echo '<option value="' . $fontawesome_icon . '"' . selected( $memberlite_page_icon, $fontawesome_icon ) . '>' . $fontawesome_icon . '</option>';
+			foreach($font_awesome_icons as $font_awesome_icon)
+			{
+				echo '<option value="' . $font_awesome_icon . '"' . selected( $memberlite_page_icon, $font_awesome_icon ) . '>' . $font_awesome_icon . '</option>';
 			}
 	echo '</select></p>';
 	echo '<input type="hidden" name="memberlite_banner_icon_present" value="1" />';
@@ -120,10 +121,10 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 			echo '<select id="pmproal_landing_page_level" name="pmproal_landing_page_level">';
 			echo '<option value="" ' . selected( $pmproal_landing_page_level, "" ) . '>- Select -</option>';
 			foreach($membership_levels as $level)
-			{			
+			{
 				echo '<option value="' . $level->id . '"' . selected( $pmproal_landing_page_level, $level->id ) . '>' . $level->name . '</option>';
 			}
-			echo '</select></td></tr>';	
+			echo '</select></td></tr>';
 			echo '<tr><th scope="row">' . __('Checkout Button Text', 'memberlite-elements') . '</th>';
 			echo '<td><label class="screen-reader-text" for="memberlite_landing_page_checkout_button">';
 				_e('Checkout Button Text', 'memberlite-elements');
@@ -136,7 +137,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 			echo '<select id="memberlite_landing_page_upsell" name="memberlite_landing_page_upsell">';
 			echo '<option value="" ' . selected( $memberlite_landing_page_upsell, "" ) . '>- Select -</option>';
 			foreach($membership_levels as $level)
-			{			
+			{
 				echo '<option value="' . $level->id . '"' . selected( $memberlite_landing_page_upsell, $level->id ) . '>' . $level->name . '</option>';
 			}
 			echo '</select></td></tr>';
@@ -148,7 +149,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 /* Save custom sidebar selection */
 function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 	global $allowedposttags;
-	
+
 	if(!isset($_POST['memberlite_elements_settings_meta_box_nonce'])) {
 		return;
 	}
@@ -162,14 +163,14 @@ function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 		if(!current_user_can('edit_page', $post_id)) {
 			return;
 		}
-	} 
+	}
 	else
 	{
 		if(!current_user_can('edit_post', $post_id)) {
 			return;
 		}
 	}
-	
+
 	//banner show radio
 	if(isset($_POST['memberlite_banner_show'])) {
 		if(!empty($_POST['memberlite_banner_show']))
@@ -178,94 +179,94 @@ function memberlite_elements_settings_save_meta_box_data( $post_id ) {
 			$memberlite_banner_show = 0;
 		update_post_meta($post_id, '_memberlite_banner_show', $memberlite_banner_show);
 	}
-	
+
 	//banner description
 	if(isset($_POST['memberlite_banner_desc'])) {
 		$memberlite_banner_desc = wp_kses( wp_unslash( $_POST['memberlite_banner_desc'] ), $allowedposttags );
 		update_post_meta($post_id, '_memberlite_banner_desc', $memberlite_banner_desc);
 	}
-		
-	//banner hide title checkbox	
+
+	//banner hide title checkbox
 	if(isset($_POST['memberlite_banner_hide_title_present'])) {
 		if(!empty($_POST['memberlite_banner_hide_title']))
 			$memberlite_banner_hide_title = 1;
 		else
 			$memberlite_banner_hide_title = 0;
-			
+
 		update_post_meta($post_id, '_memberlite_banner_hide_title', $memberlite_banner_hide_title);
 	}
-	
+
 	//banner hide breadcrumbs checkbox
 	if(isset($_POST['memberlite_banner_hide_breadcrumbs_present']))	{
 		if(!empty($_POST['memberlite_banner_hide_breadcrumbs']))
 			$memberlite_banner_hide_breadcrumbs = 1;
 		else
 			$memberlite_banner_hide_breadcrumbs = 0;
-			
+
 		update_post_meta($post_id, '_memberlite_banner_hide_breadcrumbs', $memberlite_banner_hide_breadcrumbs);
 	}
-	
+
 	//banner extra padding checkbox
 	if(isset($_POST['memberlite_banner_extra_padding_present']))	{
 		if(!empty($_POST['memberlite_banner_extra_padding']))
 			$memberlite_banner_extra_padding = 1;
 		else
 			$memberlite_banner_extra_padding = 0;
-			
+
 		update_post_meta($post_id, '_memberlite_banner_extra_padding', $memberlite_banner_extra_padding);
 	}
-	
+
 	//banner right content
 	if(isset($_POST['memberlite_banner_right'])) {
 		$memberlite_banner_right = wp_kses( wp_unslash( $_POST['memberlite_banner_right'] ), $allowedposttags );
-		
+
 		update_post_meta($post_id, '_memberlite_banner_right', $memberlite_banner_right);
 	}
-	
+
 	//banner bottom content
 	if(isset($_POST['memberlite_banner_bottom'])) {
 		$memberlite_banner_bottom = wp_kses( wp_unslash( $_POST['memberlite_banner_bottom'] ), $allowedposttags );
-		
+
 		update_post_meta($post_id, '_memberlite_banner_bottom', $memberlite_banner_bottom);
 	}
-	
+
 	//page icon
 	if(isset($_POST['memberlite_page_icon'])) {
 		$memberlite_page_icon = sanitize_text_field($_POST['memberlite_page_icon']);
-		
+
 		update_post_meta($post_id, '_memberlite_page_icon', $memberlite_page_icon);
 	}
-	
+
 	//page icon in banner right checkbox
 	if(isset($_POST['memberlite_banner_icon_present']))	{
 		if(!empty($_POST['memberlite_banner_icon']))
 			$memberlite_banner_icon = 1;
 		else
 			$memberlite_banner_icon = 0;
-			
+
 		update_post_meta($post_id, '_memberlite_banner_icon', $memberlite_banner_icon);
-	}	
-	
+	}
+
 	//landing page level
 	if(isset($_POST['pmproal_landing_page_level'])) {
 		$pmproal_landing_page_level = intval($_POST['pmproal_landing_page_level']);
-		
+
 		update_post_meta($post_id, '_pmproal_landing_page_level', $pmproal_landing_page_level);
 	}
-	
+
 	//landing page checkout button
 	if(isset($_POST['memberlite_landing_page_checkout_button'])) {
 		$memberlite_landing_page_checkout_button = sanitize_text_field($_POST['memberlite_landing_page_checkout_button']);
-		
+
 		update_post_meta($post_id, '_memberlite_landing_page_checkout_button', $memberlite_landing_page_checkout_button);
 	}
-	
+
 	//landing page upsell content
 	if(isset($_POST['memberlite_landing_page_upsell'])) {
 		$memberlite_landing_page_upsell = intval($_POST['memberlite_landing_page_upsell']);
-		
+
 		update_post_meta($post_id, '_memberlite_landing_page_upsell', $memberlite_landing_page_upsell);
-	}	
+	}
 }
 add_action('save_post', 'memberlite_elements_settings_save_meta_box_data');
 
@@ -287,7 +288,7 @@ function memberlite_elements_featured_image_meta( $content, $post_id ) {
 add_filter( 'admin_post_thumbnail_html', 'memberlite_elements_featured_image_meta', 10, 2 );
 
 /* Save Setting in Featured Images meta box */
-function memberlite_elements_save_featured_image_meta( $post_id, $post, $update ) {  
+function memberlite_elements_save_featured_image_meta( $post_id, $post, $update ) {
 	$value = 0;
 	if ( isset( $_REQUEST['_memberlite_show_image_banner'] ) ) {
 		$value = 1;
@@ -308,7 +309,7 @@ function memberlite_elements_display_banner_bottom( ) {
 		<div id="banner_bottom">
 			<div class="row"><div class="large-12 columns">
 				<?php echo apply_filters( 'the_content', $memberlite_banner_bottom ); ?>
-			</div></div><!-- .row .columns --> 
+			</div></div><!-- .row .columns -->
 		</div><!-- #banner_bottom -->
 	<?php }
 }
@@ -407,8 +408,17 @@ function memberlite_elements_masthead_content( $content ) {
 
 			//Check that we should display a masthead banner icon and it is set
 			if( !empty( $memberlite_banner_icon ) && !empty( $memberlite_page_icon ) ) {
+				$font_awesome_icons_brands = memberlite_shortcodes_get_font_awesome_icons( 'brand' );
+
+				// Check if the icon is a "brand" icon and set the appropriate icon class.
+				if ( in_array( $icon, $font_awesome_icons_brands ) ) {
+					$memberlite_page_icon_class = 'fab';
+				} else {
+					$memberlite_page_icon_class = 'fa';
+				}
+
 				//Show the icon in a 2 column span
-				$content .= '<div class="medium-1 columns"><i class="fa fa-4x fa-' . $memberlite_page_icon . '"></i></div>';
+				$content .= '<div class="medium-1 columns"><i class="' . $memberlite_page_icon_class . ' fa-4x fa-' . $memberlite_page_icon . '"></i></div>';
 
 				//Add the column wrapper for page title and description
 				if( empty( $memberlite_banner_right) ) {
@@ -562,4 +572,3 @@ function memberlite_elements_after_masthead_outer( ) {
 	}
 }
 add_action( 'memberlite_after_masthead_outer', 'memberlite_elements_after_masthead_outer' );
-
