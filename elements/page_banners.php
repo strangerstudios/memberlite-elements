@@ -411,7 +411,7 @@ function memberlite_elements_masthead_content( $content ) {
 				$font_awesome_icons_brands = memberlite_shortcodes_get_font_awesome_icons( 'brand' );
 
 				// Check if the icon is a "brand" icon and set the appropriate icon class.
-				if ( in_array( $icon, $font_awesome_icons_brands ) ) {
+				if ( in_array( $memberlite_page_icon, $font_awesome_icons_brands ) ) {
 					$memberlite_page_icon_class = 'fab';
 				} else {
 					$memberlite_page_icon_class = 'fa';
