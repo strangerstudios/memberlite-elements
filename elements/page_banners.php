@@ -535,8 +535,8 @@ function memberlite_elements_before_masthead_outer( ) {
 
 	if( !empty( $post_id ) && function_exists( 'memberlite_get_banner_image_src' ) ) {
 		$memberlite_show_image_banner = get_post_meta( $post_id, '_memberlite_show_image_banner', true );
-		$memberlite_banner_image_src = memberlite_get_banner_image_src( $post_id, 'full' );
-		$the_post_thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' );
+		$memberlite_banner_image_src = memberlite_get_banner_image_src( $post_id, 'memberlite-masthead' );
+		$the_post_thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'memberlite-masthead' );
 
 		if( !empty( $memberlite_show_image_banner ) && !empty( $memberlite_banner_image_src ) || ( !empty( $memberlite_banner_image_src ) && ( $memberlite_banner_image_src != $the_post_thumbnail_src ) ) ) { ?>
 			<div class="masthead-banner" style="background-image: url('<?php echo esc_attr($memberlite_banner_image_src[0]);?>');">
@@ -562,8 +562,8 @@ function memberlite_elements_after_masthead_outer( ) {
 
 	if( !empty( $post_id ) && function_exists( 'memberlite_get_banner_image_src' ) ) {
 		$memberlite_show_image_banner = get_post_meta( $post_id, '_memberlite_show_image_banner', true );
-		$memberlite_banner_image_src = memberlite_get_banner_image_src( $post_id, 'full' );
-		$the_post_thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' );
+		$memberlite_banner_image_src = memberlite_get_banner_image_src( $post_id, 'memberlite-masthead' );
+		$the_post_thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'memberlite-masthead' );
 
 		if( !empty( $memberlite_show_image_banner ) && !empty( $memberlite_banner_image_src ) || ( !empty( $memberlite_banner_image_src ) && ( $memberlite_banner_image_src != $the_post_thumbnail_src ) ) ) { ?>
 			</div><!--.masthead-banner-->
