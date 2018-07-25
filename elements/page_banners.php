@@ -487,7 +487,7 @@ function memberlite_elements_masthead_content( $content ) {
 
 		if( !empty( $memberlite_banner_extra_padding ) ) {
 			//Cloise the masthead banner padding wrapper
-			$content .= '</div><!--.masthead-padding';
+			$content .= '</div><!--.masthead-padding-->';
 		}
 	}
 
