@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Memberlite Elements
-Plugin URI: http://www.memberlitetheme.com/plugins/memberlite-elements/
+Plugin URI: https://www.memberlitetheme.com/memberlite-elements/
 Description: A set of elements designed enhance the appearance of sites using the Memberlite Theme.
 Version: 1.0
-Author: kimannwall, strangerstudios
-Author URI: http://www.memberlitetheme.com
+Author: Stranger Studios
+Author URI: https://www.memberlitetheme.com
 */
 
 define( 'MEMBERLITE_ELEMENTS_DIR', dirname( __FILE__ ) );
@@ -40,5 +40,5 @@ function memberlite_elements_upgrade_memberlite_notice() {
 	$class = 'notice notice-error';
 	$message = __( 'Memberlite Elements requires Memberlite version 4.0 or higher.', 'memberlite-elements' );
 
-	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) ); 
+	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 }
