@@ -518,6 +518,11 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 		}
 	}
 
+	//special case for bbpress search results page
+	if( empty( $memberlite_custom_sidebar ) && function_exists( 'is_bbpress' ) && is_bbpress() ) {
+		$widget_areas = array( memberlite_elements_get_default_sidebar_by_post_type( 'forum' ) );
+	}
+
 	//if no custom sidebar for this specific post and we're on a blog page, check if the blog page has one to inherit
 	if( empty( $memberlite_custom_sidebar ) && memberlite_is_blog() ) {
 		$queried_object = get_post( get_option( 'page_for_posts' ) );	//note we override the queried object here so it figures out the sidebar position correctly below
@@ -525,7 +530,11 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 	}
 
 	if( !empty( $memberlite_custom_sidebar ) ) {
-		$memberlite_default_sidebar_position = get_post_meta( $queried_object->ID, '_memberlite_default_sidebar', true );
+		if( !empty( $queried_object->ID ) ) {
+			$memberlite_default_sidebar_position = get_post_meta( $queried_object->ID, '_memberlite_default_sidebar', true );
+		} else {
+			$memberlite_default_sidebar_position = false;
+		}
 
 		if( $memberlite_default_sidebar_position == 'default_sidebar_hide' ) {
 			$widget_areas = array( $memberlite_custom_sidebar );
