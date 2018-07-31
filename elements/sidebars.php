@@ -55,8 +55,7 @@ function memberlite_elements_custom_sidebars() {
 				$memberlite_custom_sidebars = array_values(array_filter($memberlite_custom_sidebars));
 
 				//save option
-				delete_option('memberlite_custom_sidebars');
-				add_option('memberlite_custom_sidebars', $memberlite_custom_sidebars, NULL, 'no');
+				update_option('memberlite_custom_sidebars', $memberlite_custom_sidebars, 'no');
 
 				$msg = __("Sidebar added.", "memberlite");
 				$msgt = "updated fade";
@@ -82,8 +81,7 @@ function memberlite_elements_custom_sidebars() {
 				$memberlite_custom_sidebars = array_values(array_filter($memberlite_custom_sidebars));
 
 				//save option
-				delete_option('memberlite_custom_sidebars');
-				add_option('memberlite_custom_sidebars', $memberlite_custom_sidebars, NULL, 'no');
+				update_option('memberlite_custom_sidebars', $memberlite_custom_sidebars, 'no');
 
 				$msg = "Custom sidebar deleted.";
 				$msgt = "updated fade";
@@ -111,8 +109,7 @@ function memberlite_elements_custom_sidebars() {
 			}
 
 			//update option
-			delete_option('memberlite_cpt_sidebars');
-			add_option('memberlite_cpt_sidebars', $memberlite_cpt_sidebars, NULL, 'no');
+			update_option('memberlite_cpt_sidebars', $memberlite_cpt_sidebars, 'no');
 		}
 	}
 	if(!empty($msg))
