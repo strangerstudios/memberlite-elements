@@ -30,7 +30,7 @@ function memberlite_elements_load() {
 		require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/sidebars.php" );
 	}
 }
-add_action( 'wp_loaded', 'memberlite_elements_load' );
+add_action( 'after_setup_theme', 'memberlite_elements_load', 1 );
 
 /**
  * Admin notice if we need to upgrade Memberlite
