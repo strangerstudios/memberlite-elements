@@ -408,7 +408,7 @@ function memberlite_elements_masthead_content( $content ) {
 
 			//Check that we should display a masthead banner icon and it is set
 			if( !empty( $memberlite_banner_icon ) && !empty( $memberlite_page_icon ) ) {
-				$font_awesome_icons_brands = memberlite_shortcodes_get_font_awesome_icons( 'brand' );
+				$font_awesome_icons_brands = memberlite_elements_get_font_awesome_icons( 'brand' );
 
 				// Check if the icon is a "brand" icon and set the appropriate icon class.
 				if ( in_array( $memberlite_page_icon, $font_awesome_icons_brands ) ) {

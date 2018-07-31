@@ -2,7 +2,7 @@
 Contributors: kimannwall, strangerstudios
 Tags: theme, layout, memberlite, membership, pmpro, paid memberships pro
 Requires at least: 4.0
-Tested up to: 4.8.3
+Tested up to: 4.9.7
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,15 +13,15 @@ A set of elements designed enhance the appearance of sites using the Memberlite 
 = Elements to enhance the appearance of your membership site content =
 For sites running the [Memberlite WordPress Membership Theme](https://memberlitetheme.com/) or a Memberlite Child Theme, this plugin offers several elements to add unique features to your site.
 
-[Memberlite](https://memberlitetheme.com) is the ideal theme for your membership site - packed with integration for top membership site plugins including [WordPress Membership Plugin Paid Memberships Pro](https://wordpress.org/paid-memberships-pro/). It's fully customizable with your logo, colors, fonts, custom sidebars and more global layout settings.
+[Memberlite](https://memberlitetheme.com) is the ideal theme for your membership site - packed with integration for top membership site plugins including [WordPress Membership Plugin Paid Memberships Pro](https://wordpress.org/plugins/paid-memberships-pro/). It's fully customizable with your logo, colors, fonts, custom sidebars and more global layout settings.
 
 = Page Banners Elements =
-Enhance your site with these flexible page banners, including additional description content, toggles to display the page title, breadcrumbs, or hide the banner entirely, for the top masthead area or below your page content. [more info](http://memberlitetheme.com/memberlite-elements/page-banners/)
+Enhance your site with these flexible page banners, including additional description content, toggles to display the page title, breadcrumbs, or hide the banner entirely, for the top masthead area or below your page content. [more info](https://memberlitetheme.com/documentation/page-layout-options/)
 
 = Sidebars Elements =
-Customize the default sidebars by Page, Post, Custom Post Type and more on both a global and per-post level. Optionally create new sidebar locations (widget areas) to override defaults. [more info](http://memberlitetheme.com/memberlite-elements/sidebars/)
+Customize the default sidebars by Page, Post, Custom Post Type and more on both a global and per-post level. Optionally create new sidebar locations (widget areas) to override defaults. [more info](https://memberlitetheme.com/documentation/sidebars-and-widgets/)
 
-Full documentation on all included elements can be found at [the Memberlite Theme documentation site](http://memberlitetheme.com/memberlite-elements/)
+Full documentation on all included elements can be found at [the Memberlite Theme documentation site](https://memberlitetheme.com/memberlite-elements/)
 
 == Installation ==
 
@@ -36,15 +36,19 @@ In your WordPress admin, go to Plugins > Add New to install Memberlite Shortcode
 = Start Using the Elements! =
 Browse the Memberlite Elements documentation to see all features, their attributes, and to view sample demos.
 
-[View Documentation](http://memberlitetheme.com/memberlite-elements/)
+[View Documentation](https://memberlitetheme.com/memberlite-elements/)
+
+== Screenshots ==
+1. Page editor with the Memberlite Elements metabox for banner settings.
+2. Admin page under Appearance > Custom Sidebars.
 
 == Frequently Asked Questions ==
 
 = Where can I find Memberlite Elements documentation and user guides? =
-For help setting up and configuring the Memberlite Elements plugin, please refer to [documentation](http://memberlitetheme.com/memberlite-elements/).
+For help setting up and configuring the Memberlite Elements plugin, please refer to [documentation](https://memberlitetheme.com/memberlite-elements/).
 
 = Where can I get the Memberlite Theme? =
-Visit http://memberlitetheme.com to get your copy of the Memberlite Theme.
+Visit https://memberlitetheme.com to get your copy of the Memberlite Theme.
 
 = I'm not using the Memberlite Theme - can I still use Memberlite Elements plugin? =
 As of this release, Memberlite Elements is only compatible with the Memberlite Theme or a Memberlite Child Theme.
