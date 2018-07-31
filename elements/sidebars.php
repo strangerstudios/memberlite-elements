@@ -486,7 +486,8 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 		$default_sidebar = memberlite_elements_get_default_sidebar_by_post_type( $post_type );
 
 		//check ancestors if no default found
-		if( $queried_object->post_parent != $queried_object->ID && ( empty( $default_sidebar ) || $default_sidebar == 'memberlite_sidebar_default' ) ) {
+		if( !empty( $queried_object->post_parent) && $queried_object->post_parent != $queried_object->ID
+			&& ( empty( $default_sidebar ) || $default_sidebar == 'memberlite_sidebar_default' ) ) {
 			//check parent
 			$parent_post = get_post( $queried_object->post_parent );
 			if( $parent_post->post_type != $queried_object->post_type ) {
@@ -515,7 +516,9 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 		}
 
 		//figure out custom sidebar for this specific post
-		$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );
+		if( !empty( $queried_object->ID ) ) {
+			$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );
+		}
 	}
 
 	//if no custom sidebar for this specific post and we're on a blog page, check if the blog page has one to inherit
