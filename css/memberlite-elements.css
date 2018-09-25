@@ -1,12 +1,16 @@
 /**
  * Memberlite Elements styles
  */
-
 body.memberlite-banner-hidden #site-navigation {
 	border-bottom: 1px solid #DADADA;
-	margin-bottom: 4rem;
 }
-
+body.memberlite-banner-hidden .entry-content > :first-child,
+body.memberlite-banner-hidden #secondary {
+	margin-top: 4rem;
+}
+body.memberlite-banner-hidden .entry-content > .banner:first-child {
+	margin-top: 0;
+}
 .masthead .memberlite_elements-masthead {
 	padding-top: 2rem;
 }
