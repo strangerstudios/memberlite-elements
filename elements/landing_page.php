@@ -26,7 +26,7 @@ function memberlite_elements_after_content_page( ) {
 		//Show the landing page level upsell pricing block
 		if( !empty( $memberlite_landing_page_upsell ) && ( is_numeric( $memberlite_landing_page_upsell ) ) && shortcode_exists( 'pmpro_advanced_levels' ) ) {
 			echo '<hr />';
-			echo do_shortcode('[pmpro_advanced_levels levels="' . intval($memberlite_landing_page_upsell) . '"]');
+			echo do_shortcode('[pmpro_advanced_levels levels="' . intval($memberlite_landing_page_upsell) . '" back_link="false"]');
 		}
 	}
 }
