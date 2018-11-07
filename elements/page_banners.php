@@ -15,7 +15,7 @@ function memberlite_elements_admin_enqueue_scripts_for_page_banners() {
 }
 add_action( 'admin_enqueue_scripts', 'memberlite_elements_admin_enqueue_scripts_for_page_banners' );
 
-/* Adds a Memberlite settings meta box to the side column on the Page edit screens. */
+/* Adds a Memberlite settings meta box to the side column on the Page edit screens.  */
 function memberlite_elements_settings_add_meta_box() {
 	$screens = array( 'page' );
 	foreach ( $screens as $screen ) {
