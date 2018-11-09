@@ -25,8 +25,7 @@ function memberlite_elements_settings_add_meta_box() {
 			'memberlite_elements_settings_meta_box_callback',
 			$screen,
 			'normal',
-			'high',
-			array( '__block_editor_compatible_meta_box' => false )
+			'high'
 		);
 	}
 }
