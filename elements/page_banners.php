@@ -337,9 +337,13 @@ add_filter( 'body_class', 'memberlite_elements_body_classes' );
 	Filter to hide the masthead banner based on post meta setting
 */
 function memberlite_elements_banner_show( ) {
-	global $post;
-	if( !empty( $post) ) {
-		$memberlite_banner_show = get_post_meta( $post->ID, '_memberlite_banner_show', true );
+	$queried_object = get_queried_object();
+	if( ! empty( $queried_object->ID ) ) {
+		$post_id = $queried_object->ID;
+	}
+	
+	if( ! empty( $post_id ) ) {
+		$memberlite_banner_show = get_post_meta( $post_id, '_memberlite_banner_show', true );
 		if( $memberlite_banner_show === '0' ) {
 			return false;
 		} else {
