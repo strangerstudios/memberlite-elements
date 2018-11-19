@@ -359,9 +359,13 @@ add_filter( 'memberlite_banner_show', 'memberlite_elements_banner_show' );
 	Filter to hide the masthead banner breadcrumbs based on post meta setting
 */
 function memberlite_elements_show_breadcrumbs( ) {
-	global $post;
-	if( !empty( $post) ) {
-		$memberlite_banner_hide_breadcrumbs = get_post_meta( $post->ID, '_memberlite_banner_hide_breadcrumbs', true );
+	$queried_object = get_queried_object();
+	if( ! empty( $queried_object->ID ) ) {
+		$post_id = $queried_object->ID;
+	}
+	
+	if( ! empty( $post_id ) ) {
+		$memberlite_banner_hide_breadcrumbs = get_post_meta( $post_id, '_memberlite_banner_hide_breadcrumbs', true );
 		if( $memberlite_banner_hide_breadcrumbs === '1' ) {
 			return false;
 		} else {
@@ -377,31 +381,35 @@ add_filter( 'memberlite_show_breadcrumbs', 'memberlite_elements_show_breadcrumbs
 	Filter to show additional content in the masthead banner
 */
 function memberlite_elements_masthead_content( $content ) {
-	global $post;
-	if( !empty( $post) ) {
+	$queried_object = get_queried_object();
+	if( ! empty( $queried_object->ID ) ) {
+		$post_id = $queried_object->ID;
+	}
+	
+	if( ! empty( $post_id ) ) {
 		//add a space to the front, to make sure the default masthead isn't shown
 		$content .= ' ';
 
 		//Get setting for masthead banner extra padding
-		$memberlite_banner_extra_padding = get_post_meta( $post->ID, '_memberlite_banner_extra_padding', true );
+		$memberlite_banner_extra_padding = get_post_meta( $post_id, '_memberlite_banner_extra_padding', true );
 		if( !empty( $memberlite_banner_extra_padding ) ) {
 			//Add the masthead banner padding wrapper
 			$content .= '<div class="masthead-padding">';
 		}
 
 		//Get setting for masthead banner right column content
-		$memberlite_banner_right = get_post_meta( $post->ID, '_memberlite_banner_right', true );
+		$memberlite_banner_right = get_post_meta( $post_id, '_memberlite_banner_right', true );
 
 		//Get setting to show or hide masthead banner icon
-		$memberlite_banner_icon = get_post_meta( $post->ID, '_memberlite_banner_icon', true );
+		$memberlite_banner_icon = get_post_meta( $post_id, '_memberlite_banner_icon', true );
 
 		//Get setting for masthead banner icon content
-		$memberlite_page_icon = get_post_meta( $post->ID, '_memberlite_page_icon', true );
+		$memberlite_page_icon = get_post_meta( $post_id, '_memberlite_page_icon', true );
 
 		//Get settings for landing page
-		$pmproal_landing_page_level = get_post_meta($post->ID,'_pmproal_landing_page_level',true);
-		$memberlite_landing_page_checkout_button = get_post_meta($post->ID,'_memberlite_landing_page_checkout_button',true);
-		$memberlite_landing_page_upsell = get_post_meta($post->ID,'_memberlite_landing_page_upsell',true);
+		$pmproal_landing_page_level = get_post_meta($post_id,'_pmproal_landing_page_level',true);
+		$memberlite_landing_page_checkout_button = get_post_meta($post_id,'_memberlite_landing_page_checkout_button',true);
+		$memberlite_landing_page_upsell = get_post_meta($post_id,'_memberlite_landing_page_upsell',true);
 
 		if( !empty( $memberlite_banner_right ) || ( !empty( $memberlite_banner_icon )  && !empty( $memberlite_page_icon ) ) ) {
 
@@ -436,18 +444,18 @@ function memberlite_elements_masthead_content( $content ) {
 		}
 
 		//Show the landing page featured image
-		if( is_page_template( 'templates/landing.php' ) && has_post_thumbnail( $post->ID ) ) {
+		if( is_page_template( 'templates/landing.php' ) && has_post_thumbnail( $post_id ) ) {
 			$content .= get_the_post_thumbnail( 'medium', array( 'class' => 'alignleft' ) );
 		}
 
 		//Get setting to show or hide page title in masthead banner
-		$memberlite_banner_hide_title = get_post_meta( $post->ID, '_memberlite_banner_hide_title', true );
+		$memberlite_banner_hide_title = get_post_meta( $post_id, '_memberlite_banner_hide_title', true );
 		if( empty( $memberlite_banner_hide_title ) ) {
 			$content .= memberlite_page_title( false );	//false to not echo
 		}
 
 		//Get content for masthead banner description
-		$memberlite_banner_desc = get_post_meta( $post->ID, '_memberlite_banner_desc', true );
+		$memberlite_banner_desc = get_post_meta( $post_id, '_memberlite_banner_desc', true );
 		if( !empty( $memberlite_banner_desc ) ) {
 			//Show the masthead banner description
 			$content .= wpautop( do_shortcode( $memberlite_banner_desc ) );
