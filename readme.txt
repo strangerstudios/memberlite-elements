@@ -2,8 +2,8 @@
 Contributors: kimannwall, strangerstudios
 Tags: theme, layout, memberlite, membership, pmpro, paid memberships pro
 Requires at least: 4.0
-Tested up to: 4.9.7
-Stable tag: 1.0
+Tested up to: 5.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,10 @@ Visit https://memberlitetheme.com to get your copy of the Memberlite Theme.
 As of this release, Memberlite Elements is only compatible with the Memberlite Theme or a Memberlite Child Theme.
 
 == Changelog ==
+
+= 1.0.1 =
+* BUG FIX: Fixes issue where the banner editor fields were sometimes not saving when using Gutenberg.
+* ENHANCEMENT: Some minor design fixes.
 
 = 1.0 =
 Initial Release

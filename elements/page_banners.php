@@ -15,7 +15,7 @@ function memberlite_elements_admin_enqueue_scripts_for_page_banners() {
 }
 add_action( 'admin_enqueue_scripts', 'memberlite_elements_admin_enqueue_scripts_for_page_banners' );
 
-/* Adds a Memberlite settings meta box to the side column on the Page edit screens. */
+/* Adds a Memberlite settings meta box to the side column on the Page edit screens.  */
 function memberlite_elements_settings_add_meta_box() {
 	$screens = array( 'page' );
 	foreach ( $screens as $screen ) {
@@ -70,7 +70,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	echo '<label class="screen-reader-text" for="memberlite_banner_desc">';
 	_e('Banner Description', 'memberlite-elements');
 	echo '</label>';
-	wp_editor( $memberlite_banner_desc, 'memberltie_banner_desc', array( 'textarea_name' => 'memberlite_banner_desc', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
+	wp_editor( $memberlite_banner_desc, 'memberlite_banner_desc', array( 'textarea_name' => 'memberlite_banner_desc', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
 	echo '<input type="hidden" name="memberlite_banner_hide_title_present" value="1" />';
 	echo '<label for="memberlite_banner_hide_title" class="selectit"><input name="memberlite_banner_hide_title" type="checkbox" id="memberlite_banner_hide_title" value="1" '. checked( $memberlite_banner_hide_title, 1, false) .'>' . __('Hide Page Title on Single View', 'memberlite-elements') . '</label>';
 	echo '<input type="hidden" name="memberlite_banner_hide_breadcrumbs_present" value="1" />';
@@ -82,14 +82,14 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	echo '<label class="screen-reader-text" for="memberlite_banner_right">';
 	_e('Banner Right Column', 'memberlite-elements');
 	echo '</label>';
-	wp_editor( $memberlite_banner_right, 'memberltie_banner_right', array( 'textarea_name' => 'memberlite_banner_right', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
+	wp_editor( $memberlite_banner_right, 'memberlite_banner_right', array( 'textarea_name' => 'memberlite_banner_right', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
 	echo '</span>';
 	echo '<hr />';
 	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Page Bottom Banner', 'memberlite-elements') . '</strong> <em>Banner shown above footer on pages. (i.e. call to action)</em></p>';
 	echo '<label class="screen-reader-text" for="memberlite_banner_bottom">';
 	_e('Page Bottom Banner', 'memberlite-elements');
 	echo '</label>';
-	wp_editor( $memberlite_banner_bottom, 'memberltie_banner_bottom', array( 'textarea_name' => 'memberlite_banner_bottom', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
+	wp_editor( $memberlite_banner_bottom, 'memberlite_banner_bottom', array( 'textarea_name' => 'memberlite_banner_bottom', 'editor_class' => 'large-text', 'textarea_rows' => 3 ) );
 	echo '<hr />';
 	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Page Icon', 'memberlite-elements') . '</strong>&nbsp;';
 	echo '<label class="screen-reader-text" for="memberlite_page_icon">';

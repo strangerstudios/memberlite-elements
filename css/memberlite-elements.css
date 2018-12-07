@@ -1,12 +1,16 @@
 /**
  * Memberlite Elements styles
  */
-
 body.memberlite-banner-hidden #site-navigation {
 	border-bottom: 1px solid #DADADA;
-	margin-bottom: 4rem;
 }
-
+body.memberlite-banner-hidden .entry-content > :first-child,
+body.memberlite-banner-hidden #secondary {
+	margin-top: 4rem;
+}
+body.memberlite-banner-hidden .entry-content > .banner:first-child {
+	margin-top: 0;
+}
 .masthead .memberlite_elements-masthead {
 	padding-top: 2rem;
 }
@@ -16,12 +20,17 @@ body.memberlite-banner-hidden #site-navigation {
 .page-template-landing .masthead .alignleft.wp-post-image {
 	margin-top: 2rem;
 }
+.page-template-landing .masthead p {
+	margin-top: 1.45rem;
+}
 .page-template-landing .masthead .pmpro_level-price {
-	font-size: 24px;
-	font-size: 2.4rem;
+	font-size: 3.2rem;
+	line-height: 4.4rem;
 }
 .page-template-landing .masthead .pmpro_level-subprice {
 	display: block;
-	font-size: 14px;
-	font-size: 1.4rem;
+	font-size: 1.8rem;
+}
+.page-template-landing #secondary .pmpro_form.memberlite_signup {
+	margin-bottom: 2.9rem;
 }
