@@ -520,7 +520,7 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 
 	//special case for bbpress search results page
 	if( empty( $memberlite_custom_sidebar ) && function_exists( 'is_bbpress' ) && is_bbpress() ) {
-		$widget_areas = array( memberlite_elements_get_default_sidebar_by_post_type( 'forum' ) );
+		$widget_areas = array( memberlite_elements_get_default_sidebar_by_post_type(get_post_type()));
 	}
 
 	//if no custom sidebar for this specific post and we're on a blog page, check if the blog page has one to inherit
