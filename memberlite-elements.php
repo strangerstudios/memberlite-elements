@@ -3,7 +3,7 @@
 Plugin Name: Memberlite Elements
 Plugin URI: https://www.memberlitetheme.com/memberlite-elements/
 Description: A set of elements designed enhance the appearance of sites using the Memberlite Theme.
-Version: 1.0.2
+Version: 1.0.3
 Author: Stranger Studios
 Author URI: https://www.memberlitetheme.com
 */
