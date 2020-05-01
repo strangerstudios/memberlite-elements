@@ -10,7 +10,7 @@ Author URI: https://www.memberlitetheme.com
 
 define( 'MEMBERLITE_ELEMENTS_DIR', dirname( __FILE__ ) );
 define( 'MEMBERLITE_ELEMENTS_URL', plugins_url( '', __FILE__ ) );
-define( 'MEMBERLITE_ELEMENTS_VERSION', '1.0.2' );
+define( 'MEMBERLITE_ELEMENTS_VERSION', '1.0.3' );
 
 /**
  * Include plugin files.
