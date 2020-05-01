@@ -55,7 +55,7 @@ As of this release, Memberlite Elements is only compatible with the Memberlite T
 
 == Changelog ==
 
-= 1.0.3 - 2020-04-14 =
+= 1.0.3 - 2020-04-30 =
 * ENHANCEMENT: Updating to Font Awesome version 5.13.0
 
 = 1.0.2 - 2019-05-09 =
