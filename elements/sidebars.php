@@ -372,7 +372,24 @@ function memberlite_elements_sidebar_meta_box_callback($post) {
 	$memberlite_default_sidebar = get_post_meta($post->ID, '_memberlite_default_sidebar', true);
 	if ( (get_post_type($post) == 'page' ) || (isset($_POST['post_type']) && 'page' == $_POST['post_type'])) {
 		echo '<input type="hidden" name="memberlite_hide_children_present" value="1" />';
-		echo '<label for="memberlite_hide_children" class="selectit"><input name="memberlite_hide_children" type="checkbox" id="memberlite_hide_children" value="1" '. checked( $memberlite_hide_children, 1, false) .'>' . __('Hide Page Children Menu in Sidebar', 'memberlite-elements') . '</label>';
+
+		if ( defined( 'PMPRO_VERSION' ) ) {
+			global $pmpro_pages;
+			// Check if this is the Membership Account page or a child of it.
+			if ( ! empty( $post->post_parent ) ) {
+				$post_ancestors = get_post_ancestors( $post );
+				$toplevelpost   = end( $post_ancestors );
+			} else {
+				$toplevelpost = $post->ID;
+			}
+			$disable_hide_children_setting = ! empty( $pmpro_pages['account'] ) && $pmpro_pages['account'] == $toplevelpost;
+		}
+		if ( ! empty( $disable_hide_children_setting ) ) {
+			echo '<label for="memberlite_hide_children" class="selectit"><input name="memberlite_hide_children" type="checkbox" id="memberlite_hide_children" value="1" checked="checked" disabled="disabled">' . __('Hide Page Children Menu in Sidebar', 'memberlite-elements') . '</label>';
+			echo '<p class="description"><br />' . __('The Membership Account page and its children do not display this menu.', 'memberlite-elements') . '</p>';
+		} else {
+			echo '<label for="memberlite_hide_children" class="selectit"><input name="memberlite_hide_children" type="checkbox" id="memberlite_hide_children" value="1" '. checked( $memberlite_hide_children, 1, false) .'>' . __('Hide Page Children Menu in Sidebar', 'memberlite-elements') . '</label>';
+		}
 		echo '<hr />';
 	}
 	if( $memberlite_cpt_sidebar_id != 'memberlite_sidebar_blank')
