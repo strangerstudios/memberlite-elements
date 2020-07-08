@@ -33,6 +33,46 @@ function memberlite_elements_load() {
 add_action( 'after_setup_theme', 'memberlite_elements_load', 1 );
 
 /**
+ * Load all Shortcodes
+ * Note we load on init with priority 20 here so we load after shortcodes that might still be around from Memberlite 2.0 and prior.
+ */
+function memberlite_elements_init_shortcodes() {
+
+	// [memberlite_accordion] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/accordion.php' );
+
+	// [memberlite_banner] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/banners.php' );
+
+	// [memberlite_btn] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/buttons.php' );
+
+	// [col] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/columns.php' );
+
+	// [fa] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/font-awesome.php' );
+
+	// [memberlite_msg] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/messages.php' );
+
+	// [memberlite_recent_posts] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/recent_posts.php' );
+
+	// [memberlite_signup] shortcode.
+	if ( defined( 'PMPRO_VERSION' ) ) {
+		require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/signup.php' );
+	}
+
+	// [memberlite_subpagelist] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/subpagelist.php' );
+
+	// [memberlite_tabs] shortcode.
+	require_once( MEMBERLITE_ELEMENTS_DIR . '/shortcodes/tabs.php' );
+}
+add_action( 'init', 'memberlite_elements_init_shortcodes', 20 );
+
+/**
  * Admin notice if we need to upgrade Memberlite
  * Hook is added above if MEMBERLITE_VERSION < 4.0
  */

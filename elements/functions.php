@@ -11,9 +11,10 @@ function memberlite_elements_init_styles() {
 	wp_enqueue_script( 'jquery' );
 
 	wp_enqueue_style( 'font-awesome', MEMBERLITE_ELEMENTS_URL . '/font-awesome/css/all.min.css', array(), '5.13.0' );
-	wp_enqueue_style( "memberlite_elements_frontend", MEMBERLITE_ELEMENTS_URL . "/css/memberlite-elements.css", array(), MEMBERLITE_ELEMENTS_VERSION );
+	wp_enqueue_script( 'memberlite_elements_js', MEMBERLITE_ELEMENTS_URL . '/js/memberlite-elements.js', array( 'jquery' ), MEMBERLITE_ELEMENTS_VERSION, true );
+	wp_enqueue_style( 'memberlite_elements_frontend', MEMBERLITE_ELEMENTS_URL . '/css/memberlite-elements.css', array(), MEMBERLITE_ELEMENTS_VERSION );
 }
-add_action( "wp_enqueue_scripts", "memberlite_elements_init_styles" );
+add_action( 'wp_enqueue_scripts', 'memberlite_elements_init_styles' );
 
 /**
  * Get the available icons by type.
@@ -82,3 +83,21 @@ function memberlite_elements_mce_buttons( $buttons, $id ){
     return $buttons;
 }
 add_filter( 'mce_buttons', 'memberlite_elements_mce_buttons', 1, 2 );
+
+/**
+ * Sometimes if two shortcodes bump up against one another, WP will autop it and we don't want that.
+ *
+ * @param  string $content The return content of the memberlite banner shortcode output.
+ */
+function memberlite_elements_the_content_unautop( $content ) {
+	$shortcodes = array(
+		'memberlite_banner',
+	);
+	foreach ( $shortcodes as $shortcode ) {
+		$content = preg_replace( '/<br \/>\s*\[' . $shortcode . '/ms', '[' . $shortcode, $content );
+		$content = preg_replace( '/<p\>\[' . $shortcode . '/ms', '[' . $shortcode, $content );
+		$content = preg_replace( '/\[\/' . $shortcode . '\]<\/p>/ms', '[/' . $shortcode . ']', $content );
+	}
+	return $content;
+}
+add_action( 'the_content', 'memberlite_elements_the_content_unautop' );
