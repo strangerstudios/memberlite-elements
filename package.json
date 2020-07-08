@@ -1,0 +1,22 @@
+{
+  "name": "memberlite-elements",
+  "version": "1.0.3",
+  "description": "A set of elements designed enhance the appearance of sites using the Memberlite Theme.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strangerstudios/memberlite-elements.git"
+  },
+  "author": "Stranger Studios",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/strangerstudios/memberlite-elements/issues"
+  },
+  "homepage": "https://github.com/strangerstudios/memberlite-elements#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^12.1.0"
+  }
+}
