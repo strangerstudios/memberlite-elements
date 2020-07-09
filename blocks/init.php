@@ -51,3 +51,12 @@ function memberlite_register_block_scripts_front_end() {
 
 }
 add_action( 'wp_enqueue_scripts', 'memberlite_register_block_scripts_front_end' );
+
+/**
+ * Include blocks in PHP.
+ */
+function memberlite_include_blocks() {
+	// Include the banner block and initialize via PHP.
+	require 'banner/block.php';
+}
+add_action( 'plugins_loaded', 'memberlite_include_blocks', 11 );
