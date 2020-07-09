@@ -82,3 +82,19 @@ function memberlite_elements_upgrade_memberlite_notice() {
 
 	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 }
+
+/**
+ * Load the plugin text domain.
+ */
+function memberlite_add_plugin_text_domain() {
+	load_plugin_textdomain( 'memberlite-elements', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'memberlite_add_plugin_text_domain' );
+
+/**
+ * Load the block initialization after the plugins have finished loading.
+ */
+function memberlite_include_block_initialization() {
+	require_once 'blocks/init.php';
+}
+add_action( 'plugins_loaded', 'memberlite_include_block_initialization' );
