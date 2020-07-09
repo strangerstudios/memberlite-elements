@@ -5,7 +5,7 @@ import block from "./block";
 
 registerBlockType("memberlite/banner", {
 	title: __("Banner", "memberlite-elements"),
-	icon: "dashicons-flag",
+	icon: "flag",
 	category: "memberlite",
 	description: __("Display a Memberlite banner.", "memberlite-elements"),
 	keywords: [
