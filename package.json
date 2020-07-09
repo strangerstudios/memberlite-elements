@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/strangerstudios/memberlite-elements#readme",
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@wordpress/scripts": "^12.1.0"
   }
 }
