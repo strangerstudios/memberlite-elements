@@ -32,7 +32,7 @@ add_filter( 'block_categories', 'memberlite_add_block_category', 10, 2 );
 function memberlite_register_block_scripts_admin() {
 	wp_register_script(
 		'memberlite_elements_blocks',
-		MEMBERLITE_ELEMENTS_URL . '/js/blocks.build.js',
+		MEMBERLITE_ELEMENTS_URL . '/js/blocks/blocks.build.js',
 		array(
 			'wp-blocks',
 			'wp-element',
@@ -42,7 +42,7 @@ function memberlite_register_block_scripts_admin() {
 	);
 	wp_set_script_translations( 'memberlite_elements_blocks', 'memberlite-elements' );
 }
-add_action( 'wp_enqueue_scripts', 'memberlite_register_block_scripts_admin' );
+add_action( 'enqueue_block_editor_assets', 'memberlite_register_block_scripts_admin' );
 
 /**
  * Register front-end block scripts and styles.
@@ -50,7 +50,7 @@ add_action( 'wp_enqueue_scripts', 'memberlite_register_block_scripts_admin' );
 function memberlite_register_block_scripts_front_end() {
 
 }
-add_action( 'wp_enqueue_scripts', 'memberlite_register_block_scripts_front_end' );
+add_action( 'enqueue_block_assets', 'memberlite_register_block_scripts_front_end' );
 
 /**
  * Include blocks in PHP.
