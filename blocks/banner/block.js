@@ -36,7 +36,7 @@ class MemberliteElementsBanner extends Component {
 					title={__("Background Color", "memberlite-elements")}
 				>
 						<PanelColorSettings
-							title={__("Background Color", "post-type-archive-mapping")}
+							title={__("Background Color", "memberlite-elements")}
 							initialOpen={true}
 							colorSettings={[
 								{
