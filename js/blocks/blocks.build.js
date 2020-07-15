@@ -194,18 +194,45 @@ var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
       var _this$props = _this.props,
           attributes = _this$props.attributes,
           setAttributes = _this$props.setAttributes;
-      var backgroundColor = attributes.backgroundColor;
+      var background = attributes.background,
+          backgroundCustom = attributes.backgroundCustom; // Background Parameters
+
+      var backgroundOptions = [{
+        value: "primary",
+        label: __("Primary", "memberlite-elements")
+      }, {
+        value: "secondary",
+        label: __("Secondary", "memberlite-elements")
+      }, {
+        value: "action",
+        label: __("Action", "memberlite-elements")
+      }, {
+        value: "body",
+        label: __("Body", "memberlite-elements")
+      }, {
+        value: "custom",
+        label: __("Custom", "memberlite-elements")
+      }];
       var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(PanelBody, {
         initialOpen: true,
-        title: __("Background Color", "memberlite-elements")
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(PanelColorSettings, {
-        title: __("Background Color", "memberlite-elements"),
+        title: __("Background Settings", "memberlite-elements")
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(SelectControl, {
+        label: __("Choose a Background", "post-type-archive-mapping"),
+        options: backgroundOptions,
+        value: background,
+        onChange: function onChange(value) {
+          _this.props.setAttributes({
+            background: value
+          });
+        }
+      }), 'custom' === background && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(PanelColorSettings, {
+        title: __("Choose a Color", "memberlite-elements"),
         initialOpen: true,
         colorSettings: [{
-          value: backgroundColor,
+          value: backgroundCustom,
           onChange: function onChange(value) {
             setAttributes({
-              backgroundColor: value
+              backgroundCustom: value
             });
           },
           label: __("Background Color", "memberlite-elements")

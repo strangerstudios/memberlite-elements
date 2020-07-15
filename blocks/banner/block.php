@@ -18,11 +18,15 @@ function memberlite_register_banner_block() {
 		'memberlite/banner',
 		array(
 			'attributes'      => array(
-				'backgroundColor' => array(
+				'background'       => array(
+					'type'    => 'string',
+					'default' => 'primary',
+				),
+				'backgroundCustom' => array(
 					'type'    => 'string',
 					'default' => 'inherit',
 				),
-				'preview'         => array( /* Leave this in if you plan to have block previews */
+				'preview'          => array(
 					'type'    => 'boolean',
 					'default' => false,
 				),
