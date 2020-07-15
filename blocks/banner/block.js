@@ -4,19 +4,13 @@ const { __, _n } = wp.i18n;
 
 const {
 	PanelBody,
-	Placeholder,
-	RangeControl,
 	SelectControl,
-	TextControl,
-	ToggleControl,
-	Button,
 } = wp.components;
 
 const {
 	InnerBlocks,
 	InspectorControls,
 	PanelColorSettings,
-	RichText,
 	AlignmentToolbar,
 	BlockControls,
 } = wp.blockEditor;
@@ -90,11 +84,6 @@ class MemberliteElementsBanner extends Component {
 				</BlockControls>
 				{inspectorControls}
 						<div className="memberlite-block-admin-banner">
-							<RichText
-								placeholder={__('Enter a title here...', 'memberlite-elements')}
-								value={ title }
-								onChange={ ( content ) => setAttributes( { title: content } ) }
-							/>
 							<InnerBlocks
 								renderAppender={ () => (
 									<InnerBlocks.ButtonBlockAppender />
