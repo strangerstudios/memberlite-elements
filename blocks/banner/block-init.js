@@ -1,7 +1,13 @@
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+const {
+	InnerBlocks
+} = wp.blockEditor;
+
 // Import Block logic
 import block from "./block";
+
+const validAlignments = [ 'wide' ];
 
 registerBlockType("memberlite/banner", {
 	title: __("Banner", "memberlite-elements"),
@@ -13,10 +19,11 @@ registerBlockType("memberlite/banner", {
 		__("memberlite", "memberlite-elements"),
 		__("banner", "memberlite-elements"),
 	],
-	supports: {
-		align: ["wide", "full", "center"],
-		anchor: true,
-		html: false,
+	getEditWrapperProps( attributes ) {
+		const { align } = attributes;
+		if ( -1 !== validAlignments.indexOf( align ) ) {
+			return { 'data-align': align };
+		}
 	},
 	example: {
 		attributes: {
@@ -24,7 +31,9 @@ registerBlockType("memberlite/banner", {
 		},
 	},
 	edit: block,
-	save() {
-		return null;
+	save: function() {
+		return (
+			<InnerBlocks.Content />
+		);
 	},
 });
