@@ -30,8 +30,7 @@ function memberlite_register_banner_block() {
 			),
 			'render_callback' => 'memberlite_banner_block_output',
 			'editor_script'   => 'memberlite_elements_blocks',
-			/*'editor_style'    => 'ptam-style-editor-css',*/
-			/* Uncomment editor_style and point to stylesheet if we are to have one */
+			'editor_style'    => 'memberlite_elements_blocks_css',
 		)
 	);
 }
