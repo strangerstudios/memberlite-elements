@@ -95,30 +95,39 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _block__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./block */ "./blocks/banner/block.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _block__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./block */ "./blocks/banner/block.js");
+
 var __ = wp.i18n.__;
-var registerBlockType = wp.blocks.registerBlockType; // Import Block logic
+var registerBlockType = wp.blocks.registerBlockType;
+var InnerBlocks = wp.blockEditor.InnerBlocks; // Import Block logic
 
 
+var validAlignments = ['wide'];
 registerBlockType("memberlite/banner", {
   title: __("Banner", "memberlite-elements"),
   icon: "flag",
   category: "memberlite",
   description: __("Display a Memberlite banner.", "memberlite-elements"),
   keywords: [__("member", "memberlite-elements"), __("memberlite", "memberlite-elements"), __("banner", "memberlite-elements")],
-  supports: {
-    align: ["wide", "full", "center"],
-    anchor: true,
-    html: false
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var align = attributes.align;
+
+    if (-1 !== validAlignments.indexOf(align)) {
+      return {
+        'data-align': align
+      };
+    }
   },
   example: {
     attributes: {
       preview: true
     }
   },
-  edit: _block__WEBPACK_IMPORTED_MODULE_0__["default"],
+  edit: _block__WEBPACK_IMPORTED_MODULE_1__["default"],
   save: function save() {
-    return null;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null);
   }
 });
 
@@ -176,7 +185,8 @@ var _wp$components = wp.components,
 var _wp$blockEditor = wp.blockEditor,
     InnerBlocks = _wp$blockEditor.InnerBlocks,
     InspectorControls = _wp$blockEditor.InspectorControls,
-    PanelColorSettings = _wp$blockEditor.PanelColorSettings;
+    PanelColorSettings = _wp$blockEditor.PanelColorSettings,
+    RichText = _wp$blockEditor.RichText;
 
 var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(MemberliteElementsBanner, _Component);
@@ -195,7 +205,8 @@ var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
           attributes = _this$props.attributes,
           setAttributes = _this$props.setAttributes;
       var background = attributes.background,
-          backgroundCustom = attributes.backgroundCustom; // Background Parameters
+          backgroundCustom = attributes.backgroundCustom,
+          title = attributes.title; // Background Parameters
 
       var backgroundOptions = [{
         value: "primary",
@@ -240,7 +251,15 @@ var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
       })));
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Fragment, null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
         className: "memberlite-block-admin-banner"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InnerBlocks, {
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(RichText, {
+        placeholder: __('Enter a title here...', 'memberlite-elements'),
+        value: title,
+        onChange: function onChange(content) {
+          return setAttributes({
+            title: content
+          });
+        }
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InnerBlocks, {
         renderAppender: function renderAppender() {
           return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
         },
