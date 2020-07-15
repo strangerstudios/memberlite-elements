@@ -16,6 +16,7 @@ const {
 	InnerBlocks,
 	InspectorControls,
 	PanelColorSettings,
+	RichText,
 } = wp.blockEditor;
 
 class MemberliteElementsBanner extends Component {
@@ -28,7 +29,7 @@ class MemberliteElementsBanner extends Component {
 	render = () => {
 		const { attributes, setAttributes } = this.props;
 
-		const { background, backgroundCustom } = attributes;
+		const { background, backgroundCustom, title } = attributes;
 
 		// Background Parameters
 		const backgroundOptions = [
@@ -79,12 +80,17 @@ class MemberliteElementsBanner extends Component {
 			<Fragment>
 				{inspectorControls}
 						<div className="memberlite-block-admin-banner">
-						<InnerBlocks
-							renderAppender={ () => (
-								<InnerBlocks.ButtonBlockAppender />
-							) }
-							templateLock={ false }
-						/>
+							<RichText
+								placeholder={__('Enter a title here...', 'memberlite-elements')}
+								value={ title }
+								onChange={ ( content ) => setAttributes( { title: content } ) }
+							/>
+							<InnerBlocks
+								renderAppender={ () => (
+									<InnerBlocks.ButtonBlockAppender />
+								) }
+								templateLock={ false }
+							/>
 						</div>
 			</Fragment>
 		);
