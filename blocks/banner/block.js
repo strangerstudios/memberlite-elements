@@ -13,6 +13,7 @@ const {
 } = wp.components;
 
 const {
+	InnerBlocks,
 	InspectorControls,
 	PanelColorSettings,
 } = wp.blockEditor;
@@ -55,13 +56,14 @@ class MemberliteElementsBanner extends Component {
 		return (
 			<Fragment>
 				{inspectorControls}
-				<Placeholder>
-					<div className="memberlite-block-admin-banner">
-						<h1>
-							Hello World
-						</h1>
-					</div>
-				</Placeholder>
+						<div className="memberlite-block-admin-banner" style={{backgroundColor: 'red',padding: '20px'}}>
+						<InnerBlocks
+							renderAppender={ () => (
+								<InnerBlocks.ButtonBlockAppender />
+							) }
+							templateLock={ false }
+						/>
+						</div>
 			</Fragment>
 		);
 	}
