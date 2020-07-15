@@ -186,7 +186,9 @@ var _wp$blockEditor = wp.blockEditor,
     InnerBlocks = _wp$blockEditor.InnerBlocks,
     InspectorControls = _wp$blockEditor.InspectorControls,
     PanelColorSettings = _wp$blockEditor.PanelColorSettings,
-    RichText = _wp$blockEditor.RichText;
+    RichText = _wp$blockEditor.RichText,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar,
+    BlockControls = _wp$blockEditor.BlockControls;
 
 var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(MemberliteElementsBanner, _Component);
@@ -206,7 +208,8 @@ var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
           setAttributes = _this$props.setAttributes;
       var background = attributes.background,
           backgroundCustom = attributes.backgroundCustom,
-          title = attributes.title; // Background Parameters
+          title = attributes.title,
+          alignment = attributes.alignment; // Background Parameters
 
       var backgroundOptions = [{
         value: "primary",
@@ -249,7 +252,16 @@ var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
           label: __("Background Color", "memberlite-elements")
         }]
       })));
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Fragment, null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(BlockControls, {
+        key: "controls"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(AlignmentToolbar, {
+        value: alignment,
+        onChange: function onChange(value) {
+          setAttributes({
+            alignment: value
+          });
+        }
+      })), inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
         className: "memberlite-block-admin-banner"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(RichText, {
         placeholder: __('Enter a title here...', 'memberlite-elements'),

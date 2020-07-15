@@ -17,6 +17,8 @@ const {
 	InspectorControls,
 	PanelColorSettings,
 	RichText,
+	AlignmentToolbar,
+	BlockControls,
 } = wp.blockEditor;
 
 class MemberliteElementsBanner extends Component {
@@ -29,7 +31,7 @@ class MemberliteElementsBanner extends Component {
 	render = () => {
 		const { attributes, setAttributes } = this.props;
 
-		const { background, backgroundCustom, title } = attributes;
+		const { background, backgroundCustom, title, alignment } = attributes;
 
 		// Background Parameters
 		const backgroundOptions = [
@@ -78,6 +80,14 @@ class MemberliteElementsBanner extends Component {
 
 		return (
 			<Fragment>
+				<BlockControls key="controls">
+					<AlignmentToolbar
+						value={ alignment }
+						onChange={ ( value ) => {
+							setAttributes( { alignment: value } );
+						} }
+					/>
+				</BlockControls>
 				{inspectorControls}
 						<div className="memberlite-block-admin-banner">
 							<RichText

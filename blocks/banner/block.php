@@ -34,6 +34,10 @@ function memberlite_register_banner_block() {
 					'type'    => 'string',
 					'default' => 'wide',
 				),
+				'alignment'        => array(
+					'type'    => 'string',
+					'default' => 'center',
+				),
 				'preview'          => array(
 					'type'    => 'boolean',
 					'default' => false,
