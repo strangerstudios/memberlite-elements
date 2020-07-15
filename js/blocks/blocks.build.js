@@ -176,17 +176,11 @@ var _wp$i18n = wp.i18n,
     _n = _wp$i18n._n;
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
-    Placeholder = _wp$components.Placeholder,
-    RangeControl = _wp$components.RangeControl,
-    SelectControl = _wp$components.SelectControl,
-    TextControl = _wp$components.TextControl,
-    ToggleControl = _wp$components.ToggleControl,
-    Button = _wp$components.Button;
+    SelectControl = _wp$components.SelectControl;
 var _wp$blockEditor = wp.blockEditor,
     InnerBlocks = _wp$blockEditor.InnerBlocks,
     InspectorControls = _wp$blockEditor.InspectorControls,
     PanelColorSettings = _wp$blockEditor.PanelColorSettings,
-    RichText = _wp$blockEditor.RichText,
     AlignmentToolbar = _wp$blockEditor.AlignmentToolbar,
     BlockControls = _wp$blockEditor.BlockControls;
 
@@ -263,15 +257,7 @@ var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
         }
       })), inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
         className: "memberlite-block-admin-banner"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(RichText, {
-        placeholder: __('Enter a title here...', 'memberlite-elements'),
-        value: title,
-        onChange: function onChange(content) {
-          return setAttributes({
-            title: content
-          });
-        }
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InnerBlocks, {
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InnerBlocks, {
         renderAppender: function renderAppender() {
           return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
         },
