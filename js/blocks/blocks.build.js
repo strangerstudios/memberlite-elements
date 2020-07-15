@@ -212,11 +212,7 @@ var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
         }]
       })));
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Fragment, null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
-        className: "memberlite-block-admin-banner",
-        style: {
-          backgroundColor: 'red',
-          padding: '20px'
-        }
+        className: "memberlite-block-admin-banner"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InnerBlocks, {
         renderAppender: function renderAppender() {
           return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InnerBlocks.ButtonBlockAppender, null);

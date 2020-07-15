@@ -56,7 +56,7 @@ class MemberliteElementsBanner extends Component {
 		return (
 			<Fragment>
 				{inspectorControls}
-						<div className="memberlite-block-admin-banner" style={{backgroundColor: 'red',padding: '20px'}}>
+						<div className="memberlite-block-admin-banner">
 						<InnerBlocks
 							renderAppender={ () => (
 								<InnerBlocks.ButtonBlockAppender />
