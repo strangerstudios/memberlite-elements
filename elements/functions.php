@@ -111,7 +111,7 @@ add_action( 'the_content', 'memberlite_elements_the_content_unautop' );
  *
  * @return array $image_sizes The image sizes
  */
-function memberlite_get_all_image_sizes() {
+function memberlite_elements_get_all_image_sizes() {
 	global $_wp_additional_image_sizes;
 
 	$default_image_sizes = get_intermediate_image_sizes();

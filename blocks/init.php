@@ -46,7 +46,7 @@ function memberlite_register_block_scripts_admin() {
 		'memberlite_elements_blocks',
 		'memberlite_blocks',
 		array(
-			'image_sizes' => memberlite_get_all_image_sizes(),
+			'image_sizes' => memberlite_elements_get_all_image_sizes(),
 		)
 	);
 	// Allow the blocks to be translated.
