@@ -1,3 +1,5 @@
+import classnames from "classnames";
+
 const { Component, Fragment } = wp.element;
 
 const { __, _n } = wp.i18n;
@@ -50,7 +52,12 @@ class MemberliteElementsContextualMessage extends Component {
 		return (
 			<Fragment>
 				{inspectorControls}
-				<div className="memberlite-block-admin-contextual-message">
+				<div
+					className={classnames(
+						"memberlite-block-admin-contextual-message",
+						messageStyle
+					)}
+				>
 					<RichText
 						placeholder={__("Enter your message", "memberlite-elements")}
 						value={message}
