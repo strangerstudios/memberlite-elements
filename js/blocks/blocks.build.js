@@ -286,9 +286,11 @@ var MemberliteElementsBanner = /*#__PURE__*/function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _banner_block_init_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./banner/block-init.js */ "./blocks/banner/block-init.js");
 /* harmony import */ var _contextual_message_block_init_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./contextual-message/block-init.js */ "./blocks/contextual-message/block-init.js");
+/* harmony import */ var _enhanced_button_block_init_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./enhanced-button/block-init.js */ "./blocks/enhanced-button/block-init.js");
 /**
  * Begin Block inclusion and initialization.
  */
+
 
 
 
@@ -429,7 +431,9 @@ var MemberliteElementsContextualMessage = /*#__PURE__*/function (_Component) {
         value: "error",
         label: __("Error", "memberlite-elements")
       }];
-      var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(SelectControl, {
+      var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(PanelBody, {
+        title: __("Settings", "memberlite-elements")
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(SelectControl, {
         label: __("Message Style", "memberlite-elements"),
         options: messageStyleOptions,
         value: messageStyle,
@@ -438,7 +442,7 @@ var MemberliteElementsContextualMessage = /*#__PURE__*/function (_Component) {
             messageStyle: value
           });
         }
-      }));
+      })));
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Fragment, null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
         className: classnames__WEBPACK_IMPORTED_MODULE_7___default()("memberlite-block-admin-contextual-message", messageStyle)
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(RichText, {
@@ -459,6 +463,215 @@ var MemberliteElementsContextualMessage = /*#__PURE__*/function (_Component) {
 }(Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (MemberliteElementsContextualMessage);
+
+/***/ }),
+
+/***/ "./blocks/enhanced-button/block-init.js":
+/*!**********************************************!*\
+  !*** ./blocks/enhanced-button/block-init.js ***!
+  \**********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _block__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./block */ "./blocks/enhanced-button/block.js");
+var __ = wp.i18n.__;
+var registerBlockType = wp.blocks.registerBlockType;
+var InnerBlocks = wp.blockEditor.InnerBlocks; // Import Block logic
+
+
+var validAlignments = ['wide'];
+registerBlockType("memberlite/enhanced-button", {
+  title: __("Enhanced Button", "memberlite-elements"),
+  icon: "admin-links",
+  category: "memberlite",
+  description: __("Display a button-style link with optional Font Awesome icon.", "memberlite-elements"),
+  keywords: [__("member", "memberlite-elements"), __("memberlite", "memberlite-elements"), __("enhanced", "memberlite-elements"), __("button", "memberlite-elements")],
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var align = attributes.align;
+
+    if (-1 !== validAlignments.indexOf(align)) {
+      return {
+        'data-align': align
+      };
+    }
+  },
+  example: {
+    attributes: {
+      preview: true
+    }
+  },
+  edit: _block__WEBPACK_IMPORTED_MODULE_0__["default"],
+  // Render via PHP
+  save: function save() {
+    return null;
+  }
+});
+
+/***/ }),
+
+/***/ "./blocks/enhanced-button/block.js":
+/*!*****************************************!*\
+  !*** ./blocks/enhanced-button/block.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_7__);
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+var _wp$element = wp.element,
+    Component = _wp$element.Component,
+    Fragment = _wp$element.Fragment;
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    _n = _wp$i18n._n;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl,
+    IconButton = _wp$components.IconButton,
+    Dashicon = _wp$components.Dashicon,
+    ToggleControl = _wp$components.ToggleControl;
+var URLInput = wp.editor.URLInput;
+var _wp$blockEditor = wp.blockEditor,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
+
+var MemberliteElementsEnhancedButton = /*#__PURE__*/function (_Component) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(MemberliteElementsEnhancedButton, _Component);
+
+  var _super = _createSuper(MemberliteElementsEnhancedButton);
+
+  function MemberliteElementsEnhancedButton() {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, MemberliteElementsEnhancedButton);
+
+    _this = _super.apply(this, arguments);
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default()(_this), "render", function () {
+      var _this$props = _this.props,
+          attributes = _this$props.attributes,
+          setAttributes = _this$props.setAttributes,
+          isSelected = _this$props.isSelected;
+      var buttonStyle = attributes.buttonStyle,
+          content = attributes.content,
+          id = attributes.id,
+          rel = attributes.rel,
+          buttonURL = attributes.buttonURL;
+      var buttonStyleOptions = [{
+        value: "default",
+        label: __("Default Button", "memberlite-elements")
+      }, {
+        value: "primary",
+        label: __("Primary Color", "memberlite-elements")
+      }, {
+        value: "secondary",
+        label: __("Secondary Color", "memberlite-elements")
+      }, {
+        value: "action",
+        label: __("Action Color", "memberlite-elements")
+      }, {
+        value: "success",
+        label: __("Success", "memberlite-elements")
+      }, {
+        value: "alert",
+        label: __("Alert", "memberlite-elements")
+      }, {
+        value: "error",
+        label: __("Error", "memberlite-elements")
+      }, {
+        value: "info",
+        label: __("Info", "memberlite-elements")
+      }, {
+        value: "link",
+        label: __("Link Only", "memberlite-elements")
+      }];
+      var inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(PanelBody, {
+        title: __("Button Settings", "memberlite-elements")
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(SelectControl, {
+        label: __("Button Style", "memberlite-elements"),
+        options: buttonStyleOptions,
+        value: buttonStyle,
+        onChange: function onChange(value) {
+          _this.props.setAttributes({
+            buttonStyle: value
+          });
+        }
+      })));
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Fragment, null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
+        className: classnames__WEBPACK_IMPORTED_MODULE_7___default()("memberlite-block-admin-enhanced-button", buttonStyle)
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(RichText, {
+        tagName: "span",
+        value: content,
+        onChange: function onChange(content) {
+          return setAttributes({
+            content: content
+          });
+        },
+        placeholder: __("Button text...", "memberlite-elements"),
+        keepPlaceholderOnFocus: true,
+        formattingControls: [],
+        className: classnames__WEBPACK_IMPORTED_MODULE_7___default()("memberlite-elements-enhanced-button")
+      }), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("form", {
+        key: "form-link",
+        className: "blocks-button__inline-link memberlite-button-link",
+        onSubmit: function onSubmit(event) {
+          return event.preventDefault();
+        }
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Dashicon, {
+        icon: "admin-links"
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(URLInput, {
+        className: "button-url",
+        value: buttonURL,
+        onChange: function onChange(value) {
+          return setAttributes({
+            buttonURL: value
+          });
+        }
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(IconButton, {
+        icon: "editor-break",
+        label: __("Apply", "memberlite-elements"),
+        type: "submit"
+      })))));
+    });
+
+    return _this;
+  }
+
+  return MemberliteElementsEnhancedButton;
+}(Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (MemberliteElementsEnhancedButton);
 
 /***/ }),
 

@@ -80,5 +80,8 @@ function memberlite_include_blocks() {
 
 	// Include the contextual messages block and initialize via PHP.
 	require 'contextual-message/block.php';
+
+	// Include the enhanced button block and initialize via PHP.
+	require 'enhanced-button/block.php';
 }
 add_action( 'plugins_loaded', 'memberlite_include_blocks', 11 );
