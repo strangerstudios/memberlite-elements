@@ -4,3 +4,50 @@
 	background-color: #d5d6d7;
 	background-size: cover;
 }
+/* Contextual Message Block Editor Styles */
+body .memberlite-block-admin-contextual-message {
+	background-color: #d9edf7;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #bce8f1;
+	color: #31708f;
+	margin: 2.9rem 0;
+	padding: 1.45rem;
+}
+.memberlite-block-admin-contextual-message.default {
+	background-color: #fafafa;
+	border-color: #dadada;
+	color: #777777;
+}
+.memberlite-block-admin-contextual-message.success {
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #3c763d;
+}
+.memberlite-block-admin-contextual-message.error {
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	color: #a94442;
+}
+.memberlite-block-admin-contextual-message.alert {
+	background-color: #fcf8e3;
+	border-color: #faebcc;
+	color: #8a6d3b;
+}
+.memberlite-block-admin-contextual-message.default a {
+	color: #245269;
+	text-decoration: underline;
+}
+.memberlite-block-admin-contextual-message.success a {
+	color: #2b542c;
+	text-decoration: underline;
+}
+.memberlite-block-admin-contextual-message.error a {
+	color: #843534;
+	text-decoration: underline;
+}
+.memberlite-block-admin-contextual-message.alert a {
+	color: #66512c;
+	text-decoration: underline;
+}

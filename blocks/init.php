@@ -77,5 +77,8 @@ add_action( 'enqueue_block_assets', 'memberlite_register_block_scripts_front_end
 function memberlite_include_blocks() {
 	// Include the banner block and initialize via PHP.
 	require 'banner/block.php';
+
+	// Include the contextual messages block and initialize via PHP.
+	require 'contextual-message/block.php';
 }
 add_action( 'plugins_loaded', 'memberlite_include_blocks', 11 );
