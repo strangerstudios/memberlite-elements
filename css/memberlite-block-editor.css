@@ -1,4 +1,5 @@
-.memberlite-block-admin-banner {
+.memberlite-block-admin-banner,
+.memberlite-block-admin-contextual-message {
 	position: relative;
 	padding: 15px;
 	background-color: #d5d6d7;

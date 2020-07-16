@@ -3,3 +3,4 @@
  */
 
 import './banner/block-init.js';
+import './contextual-message/block-init.js';
