@@ -4,17 +4,15 @@ const { __, _n } = wp.i18n;
 
 const {
 	PanelBody,
-	Placeholder,
-	RangeControl,
 	SelectControl,
-	TextControl,
-	ToggleControl,
-	Button,
 } = wp.components;
 
 const {
+	InnerBlocks,
 	InspectorControls,
 	PanelColorSettings,
+	AlignmentToolbar,
+	BlockControls,
 } = wp.blockEditor;
 
 class MemberliteElementsBanner extends Component {
@@ -27,41 +25,72 @@ class MemberliteElementsBanner extends Component {
 	render = () => {
 		const { attributes, setAttributes } = this.props;
 
-		const { backgroundColor } = attributes;
+		const { background, backgroundCustom, title, alignment } = attributes;
+
+		// Background Parameters
+		const backgroundOptions = [
+			{ value: "primary", label: __("Primary", "memberlite-elements") },
+			{ value: "secondary", label: __("Secondary", "memberlite-elements") },
+			{ value: "action", label: __("Action", "memberlite-elements") },
+			{ value: "body", label: __("Body", "memberlite-elements") },
+			{ value: "custom", label: __("Custom", "memberlite-elements") }
+		];
 
 		const inspectorControls = (
 			<InspectorControls>
 				<PanelBody
 					initialOpen={true}
-					title={__("Background Color", "memberlite-elements")}
+					title={__("Background Settings", "memberlite-elements")}
 				>
+					<SelectControl
+						label={__("Choose a Background", "post-type-archive-mapping")}
+						options={backgroundOptions}
+						value={background}
+						onChange={(value) => {
+							this.props.setAttributes({
+								background: value,
+							});
+						}}
+					/>
+					{ 'custom' === background &&
 						<PanelColorSettings
-							title={__("Background Color", "memberlite-elements")}
+							title={__("Choose a Color", "memberlite-elements")}
 							initialOpen={true}
 							colorSettings={[
 								{
-									value: backgroundColor,
+									value: backgroundCustom,
 									onChange: (value) => {
-										setAttributes({ backgroundColor: value });
+										setAttributes({ backgroundCustom: value });
 									},
 									label: __("Background Color", "memberlite-elements"),
 								},
 							]}
-						></PanelColorSettings>
-					</PanelBody>
+						>
+						</PanelColorSettings>
+					}
+				</PanelBody>
 			</InspectorControls>
 		);
 
 		return (
 			<Fragment>
+				<BlockControls key="controls">
+					<AlignmentToolbar
+						value={ alignment }
+						onChange={ ( value ) => {
+							setAttributes( { alignment: value } );
+						} }
+					/>
+				</BlockControls>
 				{inspectorControls}
-				<Placeholder>
-					<div className="memberlite-block-admin-banner">
-						<h1>
-							Hello World
-						</h1>
-					</div>
-				</Placeholder>
+						<div className="memberlite-block-admin-banner">
+							<InnerBlocks
+								renderAppender={ () => (
+									<InnerBlocks.ButtonBlockAppender />
+								) }
+								templateLock={ false }
+							/>
+						</div>
 			</Fragment>
 		);
 	}

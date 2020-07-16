@@ -30,6 +30,7 @@ add_filter( 'block_categories', 'memberlite_add_block_category', 10, 2 );
  * Register admin scripts and styles.
  */
 function memberlite_register_block_scripts_admin() {
+	// Register the block script.
 	wp_register_script(
 		'memberlite_elements_blocks',
 		MEMBERLITE_ELEMENTS_URL . '/js/blocks/blocks.build.js',
@@ -40,7 +41,25 @@ function memberlite_register_block_scripts_admin() {
 		MEMBERLITE_ELEMENTS_VERSION,
 		true
 	);
+	// Add localized vars for reference in JS.
+	wp_localize_script(
+		'memberlite_elements_blocks',
+		'memberlite_blocks',
+		array(
+			'image_sizes' => memberlite_elements_get_all_image_sizes(),
+		)
+	);
+	// Allow the blocks to be translated.
 	wp_set_script_translations( 'memberlite_elements_blocks', 'memberlite-elements' );
+
+	// Register the block editor stylesheet.
+	wp_register_style(
+		'memberlite_elements_blocks_css',
+		MEMBERLITE_ELEMENTS_URL . '/css/memberlite-block-editor.css',
+		array(),
+		MEMBERLITE_ELEMENTS_VERSION,
+		'all'
+	);
 }
 add_action( 'enqueue_block_editor_assets', 'memberlite_register_block_scripts_admin' );
 

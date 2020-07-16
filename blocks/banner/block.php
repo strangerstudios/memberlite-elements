@@ -18,11 +18,27 @@ function memberlite_register_banner_block() {
 		'memberlite/banner',
 		array(
 			'attributes'      => array(
-				'backgroundColor' => array(
+				'background'       => array(
+					'type'    => 'string',
+					'default' => 'primary',
+				),
+				'backgroundCustom' => array(
 					'type'    => 'string',
 					'default' => 'inherit',
 				),
-				'preview'         => array( /* Leave this in if you plan to have block previews */
+				'title'            => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'align'            => array(
+					'type'    => 'string',
+					'default' => 'wide',
+				),
+				'alignment'        => array(
+					'type'    => 'string',
+					'default' => 'center',
+				),
+				'preview'          => array(
 					'type'    => 'boolean',
 					'default' => false,
 				),
@@ -30,8 +46,7 @@ function memberlite_register_banner_block() {
 			),
 			'render_callback' => 'memberlite_banner_block_output',
 			'editor_script'   => 'memberlite_elements_blocks',
-			/*'editor_style'    => 'ptam-style-editor-css',*/
-			/* Uncomment editor_style and point to stylesheet if we are to have one */
+			'editor_style'    => 'memberlite_elements_blocks_css',
 		)
 	);
 }
