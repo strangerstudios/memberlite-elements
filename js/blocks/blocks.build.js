@@ -312,7 +312,7 @@ var InnerBlocks = wp.blockEditor.InnerBlocks; // Import Block logic
 var validAlignments = ['wide'];
 registerBlockType("memberlite/contextual-message", {
   title: __("Contextual Message", "memberlite-elements"),
-  icon: "flag",
+  icon: "info",
   category: "memberlite",
   description: __("Display a highlighted message block with your chosen context styling.", "memberlite-elements"),
   keywords: [__("member", "memberlite-elements"), __("memberlite", "memberlite-elements"), __("contextual", "memberlite-elements"), __("message", "memberlite-elements")],
@@ -439,7 +439,7 @@ var MemberliteElementsContextualMessage = /*#__PURE__*/function (_Component) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(Fragment, null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
         className: "memberlite-block-admin-contextual-message"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(RichText, {
-        placeholder: __('Enter your message', 'memberlite-elements'),
+        placeholder: __("Enter your message", "memberlite-elements"),
         value: message,
         onChange: function onChange(content) {
           return setAttributes({

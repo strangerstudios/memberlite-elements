@@ -11,7 +11,7 @@ const validAlignments = [ 'wide' ];
 
 registerBlockType("memberlite/contextual-message", {
 	title: __("Contextual Message", "memberlite-elements"),
-	icon: "flag",
+	icon: "info",
 	category: "memberlite",
 	description: __("Display a highlighted message block with your chosen context styling.", "memberlite-elements"),
 	keywords: [

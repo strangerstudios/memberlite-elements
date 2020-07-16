@@ -2,10 +2,7 @@ const { Component, Fragment } = wp.element;
 
 const { __, _n } = wp.i18n;
 
-const {
-	PanelBody,
-	SelectControl,
-} = wp.components;
+const { PanelBody, SelectControl } = wp.components;
 
 const {
 	InnerBlocks,
@@ -32,7 +29,7 @@ class MemberliteElementsContextualMessage extends Component {
 			{ value: "info", label: __("Info", "memberlite-elements") },
 			{ value: "success", label: __("Success", "memberlite-elements") },
 			{ value: "alert", label: __("Alert", "memberlite-elements") },
-			{ value: "error", label: __("Error", "memberlite-elements") }
+			{ value: "error", label: __("Error", "memberlite-elements") },
 		];
 
 		const inspectorControls = (
@@ -55,14 +52,14 @@ class MemberliteElementsContextualMessage extends Component {
 				{inspectorControls}
 				<div className="memberlite-block-admin-contextual-message">
 					<RichText
-						placeholder={__('Enter your message', 'memberlite-elements')}
-						value={ message }
-						onChange={ ( content ) => setAttributes( { message: content } ) }
+						placeholder={__("Enter your message", "memberlite-elements")}
+						value={message}
+						onChange={(content) => setAttributes({ message: content })}
 					/>
 				</div>
 			</Fragment>
 		);
-	}
+	};
 }
 
 export default MemberliteElementsContextualMessage;
