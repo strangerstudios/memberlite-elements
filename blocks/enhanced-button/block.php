@@ -26,7 +26,7 @@ function memberlite_register_enhanced_button_block() {
 					'type'    => 'string',
 					'default' => '',
 				),
-				'btnId'          => array(
+				'btnId'       => array(
 					'type'    => 'string',
 					'default' => '',
 				),
@@ -63,14 +63,32 @@ add_action( 'init', 'memberlite_register_enhanced_button_block' );
  * @return string Block output.
  */
 function memberlite_elements_enhanced_button_block_output( $attributes ) {
-	$message_style = isset( $attributes['messageStyle'] ) ? $attributes['messageStyle'] : 'default';
-	$message       = isset( $attributes['message'] ) ? $attributes['message'] : '';
+	$button_style = isset( $attributes['buttonStyle'] ) ? $attributes['buttonStyle'] : 'default';
+	$href         = isset( $attributes['buttonURL'] ) ? esc_url( $attributes['buttonURL'] ) : '#';
+	$button_text  = isset( $attributes['content'] ) ? $attributes['content'] : '';
+	$button_id    = isset( $attributes['btnId'] ) ? $attributes['btnId'] : '';
+	$button_rel   = isset( $attributes['rel'] ) ? $attributes['rel'] : '';
+	$new_tab      = isset( $attributes['newTab'] ) ? $attributes['newTab'] : false;
+	$no_follow    = isset( $attributes['noFollow'] ) ? $attributes['noFollow'] : false;
+
+	// Build button styles.
+	$classes = array();
+	if ( 'link' !== $button_style ) {
+		$classes[] = 'btn';
+		$classes[] = 'btn_' . $button_style;
+	}
+
+	// Build rel attributes.
+	$rel = $button_rel;
+	if ( $no_follow ) {
+		$rel .= ' ' . 'nofollow';
+	}
+	$rel = trim( $rel );
 
 	ob_start();
+	// $href has been previously sanitized.
 	?>
-	<div class="pmpro_message pmpro_<?php echo esc_attr( $message_style ); ?>">
-		<?php echo wp_kses_post( $message ); ?>
-	</div>
+	<a href="<?php echo $href; ?>" id="<?php echo esc_attr( $button_id ); ?>" rel="<?php echo esc_attr( $rel ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" target="<?php echo $new_tab ? '_blank' : ''; ?>"><?php echo esc_html( $button_text ); ?></a>
 	<?php
 	return ob_get_clean();
 }
