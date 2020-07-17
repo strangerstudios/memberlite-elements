@@ -26,7 +26,7 @@ function memberlite_register_enhanced_button_block() {
 					'type'    => 'string',
 					'default' => '',
 				),
-				'id'          => array(
+				'btnId'          => array(
 					'type'    => 'string',
 					'default' => '',
 				),
@@ -37,6 +37,14 @@ function memberlite_register_enhanced_button_block() {
 				'buttonURL'   => array(
 					'type'    => 'string',
 					'default' => '',
+				),
+				'newTab'      => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'noFollow'    => array(
+					'type'    => 'boolean',
+					'default' => false,
 				),
 			),
 			'render_callback' => 'memberlite_elements_enhanced_button_block_output',

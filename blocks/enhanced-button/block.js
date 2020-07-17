@@ -10,6 +10,7 @@ const {
 	IconButton,
 	Dashicon,
 	ToggleControl,
+	TextControl,
 } = wp.components;
 
 const { URLInput } = wp.editor;
@@ -24,7 +25,7 @@ class MemberliteElementsEnhancedButton extends Component {
 	render = () => {
 		const { attributes, setAttributes, isSelected } = this.props;
 
-		const { buttonStyle, content, id, rel, buttonURL } = attributes;
+		const { buttonStyle, content, rel, buttonURL, newTab, noFollow, btnId } = attributes;
 
 		const buttonStyleOptions = [
 			{ value: "default", label: __("Default Button", "memberlite-elements") },
@@ -53,6 +54,26 @@ class MemberliteElementsEnhancedButton extends Component {
 								buttonStyle: value,
 							});
 						}}
+					/>
+					<ToggleControl
+						label={__( 'New Tab', 'memberlite-elements' )}
+						checked={newTab}
+						onChange={ ( value ) => setAttributes( { newTab: value } ) }
+					/>
+					<ToggleControl
+						label={__( 'No Follow', 'memberlite-elements' )}
+						checked={noFollow}
+						onChange={ ( value ) => setAttributes( { noFollow: value } ) }
+					/>
+					<TextControl
+						label={__( 'Button ID', 'memberlite-elements' )}
+						value={btnId}
+						onChange={ ( value ) => setAttributes( { btnId: value } ) }
+					/>
+					<TextControl
+						label={__( 'Rel', 'memberlite-elements' )}
+						value={rel}
+						onChange={ ( value ) => setAttributes( { rel: value } ) }
 					/>
 				</PanelBody>
 			</InspectorControls>

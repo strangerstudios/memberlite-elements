@@ -560,7 +560,8 @@ var _wp$components = wp.components,
     SelectControl = _wp$components.SelectControl,
     IconButton = _wp$components.IconButton,
     Dashicon = _wp$components.Dashicon,
-    ToggleControl = _wp$components.ToggleControl;
+    ToggleControl = _wp$components.ToggleControl,
+    TextControl = _wp$components.TextControl;
 var URLInput = wp.editor.URLInput;
 var _wp$blockEditor = wp.blockEditor,
     InspectorControls = _wp$blockEditor.InspectorControls,
@@ -585,9 +586,11 @@ var MemberliteElementsEnhancedButton = /*#__PURE__*/function (_Component) {
           isSelected = _this$props.isSelected;
       var buttonStyle = attributes.buttonStyle,
           content = attributes.content,
-          id = attributes.id,
           rel = attributes.rel,
-          buttonURL = attributes.buttonURL;
+          buttonURL = attributes.buttonURL,
+          newTab = attributes.newTab,
+          noFollow = attributes.noFollow,
+          btnId = attributes.btnId;
       var buttonStyleOptions = [{
         value: "default",
         label: __("Default Button", "memberlite-elements")
@@ -625,6 +628,38 @@ var MemberliteElementsEnhancedButton = /*#__PURE__*/function (_Component) {
         onChange: function onChange(value) {
           _this.props.setAttributes({
             buttonStyle: value
+          });
+        }
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(ToggleControl, {
+        label: __('New Tab', 'memberlite-elements'),
+        checked: newTab,
+        onChange: function onChange(value) {
+          return setAttributes({
+            newTab: value
+          });
+        }
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(ToggleControl, {
+        label: __('No Follow', 'memberlite-elements'),
+        checked: noFollow,
+        onChange: function onChange(value) {
+          return setAttributes({
+            noFollow: value
+          });
+        }
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(TextControl, {
+        label: __('Button ID', 'memberlite-elements'),
+        value: btnId,
+        onChange: function onChange(value) {
+          return setAttributes({
+            btnId: value
+          });
+        }
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(TextControl, {
+        label: __('Rel', 'memberlite-elements'),
+        value: rel,
+        onChange: function onChange(value) {
+          return setAttributes({
+            rel: value
           });
         }
       })));
