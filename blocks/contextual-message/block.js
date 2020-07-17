@@ -36,16 +36,18 @@ class MemberliteElementsContextualMessage extends Component {
 
 		const inspectorControls = (
 			<InspectorControls>
-				<SelectControl
-					label={__("Message Style", "memberlite-elements")}
-					options={messageStyleOptions}
-					value={messageStyle}
-					onChange={(value) => {
-						this.props.setAttributes({
-							messageStyle: value,
-						});
-					}}
-				/>
+				<PanelBody title={__("Settings", "memberlite-elements")}>
+					<SelectControl
+						label={__("Message Style", "memberlite-elements")}
+						options={messageStyleOptions}
+						value={messageStyle}
+						onChange={(value) => {
+							this.props.setAttributes({
+								messageStyle: value,
+							});
+						}}
+					/>
+				</PanelBody>
 			</InspectorControls>
 		);
 

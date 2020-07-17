@@ -4,3 +4,4 @@
 
 import './banner/block-init.js';
 import './contextual-message/block-init.js';
+import './enhanced-button/block-init.js';
