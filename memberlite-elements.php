@@ -25,9 +25,21 @@ function memberlite_elements_load() {
 	} else {
 		// We're Gucci
 		require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/functions.php" );
-		require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/landing_page.php" );
-		require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/page_banners.php" );
-		require_once( MEMBERLITE_ELEMENTS_DIR . "/elements/sidebars.php" );
+
+		/**
+		 * Filter to allow themes to remove elements loaded 
+		 *
+		 */
+		$memberlite_elements_supported_elements = apply_filters( 'memberlite_elements_supported_elements', array( 'landing_page', 'page_banners', 'sidebars' ) );
+		if ( in_array( 'landing_page', $memberlite_elements_supported_elements ) ) {
+			require_once( MEMBERLITE_ELEMENTS_DIR . '/elements/landing_page.php' );
+		}
+		if ( in_array( 'page_banners', $memberlite_elements_supported_elements ) ) {
+			require_once( MEMBERLITE_ELEMENTS_DIR . '/elements/page_banners.php' );
+		}
+		if ( in_array( 'sidebars', $memberlite_elements_supported_elements ) ) {
+			require_once( MEMBERLITE_ELEMENTS_DIR . '/elements/sidebars.php' );
+		}
 	}
 }
 add_action( 'after_setup_theme', 'memberlite_elements_load', 1 );
