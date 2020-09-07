@@ -536,7 +536,7 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 	}
 
 	//special case for bbpress search results page
-	if( empty( $memberlite_custom_sidebar ) && function_exists( 'is_bbpress' ) && is_bbpress() ) {
+	if ( empty( $memberlite_custom_sidebar ) && function_exists( 'is_bbpress' ) && is_bbpress() && ! bbp_is_single_topic() ) {
 		$widget_areas = array( memberlite_elements_get_default_sidebar_by_post_type( 'forum' ) );
 	}
 
