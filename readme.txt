@@ -56,6 +56,7 @@ As of this release, Memberlite Elements is only compatible with the Memberlite T
 == Changelog ==
 
 = 1.0.4 =
+* BUG FIX: Fixed case for a custom sidebar on bbPress "topics" that was loading the "foprum" sidebar.
 * BUG FIX/ENHANCEMENT: Now hiding and disabling setting for the automatic pages menu on the Membership Account page and its children.
 * ENHANCEMENT: Added filter `memberlite_elements_supported_elements` so themes can remove unsupported elements.
 * ENHANCEMENT: Updated to Font Awesome version 5.14.0
