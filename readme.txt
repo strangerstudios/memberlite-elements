@@ -3,7 +3,7 @@ Contributors: kimannwall, strangerstudios
 Tags: theme, layout, memberlite, membership, pmpro, paid memberships pro
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,11 @@ Visit https://memberlitetheme.com to get your copy of the Memberlite Theme.
 As of this release, Memberlite Elements is only compatible with the Memberlite Theme or a Memberlite Child Theme.
 
 == Changelog ==
+
+= 1.0.4 =
+* BUG FIX/ENHANCEMENT: Now hiding and disabling setting for the automatic pages menu on the Membership Account page and its children.
+* ENHANCEMENT: Added filter `memberlite_elements_supported_elements` so themes can remove unsupported elements.
+* ENHANCEMENT: Updated to Font Awesome version 5.14.0
 
 = 1.0.3 - 2020-04-30 =
 * ENHANCEMENT: Updating to Font Awesome version 5.13.0
