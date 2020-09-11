@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
+"POT-Creation-Date: 2020-09-11 18:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: elements/functions.php:59
+msgid "Banner Image"
+msgstr ""
+
+#: elements/landing_page.php:42
+msgid "Sign Up Now"
+msgstr ""
+
+#: elements/page_banners.php:24
+msgid "Memberlite Elements Settings"
+msgstr ""
+
+#: elements/page_banners.php:55
+msgid "Page Banner Settings"
+msgstr ""
+
+#: elements/page_banners.php:56 elements/page_banners.php:58
+msgid "Show Page Banner"
+msgstr ""
+
+#: elements/page_banners.php:61
+msgid "Yes"
+msgstr ""
+
+#: elements/page_banners.php:63
+msgid "No"
+msgstr ""
+
+#: elements/page_banners.php:66 elements/page_banners.php:71
+msgid "Banner Description"
+msgstr ""
+
+#: elements/page_banners.php:75
+msgid "Hide Page Title on Single View"
+msgstr ""
+
+#: elements/page_banners.php:77
+msgid "Hide Breadcrumbs"
+msgstr ""
+
+#: elements/page_banners.php:79
+msgid "Add Extra Banner Padding"
+msgstr ""
+
+#: elements/page_banners.php:81 elements/page_banners.php:83
+msgid "Banner Right Column"
+msgstr ""
+
+#: elements/page_banners.php:88 elements/page_banners.php:90
+msgid "Page Bottom Banner"
+msgstr ""
+
+#: elements/page_banners.php:94
+msgid "Page Icon"
+msgstr ""
+
+#: elements/page_banners.php:96
+msgid "Select Icon"
+msgstr ""
+
+#: elements/page_banners.php:106
+msgid "Show Icon in Banner Title"
+msgstr ""
+
+#: elements/page_banners.php:110
+msgid "Landing Page Settings"
+msgstr ""
+
+#: elements/page_banners.php:117
+msgid "Membership Level"
+msgstr ""
+
+#: elements/page_banners.php:119
+msgid "Landing Page Membership Level"
+msgstr ""
+
+#: elements/page_banners.php:128 elements/page_banners.php:130
+msgid "Checkout Button Text"
+msgstr ""
+
+#: elements/page_banners.php:133
+msgid "Membership Level Upsell"
+msgstr ""
+
+#: elements/page_banners.php:135
+msgid "Landing Page Membership Level Upsell"
+msgstr ""
+
+#: elements/page_banners.php:279
+msgid "Show as Banner Image"
+msgstr ""
+
+#: elements/page_banners.php:281
+msgid "If a banner image is set below, it will override this setting."
+msgstr ""
+
+#: elements/sidebars.php:38
+msgid "Please enter a valid sidebar name."
+msgstr ""
+
+#: elements/sidebars.php:43
+msgid "Sidebar id or name already used. Try another name."
+msgstr ""
+
+#: elements/sidebars.php:60
+msgid "Sidebar added."
+msgstr ""
+
+#: elements/sidebars.php:124
+msgid "Memberlite Custom Sidebars"
+msgstr ""
+
+#: elements/sidebars.php:128
+msgid "Add New Sidebar"
+msgstr ""
+
+#: elements/sidebars.php:131
+msgid "Sidebar Name"
+msgstr ""
+
+#: elements/sidebars.php:134
+msgid "Add Sidebar"
+msgstr ""
+
+#: elements/sidebars.php:141
+msgid "ID"
+msgstr ""
+
+#: elements/sidebars.php:142
+msgid "Name"
+msgstr ""
+
+#: elements/sidebars.php:143
+msgid "Actions"
+msgstr ""
+
+#: elements/sidebars.php:164
+msgid "Delete"
+msgstr ""
+
+#: elements/sidebars.php:170
+msgid "Not a custom sidebar."
+msgstr ""
+
+#: elements/sidebars.php:182
+msgid "Assign Sidebars to Custom Post Types"
+msgstr ""
+
+#: elements/sidebars.php:183
+msgid ""
+"For each detected CPT below, select the sidebar you would like to display."
+msgstr ""
+
+#: elements/sidebars.php:192
+msgid "Custom Post Type"
+msgstr ""
+
+#: elements/sidebars.php:193 elements/sidebars.php:406
+msgid "Select Sidebar"
+msgstr ""
+
+#: elements/sidebars.php:230
+msgid "Save CPT Sidebar Selections"
+msgstr ""
+
+#: elements/sidebars.php:333
+msgid "Custom Sidebar"
+msgstr ""
+
+#: elements/sidebars.php:388 elements/sidebars.php:391
+msgid "Hide Page Children Menu in Sidebar"
+msgstr ""
+
+#: elements/sidebars.php:389
+msgid "The Membership Account page and its children do not display this menu."
+msgstr ""
+
+#: elements/sidebars.php:397
+#, php-format
+msgid "The current default sidebar is <strong>%s</strong>."
+msgstr ""
+
+#: elements/sidebars.php:401
+msgid "The current default sidebar is <strong>hidden</strong>."
+msgstr ""
+
+#: elements/sidebars.php:403
+msgid "Manage Custom Sidebars"
+msgstr ""
+
+#: elements/sidebars.php:404
+msgid "Select Custom Sidebar"
+msgstr ""
+
+#: elements/sidebars.php:421
+msgid "Default Sidebar Behavior"
+msgstr ""
+
+#: elements/sidebars.php:423
+msgid "Default Sidebar"
+msgstr ""
+
+#: elements/sidebars.php:426
+msgid "Show Default Sidebar Above"
+msgstr ""
+
+#: elements/sidebars.php:427
+msgid "Show Default Sidebar Below"
+msgstr ""
+
+#: elements/sidebars.php:428
+msgid "Hide Default Sidebar"
+msgstr ""
+
+#: memberlite-elements.php:63
+msgid "Memberlite Elements requires Memberlite version 4.0 or higher."
+msgstr ""
+
+#: shortcodes/recent_posts.php:52
+msgid ""
+"There was a problem fetching posts for the current user. Please try again "
+"later."
+msgstr ""
+
+#: shortcodes/recent_posts.php:65
+msgid ""
+"No posts found for this user. Please ensure the author's name/ID is correct."
+msgstr ""
+
+#: shortcodes/signup.php:47
+#, php-format
+msgid ""
+"You are logged in as <strong>%s</strong>. If you would like to use a "
+"different account for this membership, <a href=\"%s\">log out now</a>."
+msgstr ""

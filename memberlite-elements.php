@@ -6,11 +6,21 @@ Description: A set of elements designed enhance the appearance of sites using th
 Version: 1.0.4
 Author: Stranger Studios
 Author URI: https://www.memberlitetheme.com
+Text Domain: memberlite-elements
+Domain Path: /languages
 */
 
 define( 'MEMBERLITE_ELEMENTS_DIR', dirname( __FILE__ ) );
 define( 'MEMBERLITE_ELEMENTS_URL', plugins_url( '', __FILE__ ) );
 define( 'MEMBERLITE_ELEMENTS_VERSION', '1.0.4' );
+
+/**
+ * Load text domain
+ */
+function memberlite_elements_load_plugin_text_domain() {
+	load_plugin_textdomain( 'memberlite-elements', false, basename( dirname( __FILE__ ) ) . '/languages' ); 
+}
+add_action( 'plugins_loaded', 'memberlite_elements_load_plugin_text_domain' );
 
 /**
  * Include plugin files.
