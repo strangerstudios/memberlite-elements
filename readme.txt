@@ -55,11 +55,13 @@ As of this release, Memberlite Elements is only compatible with the Memberlite T
 
 == Changelog ==
 
-= 1.0.4 =
-* BUG FIX: Fixed case for a custom sidebar on bbPress "topics" that was loading the "foprum" sidebar.
+= 1.0.4 - 2020-09-14 =
+* BUG FIX/ENHANCEMENT: Fixed issue with localization to allow for proper translation.
 * BUG FIX/ENHANCEMENT: Now hiding and disabling setting for the automatic pages menu on the Membership Account page and its children.
+* BUG FIX: Fixed case for a custom sidebar on bbPress "topics" that was loading the "forum" sidebar.
 * ENHANCEMENT: Added filter `memberlite_elements_supported_elements` so themes can remove unsupported elements.
 * ENHANCEMENT: Updated to Font Awesome version 5.14.0
+* ENHANCEMENT: Now tested up to WordPress 5.5.
 
 = 1.0.3 - 2020-04-30 =
 * ENHANCEMENT: Updating to Font Awesome version 5.13.0
