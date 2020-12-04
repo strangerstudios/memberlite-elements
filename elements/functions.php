@@ -10,7 +10,7 @@ function memberlite_elements_init_styles() {
 	//need jquery
 	wp_enqueue_script( 'jquery' );
 
-	wp_enqueue_style( 'font-awesome', MEMBERLITE_ELEMENTS_URL . '/font-awesome/css/all.min.css', array(), '5.14.0' );
+	wp_enqueue_style( 'font-awesome', MEMBERLITE_ELEMENTS_URL . '/font-awesome/css/all.min.css', array(), '5.15.1' );
 	wp_enqueue_style( "memberlite_elements_frontend", MEMBERLITE_ELEMENTS_URL . "/css/memberlite-elements.css", array(), MEMBERLITE_ELEMENTS_VERSION );
 }
 add_action( "wp_enqueue_scripts", "memberlite_elements_init_styles" );
