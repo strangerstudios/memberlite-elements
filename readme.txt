@@ -2,7 +2,7 @@
 Contributors: kimannwall, strangerstudios
 Tags: theme, layout, memberlite, membership, pmpro, paid memberships pro
 Requires at least: 4.0
-Tested up to: 5.5.1
+Tested up to: 5.6
 Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -54,6 +54,10 @@ Visit https://memberlitetheme.com to get your copy of the Memberlite Theme.
 As of this release, Memberlite Elements is only compatible with the Memberlite Theme or a Memberlite Child Theme.
 
 == Changelog ==
+
+= 1.0.5 - YYYY-MM-DD =
+* ENHANCEMENT: Now using version 5.15.1 of Font Awesome.
+* ENHANCEMENT: Now tested up to WordPress 5.6.
 
 = 1.0.4 - 2020-09-14 =
 * BUG FIX/ENHANCEMENT: Fixed issue with localization to allow for proper translation.
