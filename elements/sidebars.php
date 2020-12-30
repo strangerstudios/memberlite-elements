@@ -543,7 +543,10 @@ function memberlite_elements_get_widget_areas( $widget_areas ) {
 	//if no custom sidebar for this specific post and we're on a blog page, check if the blog page has one to inherit
 	if( empty( $memberlite_custom_sidebar ) && memberlite_is_blog() ) {
 		$queried_object = get_post( get_option( 'page_for_posts' ) );	//note we override the queried object here so it figures out the sidebar position correctly below
-		$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );
+		if ( ! empty( $queried_object ) ) {
+			// The user has defined a 'posts page', set a custom sidebar if specified.
+			$memberlite_custom_sidebar = get_post_meta( $queried_object->ID, '_memberlite_custom_sidebar', true );
+		}
 	}
 
 	if( !empty( $memberlite_custom_sidebar ) ) {
