@@ -515,15 +515,18 @@ function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $si
 
 	if( class_exists( 'MultiPostThumbnails') ) {
 		//The Banner Image meta box is available
-		$memberlite_banner_image_id = MultiPostThumbnails::get_post_thumbnail_id(
-			$post->post_type,
-			'memberlite_banner_image' . $post->post_type,
-			$post->ID
-		);
+		$queried_object = get_queried_object();
+		if ( ! empty( $queried_object->post_type ) ) {
+			$memberlite_banner_image_id = MultiPostThumbnails::get_post_thumbnail_id(
+				$queried_object->post_type,
+				'memberlite_banner_image' . $queried_object->post_type,
+				$queried_object->ID
+			);
 
-		if( !empty( $memberlite_banner_image_id ) ) {
-			//Set memberlite_banner_image_src to the use Banner Image instead
-			$memberlite_banner_image_src = wp_get_attachment_image_src( $memberlite_banner_image_id, $size );
+			if ( !empty( $memberlite_banner_image_id ) ) {
+				//Set memberlite_banner_image_src to the use Banner Image instead
+				$memberlite_banner_image_src = wp_get_attachment_image_src( $memberlite_banner_image_id, $size );
+			}
 		}
 	}
 
