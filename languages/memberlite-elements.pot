@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
-"POT-Creation-Date: 2020-09-11 18:19+0200\n"
+"POT-Creation-Date: 2021-03-13 11:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,221 +17,236 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: elements/functions.php:59
+#: elements/functions.php:59 elements/functions.php:59
 msgid "Banner Image"
 msgstr ""
 
-#: elements/landing_page.php:42
+#: elements/landing_page.php:43 elements/landing_page.php:42
 msgid "Sign Up Now"
 msgstr ""
 
-#: elements/page_banners.php:24
+#: elements/page_banners.php:24 elements/page_banners.php:24
 msgid "Memberlite Elements Settings"
 msgstr ""
 
-#: elements/page_banners.php:55
+#: elements/page_banners.php:55 elements/page_banners.php:55
 msgid "Page Banner Settings"
 msgstr ""
 
 #: elements/page_banners.php:56 elements/page_banners.php:58
+#: elements/page_banners.php:56 elements/page_banners.php:58
 msgid "Show Page Banner"
 msgstr ""
 
-#: elements/page_banners.php:61
+#: elements/page_banners.php:61 elements/page_banners.php:61
 msgid "Yes"
 msgstr ""
 
-#: elements/page_banners.php:63
+#: elements/page_banners.php:63 elements/page_banners.php:63
 msgid "No"
 msgstr ""
 
 #: elements/page_banners.php:66 elements/page_banners.php:71
+#: elements/page_banners.php:66 elements/page_banners.php:71
 msgid "Banner Description"
 msgstr ""
 
-#: elements/page_banners.php:75
+#: elements/page_banners.php:75 elements/page_banners.php:75
 msgid "Hide Page Title on Single View"
 msgstr ""
 
-#: elements/page_banners.php:77
+#: elements/page_banners.php:77 elements/page_banners.php:77
 msgid "Hide Breadcrumbs"
 msgstr ""
 
-#: elements/page_banners.php:79
+#: elements/page_banners.php:79 elements/page_banners.php:79
 msgid "Add Extra Banner Padding"
 msgstr ""
 
+#: elements/page_banners.php:81 elements/page_banners.php:83
 #: elements/page_banners.php:81 elements/page_banners.php:83
 msgid "Banner Right Column"
 msgstr ""
 
 #: elements/page_banners.php:88 elements/page_banners.php:90
+#: elements/page_banners.php:88 elements/page_banners.php:90
 msgid "Page Bottom Banner"
 msgstr ""
 
-#: elements/page_banners.php:94
+#: elements/page_banners.php:94 elements/page_banners.php:94
 msgid "Page Icon"
 msgstr ""
 
-#: elements/page_banners.php:96
+#: elements/page_banners.php:96 elements/page_banners.php:96
 msgid "Select Icon"
 msgstr ""
 
-#: elements/page_banners.php:106
+#: elements/page_banners.php:106 elements/page_banners.php:106
 msgid "Show Icon in Banner Title"
 msgstr ""
 
-#: elements/page_banners.php:110
+#: elements/page_banners.php:110 elements/page_banners.php:110
 msgid "Landing Page Settings"
 msgstr ""
 
-#: elements/page_banners.php:117
+#: elements/page_banners.php:117 elements/page_banners.php:117
 msgid "Membership Level"
 msgstr ""
 
-#: elements/page_banners.php:119
+#: elements/page_banners.php:119 elements/page_banners.php:119
 msgid "Landing Page Membership Level"
 msgstr ""
 
 #: elements/page_banners.php:128 elements/page_banners.php:130
+#: elements/page_banners.php:128 elements/page_banners.php:130
 msgid "Checkout Button Text"
 msgstr ""
 
-#: elements/page_banners.php:133
+#: elements/page_banners.php:133 elements/page_banners.php:133
 msgid "Membership Level Upsell"
 msgstr ""
 
-#: elements/page_banners.php:135
+#: elements/page_banners.php:142
+#, php-format
+msgid ""
+"Optional: You must install and activate the <a href=\"%s\" title=\"Paid "
+"Memberships Pro - Advanced Levels Page Add On\" target=\"_blank\">Advanced "
+"Levels Page Add On</a> to use this landing page feature."
+msgstr ""
+
+#: elements/page_banners.php:145 elements/page_banners.php:135
 msgid "Landing Page Membership Level Upsell"
 msgstr ""
 
-#: elements/page_banners.php:279
+#: elements/page_banners.php:291 elements/page_banners.php:279
 msgid "Show as Banner Image"
 msgstr ""
 
-#: elements/page_banners.php:281
+#: elements/page_banners.php:293 elements/page_banners.php:281
 msgid "If a banner image is set below, it will override this setting."
 msgstr ""
 
-#: elements/sidebars.php:38
+#: elements/sidebars.php:38 elements/sidebars.php:38
 msgid "Please enter a valid sidebar name."
 msgstr ""
 
-#: elements/sidebars.php:43
+#: elements/sidebars.php:43 elements/sidebars.php:43
 msgid "Sidebar id or name already used. Try another name."
 msgstr ""
 
-#: elements/sidebars.php:60
+#: elements/sidebars.php:60 elements/sidebars.php:60
 msgid "Sidebar added."
 msgstr ""
 
-#: elements/sidebars.php:124
+#: elements/sidebars.php:124 elements/sidebars.php:124
 msgid "Memberlite Custom Sidebars"
 msgstr ""
 
-#: elements/sidebars.php:128
+#: elements/sidebars.php:128 elements/sidebars.php:128
 msgid "Add New Sidebar"
 msgstr ""
 
-#: elements/sidebars.php:131
+#: elements/sidebars.php:131 elements/sidebars.php:131
 msgid "Sidebar Name"
 msgstr ""
 
-#: elements/sidebars.php:134
+#: elements/sidebars.php:134 elements/sidebars.php:134
 msgid "Add Sidebar"
 msgstr ""
 
-#: elements/sidebars.php:141
+#: elements/sidebars.php:141 elements/sidebars.php:141
 msgid "ID"
 msgstr ""
 
-#: elements/sidebars.php:142
+#: elements/sidebars.php:142 elements/sidebars.php:142
 msgid "Name"
 msgstr ""
 
-#: elements/sidebars.php:143
+#: elements/sidebars.php:143 elements/sidebars.php:143
 msgid "Actions"
 msgstr ""
 
-#: elements/sidebars.php:164
+#: elements/sidebars.php:164 elements/sidebars.php:164
 msgid "Delete"
 msgstr ""
 
-#: elements/sidebars.php:170
+#: elements/sidebars.php:170 elements/sidebars.php:170
 msgid "Not a custom sidebar."
 msgstr ""
 
-#: elements/sidebars.php:182
+#: elements/sidebars.php:182 elements/sidebars.php:182
 msgid "Assign Sidebars to Custom Post Types"
 msgstr ""
 
-#: elements/sidebars.php:183
+#: elements/sidebars.php:183 elements/sidebars.php:183
 msgid ""
 "For each detected CPT below, select the sidebar you would like to display."
 msgstr ""
 
-#: elements/sidebars.php:192
+#: elements/sidebars.php:192 elements/sidebars.php:192
 msgid "Custom Post Type"
 msgstr ""
 
 #: elements/sidebars.php:193 elements/sidebars.php:406
+#: elements/sidebars.php:193 elements/sidebars.php:406
 msgid "Select Sidebar"
 msgstr ""
 
-#: elements/sidebars.php:230
+#: elements/sidebars.php:230 elements/sidebars.php:230
 msgid "Save CPT Sidebar Selections"
 msgstr ""
 
-#: elements/sidebars.php:333
+#: elements/sidebars.php:333 elements/sidebars.php:333
 msgid "Custom Sidebar"
 msgstr ""
 
 #: elements/sidebars.php:388 elements/sidebars.php:391
+#: elements/sidebars.php:388 elements/sidebars.php:391
 msgid "Hide Page Children Menu in Sidebar"
 msgstr ""
 
-#: elements/sidebars.php:389
+#: elements/sidebars.php:389 elements/sidebars.php:389
 msgid "The Membership Account page and its children do not display this menu."
 msgstr ""
 
-#: elements/sidebars.php:397
+#: elements/sidebars.php:397 elements/sidebars.php:397
 #, php-format
 msgid "The current default sidebar is <strong>%s</strong>."
 msgstr ""
 
-#: elements/sidebars.php:401
+#: elements/sidebars.php:401 elements/sidebars.php:401
 msgid "The current default sidebar is <strong>hidden</strong>."
 msgstr ""
 
-#: elements/sidebars.php:403
+#: elements/sidebars.php:403 elements/sidebars.php:403
 msgid "Manage Custom Sidebars"
 msgstr ""
 
-#: elements/sidebars.php:404
+#: elements/sidebars.php:404 elements/sidebars.php:404
 msgid "Select Custom Sidebar"
 msgstr ""
 
-#: elements/sidebars.php:421
+#: elements/sidebars.php:421 elements/sidebars.php:421
 msgid "Default Sidebar Behavior"
 msgstr ""
 
-#: elements/sidebars.php:423
+#: elements/sidebars.php:423 elements/sidebars.php:423
 msgid "Default Sidebar"
 msgstr ""
 
-#: elements/sidebars.php:426
+#: elements/sidebars.php:426 elements/sidebars.php:426
 msgid "Show Default Sidebar Above"
 msgstr ""
 
-#: elements/sidebars.php:427
+#: elements/sidebars.php:427 elements/sidebars.php:427
 msgid "Show Default Sidebar Below"
 msgstr ""
 
-#: elements/sidebars.php:428
+#: elements/sidebars.php:428 elements/sidebars.php:428
 msgid "Hide Default Sidebar"
 msgstr ""
 
-#: memberlite-elements.php:63
+#: memberlite-elements.php:63 memberlite-elements.php:63
 msgid "Memberlite Elements requires Memberlite version 4.0 or higher."
 msgstr ""
 

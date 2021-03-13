@@ -52,7 +52,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	$memberlite_landing_page_checkout_button = get_post_meta($post->ID, '_memberlite_landing_page_checkout_button', true);
 	$pmproal_landing_page_level = get_post_meta($post->ID, '_pmproal_landing_page_level', true);
 	$memberlite_landing_page_upsell = get_post_meta($post->ID, '_memberlite_landing_page_upsell', true);
-	echo '<h2><strong>' . __('Page Banner Settings', 'memberlite-elements') . '</strong></h2>';
+	echo '<h3>' . __('Page Banner Settings', 'memberlite-elements') . '</h3>';
 	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Show Page Banner', 'memberlite-elements') . '</strong> <em>Disable the entire page banner for this content.</em><br />';
 	echo '<label class="screen-reader-text" for="memberlite_banner_show">';
 	_e('Show Page Banner', 'memberlite-elements');
@@ -107,7 +107,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	if(($memberlite_page_template == 'templates/landing.php') && function_exists('pmpro_getAllLevels'))
 	{
 		echo '<hr />';
-		echo '<h2>' . __('Landing Page Settings', 'memberlite-elements') . '</h2>';
+		echo '<h3>' . __('Landing Page Settings', 'memberlite-elements') . '</h3>';
 		$membership_levels = pmpro_getAllLevels();
 		if(empty($membership_levels))
 			echo '<div class="inline notice error"><p><a href="' . admin_url('admin.php?page=pmpro-membershiplevels') . '">Add a Membership Level to Use These Landing Page Features &raquo;</a></p>';
@@ -131,16 +131,28 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 			echo '</label>';
 			echo '<input type="text" id="memberlite_landing_page_checkout_button" name="memberlite_landing_page_checkout_button" value="' . $memberlite_landing_page_checkout_button . '"> <em>(default: "Select")</em></td></tr>';
 			echo '<tr><th scope="row">' . __('Membership Level Upsell', 'memberlite-elements') . '</th>';
-			echo '<td><label class="screen-reader-text" for="memberlite_landing_page_upsell">';
-				_e('Landing Page Membership Level Upsell', 'memberlite-elements');
-			echo '</label>';
-			echo '<select id="memberlite_landing_page_upsell" name="memberlite_landing_page_upsell">';
-			echo '<option value="" ' . selected( $memberlite_landing_page_upsell, "" ) . '>- Select -</option>';
-			foreach($membership_levels as $level)
-			{
-				echo '<option value="' . $level->id . '"' . selected( $memberlite_landing_page_upsell, $level->id ) . '>' . $level->name . '</option>';
+			if ( ! function_exists( 'pmpro_advanced_levels_shortcode' ) ) {
+				$allowed_advanced_levels_html = array (
+					'a' => array (
+						'href' => array(),
+						'target' => array(),
+						'title' => array(),
+					),
+				);
+				echo '<td><p class="description">' . sprintf( wp_kses( __( 'Optional: You must install and activate the <a href="%s" title="Paid Memberships Pro - Advanced Levels Page Add On" target="_blank">Advanced Levels Page Add On</a> to use this landing page feature.', 'memberlite-elements' ), $allowed_advanced_levels_html ), 'https://www.paidmembershipspro.com/add-ons/pmpro-advanced-levels-shortcode/' ) . '</td>';
+			} else {
+				echo '<td><label class="screen-reader-text" for="memberlite_landing_page_upsell">';
+					_e('Landing Page Membership Level Upsell', 'memberlite-elements');
+				echo '</label>';
+				echo '<select id="memberlite_landing_page_upsell" name="memberlite_landing_page_upsell">';
+				echo '<option value="" ' . selected( $memberlite_landing_page_upsell, "" ) . '>- Select -</option>';
+				foreach($membership_levels as $level)
+				{
+					echo '<option value="' . $level->id . '"' . selected( $memberlite_landing_page_upsell, $level->id ) . '>' . $level->name . '</option>';
+				}
+				echo '</select></td>';
 			}
-			echo '</select></td></tr>';
+			echo '</tr>';
 			echo '</tbody></table>';
 		}
 	}
@@ -429,8 +441,14 @@ function memberlite_elements_masthead_content( $content ) {
 					$memberlite_page_icon_class = 'fa';
 				}
 
+				if ( is_page_template( 'templates/narrow-width.php' ) ) {
+					$memberlite_page_icon_size = 'fa-2x';
+				} else {
+					$memberlite_page_icon_size = 'fa-4x';
+				}
+
 				//Show the icon in a 2 column span
-				$content .= '<div class="medium-1 columns"><i class="' . $memberlite_page_icon_class . ' fa-4x fa-' . $memberlite_page_icon . '"></i></div>';
+				$content .= '<div class="medium-1 columns text-center"><i class="' . $memberlite_page_icon_class . ' ' . $memberlite_page_icon_size . ' fa-' . $memberlite_page_icon . '"></i></div>';
 
 				//Add the column wrapper for page title and description
 				if( empty( $memberlite_banner_right) ) {
@@ -515,15 +533,18 @@ function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $si
 
 	if( class_exists( 'MultiPostThumbnails') ) {
 		//The Banner Image meta box is available
-		$memberlite_banner_image_id = MultiPostThumbnails::get_post_thumbnail_id(
-			$post->post_type,
-			'memberlite_banner_image' . $post->post_type,
-			$post->ID
-		);
+		$queried_object = get_queried_object();
+		if ( ! empty( $queried_object->post_type ) ) {
+			$memberlite_banner_image_id = MultiPostThumbnails::get_post_thumbnail_id(
+				$queried_object->post_type,
+				'memberlite_banner_image' . $queried_object->post_type,
+				$queried_object->ID
+			);
 
-		if( !empty( $memberlite_banner_image_id ) ) {
-			//Set memberlite_banner_image_src to the use Banner Image instead
-			$memberlite_banner_image_src = wp_get_attachment_image_src( $memberlite_banner_image_id, $size );
+			if ( !empty( $memberlite_banner_image_id ) ) {
+				//Set memberlite_banner_image_src to the use Banner Image instead
+				$memberlite_banner_image_src = wp_get_attachment_image_src( $memberlite_banner_image_id, $size );
+			}
 		}
 	}
 
