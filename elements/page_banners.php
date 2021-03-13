@@ -441,8 +441,14 @@ function memberlite_elements_masthead_content( $content ) {
 					$memberlite_page_icon_class = 'fa';
 				}
 
+				if ( is_page_template( 'templates/narrow-width.php' ) ) {
+					$memberlite_page_icon_size = 'fa-2x';
+				} else {
+					$memberlite_page_icon_size = 'fa-4x';
+				}
+
 				//Show the icon in a 2 column span
-				$content .= '<div class="medium-1 columns"><i class="' . $memberlite_page_icon_class . ' fa-4x fa-' . $memberlite_page_icon . '"></i></div>';
+				$content .= '<div class="medium-1 columns text-center"><i class="' . $memberlite_page_icon_class . ' ' . $memberlite_page_icon_size . ' fa-' . $memberlite_page_icon . '"></i></div>';
 
 				//Add the column wrapper for page title and description
 				if( empty( $memberlite_banner_right) ) {
