@@ -17,6 +17,12 @@ xgettext -j -o languages/memberlite-elements.pot \
 --keyword=_ex \
 --keyword=_n \
 --keyword=_x \
+--keyword=esc_html__ \
+--keyword=esc_html_e \
+--keyword=esc_html_x \
+--keyword=esc_attr__ \
+--keyword=esc_attr_e \
+--keyword=esc_attr_x \
 --sort-by-file \
 --package-version=1.1 \
 --msgid-bugs-address="info@paidmembershipspro.com" \
