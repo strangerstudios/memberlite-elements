@@ -135,7 +135,7 @@ function memberlite_elements_custom_sidebars() {
 						</form>
 					</div> <!-- end inside -->
 				</div> <!-- end postbox -->
-				<table class="widefat" id="memberlite-custom-sidebars-table">
+				<table class="widefat striped" id="memberlite-custom-sidebars-table">
 					<thead>
 						<tr>
 							<th scope="col" class="manage-column column-sidebar-id"><?php _e( 'ID', 'memberlite' ); ?></th>
@@ -148,12 +148,10 @@ function memberlite_elements_custom_sidebars() {
 						global $wp_registered_sidebars;
 						ksort($wp_registered_sidebars);
 
-						$count = 0;
 						foreach($wp_registered_sidebars as $wp_registered_sidebar)
 						{
-							$count++;
 							?>
-							<tr class="memberlite-custom-sidebars-row<?php if($count % 2 == 0) { echo ' alternate'; } ?><?php if(!empty($_REQUEST['memberlite_custom_sidebar_name']) && $_REQUEST['memberlite_custom_sidebar_name'] == $wp_registered_sidebar['id']) { echo ' highlight'; }?>">
+							<tr class="memberlite-custom-sidebars-row">
 								<td class="custom-sidebar-id"><?php echo $wp_registered_sidebar['id']; ?></td>
 								<td class="custom-sidebar-name"><?php echo $wp_registered_sidebar['name']; ?></td>
 								<td class="custom-sidebar-actions">
@@ -186,7 +184,7 @@ function memberlite_elements_custom_sidebars() {
 					{
 						?>
 						<form id="memberlite_cpt_sidebar_form" method="post" action="<?php echo admin_url("themes.php?page=memberlite-custom-sidebars");?>">
-							<table class="widefat" id="memberlite-cpt-sidebars-table">
+							<table class="widefat striped" id="memberlite-cpt-sidebars-table">
 								<thead>
 									<tr>
 										<th scope="col" class="manage-column column-cpt-name"><?php _e( 'Custom Post Type', 'memberlite' ); ?></th>
@@ -201,19 +199,22 @@ function memberlite_elements_custom_sidebars() {
 											continue;
 										else
 										{
-											$count++;
+											if ( ! empty( $memberlite_cpt_sidebars[$post_type->name] ) ) {
+												$selected_sidebar = $memberlite_cpt_sidebars[$post_type->name];
+											} else {
+												$selected_sidebar = '';
+											}
 											?>
-											<tr class="memberlite-cpt-sidebars-row<?php if($count % 2 == 0) { echo ' alternate'; } ?>">
+											<tr class="memberlite-cpt-sidebars-row">
 												<td class="cpt-name"><?php echo $post_type->labels->name; ?></td>
 												<td class="cpt-actions">
 												<?php
 													echo '<select id="memberlite_sidebar_cpt_sidebar_ids" name="memberlite_sidebar_cpt_sidebar_ids[]">';
-													echo '<option value="memberlite_sidebar_default"' . selected( $memberlite_cpt_sidebars[$post_type->name], 'memberlite_sidebar_default' ) . '>- Default Sidebar -</option>';
-													foreach($wp_registered_sidebars as $wp_registered_sidebar)
-													{
-														echo '<option value="' . $wp_registered_sidebar['id'] . '"' . selected( $memberlite_cpt_sidebars[$post_type->name], $wp_registered_sidebar['id'] ) . '>' . $wp_registered_sidebar['name'] . '</option>';
+													echo '<option value="memberlite_sidebar_default"' . selected( $selected_sidebar, 'memberlite_sidebar_default' ) . '>- Default Sidebar -</option>';
+													foreach ( $wp_registered_sidebars as $wp_registered_sidebar ) {
+														echo '<option value="' . $wp_registered_sidebar['id'] . '"' . selected( $selected_sidebar, $wp_registered_sidebar['id'] ) . '>' . $wp_registered_sidebar['name'] . '</option>';
 													}
-														echo '<option value="memberlite_sidebar_blank"' . selected( $memberlite_cpt_sidebars[$post_type->name], 'memberlite_sidebar_blank' ) . '>- Hide Sidebar -</option>';
+														echo '<option value="memberlite_sidebar_blank"' . selected( $selected_sidebar, 'memberlite_sidebar_blank' ) . '>- Hide Sidebar -</option>';
 													echo '</select>';
 												?>
 												<input type="hidden" name="memberlite_sidebar_cpt_names[]" id="memberlite_sidebar_cpt_names" value="<?php echo $post_type->name; ?>">
