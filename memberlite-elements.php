@@ -12,7 +12,7 @@ Domain Path: /languages
 
 define( 'MEMBERLITE_ELEMENTS_DIR', dirname( __FILE__ ) );
 define( 'MEMBERLITE_ELEMENTS_URL', plugins_url( '', __FILE__ ) );
-define( 'MEMBERLITE_ELEMENTS_VERSION', '1.0.5' );
+define( 'MEMBERLITE_ELEMENTS_VERSION', '1.0.5.1' );
 
 /**
  * Load text domain
