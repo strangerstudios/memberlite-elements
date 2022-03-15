@@ -9,7 +9,7 @@
 function memberlite_elements_admin_enqueue_scripts_for_page_banners() {
 	$screen = get_current_screen();
 
-	if( $screen->base == 'post' && !empty( $_REQUEST['action'] ) && $_REQUEST['action'] == 'edit' ) {
+	if ( $screen->base == 'post' && ! empty( $_REQUEST['action'] ) && $_REQUEST['action'] == 'edit' ) {
 		wp_enqueue_script( 'memberlite-elements-admin-page_banners',  MEMBERLITE_ELEMENTS_URL . '/js/admin-page_banners.js', array( 'jquery' ), MEMBERLITE_ELEMENTS_VERSION, true );
 	}
 }
@@ -289,7 +289,7 @@ function memberlite_elements_featured_image_meta( $content, $post_id ) {
 		$id = '_memberlite_show_image_banner';
 		$value = esc_attr( get_post_meta( $post_id, $id, true ) );
 		$label = '<hr /><label for="' . $id . '" class="selectit"><input name="' . $id . '" type="checkbox" id="' . $id . '" value="' . $value . ' "'. checked( $value, 1, false) .'>' . __('Show as Banner Image', 'memberlite-elements') . '</label>';
-		if( class_exists( 'MultiPostThumbnails' ) ) {
+		if ( class_exists( 'MultiPostThumbnails' ) ) {
 			$label .= '<p class="howto">' . __( 'If a banner image is set below, it will override this setting.', 'memberlite-elements' ) . '</p>';
 		}
 		return $content .= $label;
@@ -312,12 +312,23 @@ add_action( 'save_post', 'memberlite_elements_save_featured_image_meta', 10, 3 )
 
 function memberlite_elements_display_banner_bottom( ) {
 	global $post;
-	if( !empty( $post ) && !empty( $post->ID ) ) {
-		$memberlite_banner_bottom = get_post_meta( $post->ID, '_memberlite_banner_bottom', true );
+
+	$queried_object = get_queried_object();
+	if ( ! empty( $queried_object->ID ) ) {
+		$post_id = $queried_object->ID;
+	}
+
+	// If we don't have a post_id and we're on the "blog", set post_id to the page_for_posts.
+	if ( empty( $post_id ) && ( is_home() || is_post_type_archive( 'post' ) ) ) {
+		$post_id = get_option('page_for_posts');
+	}
+
+	if ( ! empty( $post_id ) ) {
+		$memberlite_banner_bottom = get_post_meta( $post_id, '_memberlite_banner_bottom', true );
 	} else {
 		$memberlite_banner_bottom = false;
 	}
-	if( !empty( $memberlite_banner_bottom ) ) { ?>
+	if ( ! empty( $memberlite_banner_bottom ) ) { ?>
 		<div id="banner_bottom">
 			<div class="row"><div class="large-12 columns">
 				<?php echo apply_filters( 'the_content', $memberlite_banner_bottom ); ?>
@@ -335,9 +346,9 @@ add_action( 'memberlite_after_content', 'memberlite_elements_display_banner_bott
  */
 function memberlite_elements_body_classes( $classes ) {
 	global $post;
-	if( !empty( $post ) && is_page() ) {
+	if ( ! empty( $post ) && is_page() ) {
 		$memberlite_banner_show = get_post_meta( $post->ID, '_memberlite_banner_show', true );
-		if( $memberlite_banner_show === '0' ) {
+		if ( $memberlite_banner_show === '0' ) {
 			$classes[] = 'memberlite-banner-hidden';
 		}
 	}
@@ -349,14 +360,20 @@ add_filter( 'body_class', 'memberlite_elements_body_classes' );
 	Filter to hide the masthead banner based on post meta setting
 */
 function memberlite_elements_banner_show( ) {
+	// Set the post_id to the queried object ID.
 	$queried_object = get_queried_object();
-	if( ! empty( $queried_object->ID ) ) {
+	if ( ! empty( $queried_object->ID ) ) {
 		$post_id = $queried_object->ID;
 	}
 	
-	if( ! empty( $post_id ) ) {
+	// If we don't have a post_id and we're on the "blog", set post_id to the page_for_posts.
+	if ( empty( $post_id ) && ( is_home() || is_post_type_archive( 'post' ) ) ) {
+		$post_id = get_option('page_for_posts');
+	}
+
+	if ( ! empty( $post_id ) ) {
 		$memberlite_banner_show = get_post_meta( $post_id, '_memberlite_banner_show', true );
-		if( $memberlite_banner_show === '0' ) {
+		if ( $memberlite_banner_show === '0' ) {
 			return false;
 		} else {
 			return true;
@@ -371,14 +388,20 @@ add_filter( 'memberlite_banner_show', 'memberlite_elements_banner_show' );
 	Filter to hide the masthead banner breadcrumbs based on post meta setting
 */
 function memberlite_elements_show_breadcrumbs( ) {
+	// Set the post_id to the queried object ID.
 	$queried_object = get_queried_object();
-	if( ! empty( $queried_object->ID ) ) {
+	if ( ! empty( $queried_object->ID ) ) {
 		$post_id = $queried_object->ID;
 	}
 	
-	if( ! empty( $post_id ) ) {
+	// If we don't have a post_id and we're on the "blog", set post_id to the page_for_posts.
+	if ( empty( $post_id ) && ( is_home() || is_post_type_archive( 'post' ) ) ) {
+		$post_id = get_option('page_for_posts');
+	}
+	
+	if ( ! empty( $post_id ) ) {
 		$memberlite_banner_hide_breadcrumbs = get_post_meta( $post_id, '_memberlite_banner_hide_breadcrumbs', true );
-		if( $memberlite_banner_hide_breadcrumbs === '1' ) {
+		if ( $memberlite_banner_hide_breadcrumbs === '1' ) {
 			return false;
 		} else {
 			return true;
@@ -393,18 +416,29 @@ add_filter( 'memberlite_show_breadcrumbs', 'memberlite_elements_show_breadcrumbs
 	Filter to show additional content in the masthead banner
 */
 function memberlite_elements_masthead_content( $content ) {
+	// Return early if this is the 404 page.
+	if ( is_404() ) {
+		return $content;
+	}
+
+	// Set the post_id to the queried object ID.
 	$queried_object = get_queried_object();
-	if( ! empty( $queried_object->ID ) ) {
+	if ( ! empty( $queried_object->ID ) ) {
 		$post_id = $queried_object->ID;
 	}
-	
-	if( ! empty( $post_id ) ) {
+
+	// If we don't have a post_id and we're on the "blog", set post_id to the page_for_posts.
+	if ( empty( $post_id ) && ( is_home() || is_post_type_archive( 'post' ) ) ) {
+		$post_id = get_option('page_for_posts');
+	}
+
+	if ( ! empty( $post_id ) ) {
 		//add a space to the front, to make sure the default masthead isn't shown
 		$content .= ' ';
 
 		//Get setting for masthead banner extra padding
 		$memberlite_banner_extra_padding = get_post_meta( $post_id, '_memberlite_banner_extra_padding', true );
-		if( !empty( $memberlite_banner_extra_padding ) ) {
+		if ( ! empty( $memberlite_banner_extra_padding ) ) {
 			//Add the masthead banner padding wrapper
 			$content .= '<div class="masthead-padding">';
 		}
@@ -423,7 +457,7 @@ function memberlite_elements_masthead_content( $content ) {
 		$memberlite_landing_page_checkout_button = get_post_meta($post_id,'_memberlite_landing_page_checkout_button',true);
 		$memberlite_landing_page_upsell = get_post_meta($post_id,'_memberlite_landing_page_upsell',true);
 
-		if( !empty( $memberlite_banner_right ) || ( !empty( $memberlite_banner_icon )  && !empty( $memberlite_page_icon ) ) ) {
+		if ( ! empty( $memberlite_banner_right ) || ( ! empty( $memberlite_banner_icon )  && ! empty( $memberlite_page_icon ) ) ) {
 
 			//Get the columns ratio for the masthead banner based on content setting in customizer.
 			$memberlite_columns_primary = memberlite_getColumnsRatio();
@@ -431,7 +465,7 @@ function memberlite_elements_masthead_content( $content ) {
 			$content .= '<div class="memberlite_elements-masthead row">';
 
 			//Check that we should display a masthead banner icon and it is set
-			if( !empty( $memberlite_banner_icon ) && !empty( $memberlite_page_icon ) ) {
+			if ( ! empty( $memberlite_banner_icon ) && ! empty( $memberlite_page_icon ) ) {
 				$font_awesome_icons_brands = memberlite_elements_get_font_awesome_icons( 'brand' );
 
 				// Check if the icon is a "brand" icon and set the appropriate icon class.
@@ -451,7 +485,7 @@ function memberlite_elements_masthead_content( $content ) {
 				$content .= '<div class="medium-1 columns text-center"><i class="' . $memberlite_page_icon_class . ' ' . $memberlite_page_icon_size . ' fa-' . $memberlite_page_icon . '"></i></div>';
 
 				//Add the column wrapper for page title and description
-				if( empty( $memberlite_banner_right) ) {
+				if ( empty( $memberlite_banner_right) ) {
 					$content .= '<div class="medium-11 columns">';
 				} else {
 					$content .= '<div class="medium-' . ( $memberlite_columns_primary-1 ) .' columns">';
@@ -462,34 +496,34 @@ function memberlite_elements_masthead_content( $content ) {
 		}
 
 		//Show the landing page featured image
-		if( is_page_template( 'templates/landing.php' ) && has_post_thumbnail( $post_id ) ) {
+		if ( is_page_template( 'templates/landing.php' ) && has_post_thumbnail( $post_id ) ) {
 			$content .= get_the_post_thumbnail( 'medium', array( 'class' => 'alignleft' ) );
 		}
 
 		//Get setting to show or hide page title in masthead banner
 		$memberlite_banner_hide_title = get_post_meta( $post_id, '_memberlite_banner_hide_title', true );
-		if( empty( $memberlite_banner_hide_title ) ) {
+		if ( empty( $memberlite_banner_hide_title ) ) {
 			$content .= memberlite_page_title( false );	//false to not echo
 		}
 
 		//Get content for masthead banner description
 		$memberlite_banner_desc = get_post_meta( $post_id, '_memberlite_banner_desc', true );
-		if( !empty( $memberlite_banner_desc ) ) {
+		if ( ! empty( $memberlite_banner_desc ) ) {
 			//Show the masthead banner description
 			$content .= wpautop( do_shortcode( $memberlite_banner_desc ) );
 		}
 
 		//Show the landing page level price and checkout button
-		if( is_page_template( 'templates/landing.php' ) && !empty( $pmproal_landing_page_level ) && defined( 'PMPRO_VERSION' ) ) {
+		if ( is_page_template( 'templates/landing.php' ) && ! empty( $pmproal_landing_page_level ) && defined( 'PMPRO_VERSION' ) ) {
 			$level = pmpro_getLevel( $pmproal_landing_page_level );
 
 			//Set default checkout button text
-			if( empty( $memberlite_landing_page_checkout_button ) ) {
+			if ( empty( $memberlite_landing_page_checkout_button ) ) {
 				$memberlite_landing_page_checkout_button = 'Select';
 			}
 
-			if( !empty( $level ) ) {
-				if( empty( $memberlite_banner_desc ) ) {
+			if ( ! empty( $level ) ) {
+				if ( empty( $memberlite_banner_desc ) ) {
 					//Show the level descrpition of banner description is empty
 					$content .= wpautop( do_shortcode( $level->description ) );
 				}
@@ -498,24 +532,24 @@ function memberlite_elements_masthead_content( $content ) {
 			}
 		}
 
-		if( !empty( $memberlite_banner_right ) || ( !empty( $memberlite_banner_icon )  && !empty( $memberlite_page_icon ) ) ) {
+		if ( ! empty( $memberlite_banner_right ) || ( ! empty( $memberlite_banner_icon )  && ! empty( $memberlite_page_icon ) ) ) {
 			//Close the masthead banner columns div
 			$content .= '</div> <!--.medium-X .columns -->';
 		}
 
-		if( !empty( $memberlite_banner_right ) ) {
+		if ( ! empty( $memberlite_banner_right ) ) {
 			//Show the masthead banner right columns
 			$content .= '<div class="medium-' . memberlite_getColumnsRatio( 'sidebar' ) . ' columns">';
 			$content .= wpautop( do_shortcode( $memberlite_banner_right ) );
 			$content .= '</div> <!--.medium-X .columns -->';
 		}
 
-		if( !empty( $memberlite_banner_right ) || ( !empty( $memberlite_banner_icon )  && !empty( $memberlite_page_icon ) ) ) {
+		if ( ! empty( $memberlite_banner_right ) || ( ! empty( $memberlite_banner_icon )  && ! empty( $memberlite_page_icon ) ) ) {
 			//Close the masthead banner row div
 			$content .= '</div> <!--.row -->';
 		}
 
-		if( !empty( $memberlite_banner_extra_padding ) ) {
+		if ( ! empty( $memberlite_banner_extra_padding ) ) {
 			//Cloise the masthead banner padding wrapper
 			$content .= '</div><!--.masthead-padding-->';
 		}
@@ -531,9 +565,13 @@ add_filter( 'memberlite_masthead_content', 'memberlite_elements_masthead_content
 function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $size ) {
 	global $post;
 
-	if( class_exists( 'MultiPostThumbnails') ) {
-		//The Banner Image meta box is available
+	if ( class_exists( 'MultiPostThumbnails') ) {
+		// Set the post_id to the queried object ID.
 		$queried_object = get_queried_object();
+		if ( ! empty( $queried_object->ID ) ) {
+			$post_id = $queried_object->ID;
+		}
+
 		if ( ! empty( $queried_object->post_type ) ) {
 			$memberlite_banner_image_id = MultiPostThumbnails::get_post_thumbnail_id(
 				$queried_object->post_type,
@@ -541,7 +579,7 @@ function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $si
 				$queried_object->ID
 			);
 
-			if ( !empty( $memberlite_banner_image_id ) ) {
+			if ( ! empty( $memberlite_banner_image_id ) ) {
 				//Set memberlite_banner_image_src to the use Banner Image instead
 				$memberlite_banner_image_src = wp_get_attachment_image_src( $memberlite_banner_image_id, $size );
 			}
@@ -556,22 +594,28 @@ add_filter( 'memberlite_banner_image_src', 'memberlite_elements_banner_image_src
 	Function to display the background image in the banner.
 */
 function memberlite_elements_before_masthead_outer( ) {
-	if( is_home() || is_post_type_archive( 'post' ) ) {
+	// Return early if this is the 404 page.
+	if ( is_404() ) {
+		return;
+	}
+
+	// If this is the front page, set the post_id to the page_for_posts.
+	if ( is_home() || is_post_type_archive( 'post' ) ) {
 		$post_id = get_option('page_for_posts');
 	} else {
 		// get from queried object
 		$queried_object = get_queried_object();
-		if( ! empty( $queried_object->ID ) ) {
+		if ( ! empty( $queried_object->ID ) ) {
 			$post_id = $queried_object->ID;
 		}
 	}
 
-	if( !empty( $post_id ) && function_exists( 'memberlite_get_banner_image_src' ) ) {
+	if ( ! empty( $post_id ) && function_exists( 'memberlite_get_banner_image_src' ) ) {
 		$memberlite_show_image_banner = get_post_meta( $post_id, '_memberlite_show_image_banner', true );
 		$memberlite_banner_image_src = memberlite_get_banner_image_src( $post_id, 'memberlite-masthead' );
 		$the_post_thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'memberlite-masthead' );
 
-		if( !empty( $memberlite_show_image_banner ) && !empty( $memberlite_banner_image_src ) || ( !empty( $memberlite_banner_image_src ) && ( $memberlite_banner_image_src != $the_post_thumbnail_src ) ) ) { ?>
+		if ( ! empty( $memberlite_show_image_banner ) && ! empty( $memberlite_banner_image_src ) || ( ! empty( $memberlite_banner_image_src ) && ( $memberlite_banner_image_src != $the_post_thumbnail_src ) ) ) { ?>
 			<div class="masthead-banner" style="background-image: url('<?php echo esc_attr($memberlite_banner_image_src[0]);?>');">
 			<?php
 		}
@@ -583,22 +627,29 @@ add_action( 'memberlite_before_masthead_outer', 'memberlite_elements_before_mast
 	Function to display the background image in the banner.
 */
 function memberlite_elements_after_masthead_outer( ) {
-	global $post;
 
-	if( !empty( $post ) ) {
-		$post_id = $post->ID;
+	// Return early if this is the 404 page.
+	if ( is_404() ) {
+		return;
 	}
 
-	if( is_home() || is_archive() ) {
+	// If this is the front page, set the post_id to the page_for_posts.
+	if ( is_home() || is_post_type_archive( 'post' ) ) {
 		$post_id = get_option('page_for_posts');
+	} else {
+		// get from queried object
+		$queried_object = get_queried_object();
+		if ( ! empty( $queried_object->ID ) ) {
+			$post_id = $queried_object->ID;
+		}
 	}
 
-	if( !empty( $post_id ) && function_exists( 'memberlite_get_banner_image_src' ) ) {
+	if ( ! empty( $post_id ) && function_exists( 'memberlite_get_banner_image_src' ) ) {
 		$memberlite_show_image_banner = get_post_meta( $post_id, '_memberlite_show_image_banner', true );
 		$memberlite_banner_image_src = memberlite_get_banner_image_src( $post_id, 'memberlite-masthead' );
 		$the_post_thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'memberlite-masthead' );
 
-		if( !empty( $memberlite_show_image_banner ) && !empty( $memberlite_banner_image_src ) || ( !empty( $memberlite_banner_image_src ) && ( $memberlite_banner_image_src != $the_post_thumbnail_src ) ) ) { ?>
+		if ( ! empty( $memberlite_show_image_banner ) && ! empty( $memberlite_banner_image_src ) || ( ! empty( $memberlite_banner_image_src ) && ( $memberlite_banner_image_src != $the_post_thumbnail_src ) ) ) { ?>
 			</div><!--.masthead-banner-->
 			<?php
 		}
