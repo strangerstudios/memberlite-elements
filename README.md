@@ -35,5 +35,4 @@ There are various **ways to help development** of Memberlite Elements:
 Here are some ways for **non-developers to contribute** to Memberlite Elements:
 
 1. Translate Memberlite Elements into your own [language](https://translate.wordpress.org/projects/wp-plugins/memberlite-elements/).
-2. [Purchase a Memberlite Support membership](https://memberlitetheme.com/pricing/) to help fund ongoing development and bug fixes.
-3. Leave an honest review for [Memberlite Elements](https://wordpress.org/support/plugin/memberlite-elements/reviews/#new-post).
+2. Leave an honest review for [Memberlite Elements](https://wordpress.org/support/plugin/memberlite-elements/reviews/#new-post).
