@@ -58,6 +58,7 @@ As of this release, Memberlite Elements is only compatible with the Memberlite T
 = 1.0.6 - 2022-03-15 =
 * ENHANCEMENT: Updated to Font Awesome version 6.0.
 * ENHANCEMENT: Tested up to WordPress 5.9.2.
+* ENHANCEMENT: Now inheriting custom page banner and bottom banner on the Posts (blog) page if set.
 
 = 1.0.5 - 2021-03-13 =
 * ENHANCEMENT: Updated to Font Awesome version 5.15.1.
