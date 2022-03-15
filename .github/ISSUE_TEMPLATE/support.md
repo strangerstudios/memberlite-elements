@@ -12,8 +12,8 @@ We don't offer technical support on GitHub so we recommend using the following:
 **Reading our documentation**
 Usage docs can be found here: https://memberlitetheme.com/memberlite-elements/
 
-**Advanced Support for Memberlite Support Members**
-Submit a ticket on our helpdesk by visiting https://memberlitetheme.com/new-topic/ (Please note that an [active membership](https://memberlitetheme.com/pricing) is required for paid support.)
+**Advanced Support for Memberlite**
+Submit a ticket on our helpdesk by visiting https://memberlitetheme.com/contact/
 
 **General usage and development questions**
 - Website: https://memberlitetheme.com/contact/
