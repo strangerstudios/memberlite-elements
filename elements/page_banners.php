@@ -559,26 +559,41 @@ function memberlite_elements_masthead_content( $content ) {
 }
 add_filter( 'memberlite_masthead_content', 'memberlite_elements_masthead_content' );
 
-/*
-	Filter to show the banner image from MultiPostThumbnails if it exists
-*/
-function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $size ) {
-	global $post;
-
-	if ( class_exists( 'MultiPostThumbnails') ) {
-		// Set the post_id to the queried object ID.
-		$queried_object = get_queried_object();
-		if ( ! empty( $queried_object->ID ) ) {
-			$post_id = $queried_object->ID;
-		}
-
-		if ( ! empty( $queried_object->post_type ) ) {
+/**
+ * Filter to get the banner image from MultiPostThumbnails if it exists.
+ */
+function memberlite_elements_get_banner_image( $memberlite_banner_image, $attachment_id, $size = 'banner', $icon = false, $attr = '', $post_id ) {
+	if ( class_exists( 'MultiPostThumbnails') && ! empty( $post_id ) ) {
+		$post_type = get_post_type( $post_id );
+		if ( ! empty( $post_type ) ) {
 			$memberlite_banner_image_id = MultiPostThumbnails::get_post_thumbnail_id(
-				$queried_object->post_type,
-				'memberlite_banner_image' . $queried_object->post_type,
-				$queried_object->ID
+				$post_type,
+				'memberlite_banner_image' . $post_type,
+				$post_id
 			);
+			if ( ! empty( $memberlite_banner_image_id ) ) {
+				//Set memberlite_banner_image to the use Banner Image instead
+				$memberlite_banner_image = wp_get_attachment_image( $memberlite_banner_image_id, $size, $icon, $attr );
+			}
+		}
+	}
 
+	return $memberlite_banner_image;
+}
+add_filter( 'memberlite_get_banner_image', 'memberlite_elements_get_banner_image', 10, 6 );
+
+/**
+ * Filter to get the banner image src from MultiPostThumbnails if it exists
+ */
+function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $size, $post_id ) {
+	if ( class_exists( 'MultiPostThumbnails') && ! empty( $post_id ) ) {
+		$post_type = get_post_type( $post_id );
+		if ( ! empty( $post_type ) ) {
+			$memberlite_banner_image_id = MultiPostThumbnails::get_post_thumbnail_id(
+				$post_type,
+				'memberlite_banner_image' . $post_type,
+				$post_id
+			);
 			if ( ! empty( $memberlite_banner_image_id ) ) {
 				//Set memberlite_banner_image_src to the use Banner Image instead
 				$memberlite_banner_image_src = wp_get_attachment_image_src( $memberlite_banner_image_id, $size );
@@ -588,7 +603,7 @@ function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $si
 
 	return $memberlite_banner_image_src;
 }
-add_filter( 'memberlite_banner_image_src', 'memberlite_elements_banner_image_src', 10, 2 );
+add_filter( 'memberlite_banner_image_src', 'memberlite_elements_banner_image_src', 10, 3 );
 
 /*
 	Function to display the background image in the banner.
