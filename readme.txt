@@ -1,9 +1,9 @@
 === Memberlite Elements ===
 Contributors: kimannwall, strangerstudios
 Tags: theme, layout, memberlite, membership, pmpro, paid memberships pro
-Requires at least: 5.2
-Tested up to: 5.9.2
-Stable tag: 1.0.6
+Requires at least: 5.3
+Tested up to: 6.0
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,11 @@ Visit https://memberlitetheme.com to get your copy of the Memberlite Theme.
 As of this release, Memberlite Elements is only compatible with the Memberlite Theme or a Memberlite Child Theme.
 
 == Changelog ==
+
+= 1.0.7 - 2022-09-11 =
+* ENHANCEMENT: Updated to Font Awesome version 6.2.
+* ENHANCEMENT: Tested up to WordPress 6.0.
+ENHANCEMENT: Now filtering `memberlite_get_banner_image` in Memberlite v4.5.4+ to swap banner for featured image on grid layout.
 
 = 1.0.6 - 2022-03-15 =
 * ENHANCEMENT: Updated to Font Awesome version 6.0.

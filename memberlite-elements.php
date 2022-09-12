@@ -3,7 +3,7 @@
 Plugin Name: Memberlite Elements
 Plugin URI: https://www.memberlitetheme.com/memberlite-elements/
 Description: A set of elements designed enhance the appearance of sites using the Memberlite Theme.
-Version: 1.0.6
+Version: 1.0.7
 Author: Stranger Studios
 Author URI: https://www.memberlitetheme.com
 Text Domain: memberlite-elements
@@ -12,7 +12,7 @@ Domain Path: /languages
 
 define( 'MEMBERLITE_ELEMENTS_DIR', dirname( __FILE__ ) );
 define( 'MEMBERLITE_ELEMENTS_URL', plugins_url( '', __FILE__ ) );
-define( 'MEMBERLITE_ELEMENTS_VERSION', '1.0.6' );
+define( 'MEMBERLITE_ELEMENTS_VERSION', '1.0.7' );
 
 /**
  * Load text domain
