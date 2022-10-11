@@ -585,7 +585,7 @@ add_filter( 'memberlite_get_banner_image', 'memberlite_elements_get_banner_image
 /**
  * Filter to get the banner image src from MultiPostThumbnails if it exists
  */
-function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $size, $post_id ) {
+function memberlite_elements_banner_image_src( $memberlite_banner_image_src, $size, $post_id = null ) {
 	if ( class_exists( 'MultiPostThumbnails') && ! empty( $post_id ) ) {
 		$post_type = get_post_type( $post_id );
 		if ( ! empty( $post_type ) ) {
