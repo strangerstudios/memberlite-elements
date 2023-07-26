@@ -52,7 +52,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	$memberlite_landing_page_checkout_button = get_post_meta($post->ID, '_memberlite_landing_page_checkout_button', true);
 	$pmproal_landing_page_level = get_post_meta($post->ID, '_pmproal_landing_page_level', true);
 	$memberlite_landing_page_upsell = get_post_meta($post->ID, '_memberlite_landing_page_upsell', true);
-	echo '<h3>' . __('Page Banner Settings', 'memberlite-elements') . '</h3>';
+	echo '<h2>' . __('Page Banner Settings', 'memberlite-elements') . '</h2>';
 	echo '<p style="margin: 1rem 0 0 0;"><strong>' . __('Show Page Banner', 'memberlite-elements') . '</strong> <em>Disable the entire page banner for this content.</em><br />';
 	echo '<label class="screen-reader-text" for="memberlite_banner_show">';
 	_e('Show Page Banner', 'memberlite-elements');
@@ -107,7 +107,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 	if(($memberlite_page_template == 'templates/landing.php') && function_exists('pmpro_getAllLevels'))
 	{
 		echo '<hr />';
-		echo '<h3>' . __('Landing Page Settings', 'memberlite-elements') . '</h3>';
+		echo '<h2>' . __('Landing Page Settings', 'memberlite-elements') . '</h2>';
 		$membership_levels = pmpro_getAllLevels();
 		if(empty($membership_levels))
 			echo '<div class="inline notice error"><p><a href="' . admin_url('admin.php?page=pmpro-membershiplevels') . '">Add a Membership Level to Use These Landing Page Features &raquo;</a></p>';
