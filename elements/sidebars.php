@@ -83,7 +83,7 @@ function memberlite_elements_custom_sidebars() {
 				//save option
 				update_option('memberlite_custom_sidebars', $memberlite_custom_sidebars, 'no');
 
-				$msg = __( 'Custom sidebar deleted.', 'memberlite-elements' );
+				$msg = esc_html__( 'Custom sidebar deleted.', 'memberlite-elements' );
 				$msgt = "updated fade";
 			}
 			else
