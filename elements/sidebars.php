@@ -88,7 +88,7 @@ function memberlite_elements_custom_sidebars() {
 			}
 			else
 			{
-				$msg = __( 'Could not find custom sidebar. Maybe it was already deleted.', 'memberlite-elements' );
+				$msg = esc_html__( 'Could not find custom sidebar. Maybe it was already deleted.', 'memberlite-elements' );
 				$msgt = "error";
 			}
 		}
