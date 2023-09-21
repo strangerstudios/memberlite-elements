@@ -115,7 +115,7 @@ function memberlite_elements_custom_sidebars() {
 	if(!empty($msg))
 	{
 	?>
-	<div id="message" class="message <?php echo esc_attr( $msgt );?>"><p><?php esc_html_e( $msg );?></p></div>
+	<div id="message" class="message <?php echo esc_attr( $msgt );?>"><p><?php echo esc_html( $msg );?></p></div>
 	<?php
 	}
 ?>
