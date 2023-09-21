@@ -99,7 +99,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 			echo '<option value="blank" ' . selected( $memberlite_page_icon, "blank" ) . '>- Select -</option>';
 			foreach($font_awesome_icons as $font_awesome_icon)
 			{
-				echo '<option value="' . $font_awesome_icon . '"' . selected( $memberlite_page_icon, $font_awesome_icon ) . '>' . $font_awesome_icon . '</option>';
+				echo '<option value="' . esc_attr( $font_awesome_icon ) . '"' . selected( $memberlite_page_icon, $font_awesome_icon ) . '>' . esc_html( $font_awesome_icon ) . '</option>';
 			}
 	echo '</select></p>';
 	echo '<input type="hidden" name="memberlite_banner_icon_present" value="1" />';
@@ -122,14 +122,14 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 			echo '<option value="" ' . selected( $pmproal_landing_page_level, "" ) . '>- Select -</option>';
 			foreach($membership_levels as $level)
 			{
-				echo '<option value="' . $level->id . '"' . selected( $pmproal_landing_page_level, $level->id ) . '>' . $level->name . '</option>';
+				echo '<option value="' . intval( $level->id ) . '"' . selected( $pmproal_landing_page_level, $level->id ) . '>' . esc_html( $level->name ) . '</option>';
 			}
 			echo '</select></td></tr>';
 			echo '<tr><th scope="row">' . __('Checkout Button Text', 'memberlite-elements') . '</th>';
 			echo '<td><label class="screen-reader-text" for="memberlite_landing_page_checkout_button">';
 				_e('Checkout Button Text', 'memberlite-elements');
 			echo '</label>';
-			echo '<input type="text" id="memberlite_landing_page_checkout_button" name="memberlite_landing_page_checkout_button" value="' . $memberlite_landing_page_checkout_button . '"> <em>(default: "Select")</em></td></tr>';
+			echo '<input type="text" id="memberlite_landing_page_checkout_button" name="memberlite_landing_page_checkout_button" value="' . esc_attr( $memberlite_landing_page_checkout_button ) . '"> <em>(default: "Select")</em></td></tr>';
 			echo '<tr><th scope="row">' . __('Membership Level Upsell', 'memberlite-elements') . '</th>';
 			if ( ! function_exists( 'pmpro_advanced_levels_shortcode' ) ) {
 				$allowed_advanced_levels_html = array (
@@ -148,7 +148,7 @@ function memberlite_elements_settings_meta_box_callback( $post ) {
 				echo '<option value="" ' . selected( $memberlite_landing_page_upsell, "" ) . '>- Select -</option>';
 				foreach($membership_levels as $level)
 				{
-					echo '<option value="' . $level->id . '"' . selected( $memberlite_landing_page_upsell, $level->id ) . '>' . $level->name . '</option>';
+					echo '<option value="' . intval( $level->id ) . '"' . selected( $memberlite_landing_page_upsell, $level->id ) . '>' . esc_html( $level->name ) . '</option>';
 				}
 				echo '</select></td>';
 			}
@@ -288,9 +288,9 @@ function memberlite_elements_featured_image_meta( $content, $post_id ) {
 	{
 		$id = '_memberlite_show_image_banner';
 		$value = esc_attr( get_post_meta( $post_id, $id, true ) );
-		$label = '<hr /><label for="' . $id . '" class="selectit"><input name="' . $id . '" type="checkbox" id="' . $id . '" value="' . $value . ' "'. checked( $value, 1, false) .'>' . __('Show as Banner Image', 'memberlite-elements') . '</label>';
+		$label = '<hr /><label for="' . $id . '" class="selectit"><input name="' . esc_attr( $id ) . '" type="checkbox" id="' . esc_attr( $id ) . '" value="' . esc_attr( $value ) . ' "'. checked( $value, 1, false) .'>' . esc_html__('Show as Banner Image', 'memberlite-elements') . '</label>';
 		if ( class_exists( 'MultiPostThumbnails' ) ) {
-			$label .= '<p class="howto">' . __( 'If a banner image is set below, it will override this setting.', 'memberlite-elements' ) . '</p>';
+			$label .= '<p class="howto">' . esc_html__( 'If a banner image is set below, it will override this setting.', 'memberlite-elements' ) . '</p>';
 		}
 		return $content .= $label;
 	}
@@ -482,16 +482,16 @@ function memberlite_elements_masthead_content( $content ) {
 				}
 
 				//Show the icon in a 2 column span
-				$content .= '<div class="medium-1 columns text-center"><i class="' . $memberlite_page_icon_class . ' ' . $memberlite_page_icon_size . ' fa-' . $memberlite_page_icon . '"></i></div>';
+				$content .= '<div class="medium-1 columns text-center"><i class="' . esc_attr( $memberlite_page_icon_class . ' ' . $memberlite_page_icon_size . ' fa-' . $memberlite_page_icon ) . '"></i></div>';
 
 				//Add the column wrapper for page title and description
 				if ( empty( $memberlite_banner_right) ) {
 					$content .= '<div class="medium-11 columns">';
 				} else {
-					$content .= '<div class="medium-' . ( $memberlite_columns_primary-1 ) .' columns">';
+					$content .= '<div class="medium-' . esc_attr( $memberlite_columns_primary-1 ) .' columns">';
 				}
 			} else {
-				$content .= '<div class="medium-' . $memberlite_columns_primary . '  columns">';
+				$content .= '<div class="medium-' . esc_attr( $memberlite_columns_primary ) . '  columns">';
 			}
 		}
 

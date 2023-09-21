@@ -40,7 +40,7 @@ function memberlite_elements_before_sidebar_widgets( ) {
 		$pmproal_landing_page_level = get_post_meta($post->ID,'_pmproal_landing_page_level',true);
 		if ( ! empty( $pmproal_landing_page_level ) ) { ?>
 			<aside class="widget widget_memberlite_signup">
-				<?php echo do_shortcode('[memberlite_signup level="' . $pmproal_landing_page_level . '" short="true" title="' . str_replace('"', '', __('Sign Up Now', 'memberlite-elements')) . '"]'); ?>
+				<?php echo do_shortcode('[memberlite_signup level="' . esc_attr( $pmproal_landing_page_level ) . '" short="true" title="' . str_replace('"', '', esc_html__('Sign Up Now', 'memberlite-elements')) . '"]'); ?>
 			</aside>
 			<?php
 		}

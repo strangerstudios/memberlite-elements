@@ -83,12 +83,12 @@ function memberlite_elements_custom_sidebars() {
 				//save option
 				update_option('memberlite_custom_sidebars', $memberlite_custom_sidebars, 'no');
 
-				$msg = "Custom sidebar deleted.";
+				$msg = esc_html__( 'Custom sidebar deleted.', 'memberlite-elements' );
 				$msgt = "updated fade";
 			}
 			else
 			{
-				$msg = "Could not find custom sidebar. Maybe it was already deleted.";
+				$msg = esc_html__( 'Could not find custom sidebar. Maybe it was already deleted.', 'memberlite-elements' );
 				$msgt = "error";
 			}
 		}
@@ -115,20 +115,20 @@ function memberlite_elements_custom_sidebars() {
 	if(!empty($msg))
 	{
 	?>
-	<div id="message" class="message <?php echo $msgt;?>"><p><?php echo $msg;?></p></div>
+	<div id="message" class="message <?php echo esc_attr( $msgt );?>"><p><?php echo esc_html( $msg );?></p></div>
 	<?php
 	}
 ?>
 	<div id="wpbody-content" aria-label="Main content" tabindex="0">
 		<div class="wrap"><div class="metabox-holder">
-			<h2><?php _e('Memberlite Custom Sidebars', 'memberlite');?></h2>
+			<h2><?php esc_html_e('Memberlite Custom Sidebars', 'memberlite');?></h2>
 			<br class="clear" />
 			<div id="memberlite-custom-sidebars">
 				<div class="postbox">
 					<h2 class="hndle"><?php _e('Add New Sidebar', 'memberlite');?></h2>
 					<div class="inside">
 						<form id="memberlite_add_sidebar_form" method="post" action="<?php echo admin_url("themes.php?page=memberlite-custom-sidebars");?>">
-							<label for="memberlite_custom_sidebar_name"><?php _e('Sidebar Name','memberlite'); ?></label>
+							<label for="memberlite_custom_sidebar_name"><?php esc_html_e('Sidebar Name','memberlite'); ?></label>
 							<input type="text" name="memberlite_custom_sidebar_name" id="memberlite_custom_sidebar_name" value="" size="30">
 							<?php wp_nonce_field('memberlite_add_custom_sidebar'); ?>
 							<?php submit_button( __( 'Add Sidebar', 'memberlite' ), 'primary', 'memberlite_add_sidebar_submit', false ); ?>
@@ -138,9 +138,9 @@ function memberlite_elements_custom_sidebars() {
 				<table class="widefat striped" id="memberlite-custom-sidebars-table">
 					<thead>
 						<tr>
-							<th scope="col" class="manage-column column-sidebar-id"><?php _e( 'ID', 'memberlite' ); ?></th>
-							<th scope="col" class="manage-column column-sidebar-name"><?php _e( 'Name', 'memberlite' ); ?></th>
-							<th scope="col" class="manage-column column-sidebar-actions"><?php _e( 'Actions', 'memberlite' ); ?></th>
+							<th scope="col" class="manage-column column-sidebar-id"><?php esc_html_e( 'ID', 'memberlite' ); ?></th>
+							<th scope="col" class="manage-column column-sidebar-name"><?php esc_html_e( 'Name', 'memberlite' ); ?></th>
+							<th scope="col" class="manage-column column-sidebar-actions"><?php esc_html_e( 'Actions', 'memberlite' ); ?></th>
 						</tr>
 					</thead>
 					<tbody class="memberlite-custom-sidebars">
@@ -152,20 +152,20 @@ function memberlite_elements_custom_sidebars() {
 						{
 							?>
 							<tr class="memberlite-custom-sidebars-row">
-								<td class="custom-sidebar-id"><?php echo $wp_registered_sidebar['id']; ?></td>
-								<td class="custom-sidebar-name"><?php echo $wp_registered_sidebar['name']; ?></td>
+								<td class="custom-sidebar-id"><?php echo esc_html( $wp_registered_sidebar['id'] ); ?></td>
+								<td class="custom-sidebar-name"><?php echo esc_html( $wp_registered_sidebar['name'] ); ?></td>
 								<td class="custom-sidebar-actions">
 									<?php
 										if(in_array($wp_registered_sidebar['name'], $memberlite_custom_sidebars))
 										{
 										?>
-											<a href="javascript:confirmCustomSidebarDeletion('Are you sure that you want to delete the <?php echo esc_js($wp_registered_sidebar['name']);?> sidebar?', '<?php echo wp_nonce_url(admin_url("themes.php?page=memberlite-custom-sidebars&delete=" . urlencode($wp_registered_sidebar['name'])), "memberlite_delete_custom_sidebar");?>');"><?php _e('Delete', 'memberlite'); ?></a>
+											<a href="javascript:confirmCustomSidebarDeletion('Are you sure that you want to delete the <?php echo esc_js($wp_registered_sidebar['name']);?> sidebar?', '<?php echo wp_nonce_url(admin_url("themes.php?page=memberlite-custom-sidebars&delete=" . urlencode($wp_registered_sidebar['name'])), "memberlite_delete_custom_sidebar");?>');"><?php esc_html_e('Delete', 'memberlite'); ?></a>
 										<?php
 										}
 										else
 										{
 										?>
-											<em><?php _e('Not a custom sidebar.', 'memberlite');?></em>
+											<em><?php esc_html_e('Not a custom sidebar.', 'memberlite');?></em>
 										<?php
 										}
 									?>
@@ -212,12 +212,12 @@ function memberlite_elements_custom_sidebars() {
 													echo '<select id="memberlite_sidebar_cpt_sidebar_ids" name="memberlite_sidebar_cpt_sidebar_ids[]">';
 													echo '<option value="memberlite_sidebar_default"' . selected( $selected_sidebar, 'memberlite_sidebar_default' ) . '>- Default Sidebar -</option>';
 													foreach ( $wp_registered_sidebars as $wp_registered_sidebar ) {
-														echo '<option value="' . $wp_registered_sidebar['id'] . '"' . selected( $selected_sidebar, $wp_registered_sidebar['id'] ) . '>' . $wp_registered_sidebar['name'] . '</option>';
+														echo '<option value="' . esc_attr( $wp_registered_sidebar['id'] ) . '"' . selected( $selected_sidebar, $wp_registered_sidebar['id'] ) . '>' . esc_html( $wp_registered_sidebar['name'] ) . '</option>';
 													}
 														echo '<option value="memberlite_sidebar_blank"' . selected( $selected_sidebar, 'memberlite_sidebar_blank' ) . '>- Hide Sidebar -</option>';
 													echo '</select>';
 												?>
-												<input type="hidden" name="memberlite_sidebar_cpt_names[]" id="memberlite_sidebar_cpt_names" value="<?php echo $post_type->name; ?>">
+												<input type="hidden" name="memberlite_sidebar_cpt_names[]" id="memberlite_sidebar_cpt_names" value="<?php echo esc_attr( $post_type->name ); ?>">
 												</td>
 											</tr>
 											<?php
@@ -413,7 +413,7 @@ function memberlite_elements_sidebar_meta_box_callback($post) {
 	{
 		if(in_array($wp_registered_sidebar['id'], $memberlite_theme_sidebars))
 			continue;
-		echo '<option value="' . $wp_registered_sidebar['id'] . '"' . selected( $memberlite_custom_sidebar, $wp_registered_sidebar['id'] ) . '>' . $wp_registered_sidebar['name'] . '</option>';
+		echo '<option value="' . esc_attr( $wp_registered_sidebar['id'] ) . '"' . selected( $memberlite_custom_sidebar, $wp_registered_sidebar['id'] ) . '>' . esc_html( $wp_registered_sidebar['name'] ) . '</option>';
 	}
 	echo '</select>';
 	if( $memberlite_cpt_sidebar_id != 'memberlite_sidebar_blank')
