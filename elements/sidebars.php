@@ -125,7 +125,7 @@ function memberlite_elements_custom_sidebars() {
 			<br class="clear" />
 			<div id="memberlite-custom-sidebars">
 				<div class="postbox">
-					<h3 class="hndle"><?php esc_html_e('Add New Sidebar', 'memberlite');?></h3>
+					<h2 class="hndle"><?php _e('Add New Sidebar', 'memberlite');?></h2>
 					<div class="inside">
 						<form id="memberlite_add_sidebar_form" method="post" action="<?php echo admin_url("themes.php?page=memberlite-custom-sidebars");?>">
 							<label for="memberlite_custom_sidebar_name"><?php esc_html_e('Sidebar Name','memberlite'); ?></label>
@@ -314,8 +314,8 @@ function memberlite_elements_registerCustomSidebar($name, $id = NULL)
 		'id' => $id,
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
+		'before_title' => '<h2 class="widget-title">',
+		'after_title' => '</h2>',
 	) );
 }
 
