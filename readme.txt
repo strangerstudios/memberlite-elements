@@ -54,6 +54,9 @@ Visit https://memberlitetheme.com to get your copy of the Memberlite Theme.
 As of this release, Memberlite Elements is only compatible with the Memberlite Theme or a Memberlite Child Theme.
 
 == Changelog ==
+= 1.1.0 - 2023-09-21 =
+* SECURITY: Improved sanitization and escaping of elements.
+* REFACTOR: Improved accessibility for screen readers and plugin settings.
 
 = 1.0.9 - 2023-06-13 =
 * ENHANCEMENT: Updated to Font Awesome version 6.4.
